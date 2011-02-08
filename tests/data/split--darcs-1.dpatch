@@ -1,0 +1,23 @@
+1 patch for repository /home/ganesh/temp/empty-old:
+
+Tue Nov 16 07:15:41 GMT 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * add files
+
+New patches:
+
+[add files
+Ganesh Sittampalam <ganesh@earth.li>**20101116071541
+ Ignore-this: 2a86fa7deae02f1c98d578077ee5f8a9
+] {
+addfile ./file1
+(
+addfile ./file2
+addfile ./file3
+)
+addfile ./file4
+}
+
+Context:
+
+Patch bundle hash:
+947100f54fce0fb3cb5debeca8702b119ee17d8a

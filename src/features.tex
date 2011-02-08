@@ -1,0 +1,88 @@
+\section{Features}
+
+\paragraph{Record changes locally}
+In darcs, the equivalent of a svn ``commit'' is called record, because it
+doesn't put the change into any remote or centralized repository.  Changes
+are always recorded locally, meaning no net access is required in order to
+work on your project and record changes as you make them.  Moreover, this
+means that there is no need for a separate ``disconnected operation'' mode.
+
+\paragraph{Interactive records}
+You can choose to perform an interactive record, in which case darcs will
+prompt you for each change you have made and ask if you wish to record it.
+Of course, you can tell darcs to record all the changes in a given file, or
+to skip all the changes in a given file, or go back to a previous change,
+or whatever.  There is also an experimental graphical interface, which
+allows you to view and choose changes even more easily, and in whichever
+order you like.
+
+\paragraph{Unrecord local changes}
+As a corollary to the ``local'' nature of the record operation, if a change
+hasn't yet been published to the world---that is, if the local repository
+isn't accessible by others---you can safely unrecord a change (even if it
+wasn't the most recently recorded change) and then re-record it
+differently, for example if you forgot to add a file, introduced a bug or
+realized that what you recorded as a single change was really two separate
+changes.
+
+\paragraph{Interactive everything else}
+Most darcs commands support an interactive interface.  The ``revert''
+command, for example, which undoes unrecorded changes has the same
+interface as record, so you can easily revert just a single change.  Pull,
+push, send and apply all allow you to view and interactively select which
+changes you wish to pull, push, send or apply.
+
+\paragraph{Test suites}
+Darcs has support for integrating a test suite with a repository.  If you
+choose to use this, you can define a test command (e.g.\ ``make check'') and
+have darcs run that command on a clean copy of the project either prior to
+recording a change or prior to applying changes---and to reject changes
+that cause the test to fail.
+
+\paragraph{Any old server}
+Darcs does not require a specialized server in order to make a repository
+available for read access.  You can use http, ftp, or even just a plain old
+ssh server to access your darcs repository.
+
+\paragraph{You decide write permissions}
+Darcs doesn't try to manage write access.  That's your business.  Supported
+push methods include direct ssh access (if you're willing to \emph{give}
+direct ssh access away), using sudo to allow users who already have shell
+access to only apply changes to the repository, or verification of
+gpg-signed changes sent by email against a list of allowed keys.  In
+addition, there is good support for submission of patches by email that
+are not automatically applied, but can easily be applied with a shell escape
+from a mail reader (this is how I deal with contributions to darcs).
+
+\paragraph{Symmetric repositories}
+Every darcs repository is created equal (well, with the exception of a
+``partial'' repository, which doesn't contain a full history\ldots), and every
+working directory has an associated repository.  As a result, there is a
+symmetry between ``uploading'' and ``downloading'' changes---you can use
+the same commands (push or pull) for either purpose.
+
+\paragraph{CGI script}
+Darcs has a CGI script that allows browsing of the repositories.
+
+\paragraph{Portable}
+Darcs runs on UNIX (or UNIX-like) systems (which includes Mac~OS~X) as well
+as on Microsoft Windows.
+
+\paragraph{File and directory moves}
+Renames or moves of files and directories, of course are handled properly,
+so when you rename a file or move it to a different directory, its history
+is unbroken, and merges with repositories that don't have the file renamed
+will work as expected.
+
+\paragraph{Token replace}
+You can use the ``darcs replace'' command to modify all occurrences of a
+particular token (defined by a configurable set of characters that are
+allowed in ``tokens'') in a file.  This has the advantage that merges with
+changes that introduce new copies of the old token will have the effect of
+changing it to the new token---which comes in handy when changing a
+variable or function name that is used throughout a project.
+
+\paragraph{Configurable defaults}
+You can easily configure the default flags passed to any command on either
+a per-repository or a per-user basis or a combination thereof.
+

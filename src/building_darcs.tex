@@ -1,0 +1,36 @@
+\chapter{Building darcs}
+If your distribution provides a pre-built binary package of a recent
+Darcs release, you are strongly encouraged to use that rather than
+building Darcs yourself.
+
+If you have (or can install) the \texttt{Haskell Platform}, this
+is the next best option, as this will resolve build dependencies
+automatically.  To download, compile and install Darcs and its
+dependencies via \texttt{cabal-install}, the build tool provided by the
+Haskell Platform, simply run
+\begin{verbatim}
+cabal update
+cabal install darcs
+\end{verbatim}
+
+See \htmladdnormallinkfoot{http://haskell.org/platform/}{http://haskell.org/platform/}
+for more information on the Haskell Platform.
+
+\section{The Hard Way}
+If you cannot install the Haskell Platform or \texttt{cabal-install}, you need to run
+\begin{verbatim}
+ghc --make Setup
+./Setup configure
+./Setup build
+./Setup install
+\end{verbatim}
+
+This will require the following build dependencies:
+\begin{itemize}
+\item GHC 6.10 or higher; and
+\item Cabal 1.6 or higher.
+\end{itemize}
+
+Additional build dependencies are declared in the \texttt{darcs.cabal}
+file, and \texttt{./Setup configure} will tell you if any required
+build dependencies aren't found.

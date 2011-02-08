@@ -1,0 +1,41 @@
+3 patches for repository /tmp/tmp5677/temp/empty-hashed:
+
+Sat Oct 16 23:28:22 BST 2010  tester
+  * wibble
+
+Sat Oct 16 23:28:22 BST 2010  tester
+  * A
+
+Sat Oct 16 23:28:22 BST 2010  tester
+  * B
+
+New patches:
+
+[wibble
+tester**20101016222822
+ Ignore-this: 88662d08dd524d92ad4cca6df0d643e4
+] {
+addfile ./wibble
+hunk ./wibble 1
++wibble
+}
+[A
+tester**20101016222822
+ Ignore-this: 2d69de402438481946682efcad5e20cd
+] hunk ./wibble 2
+ wibble
++A
+[B
+tester**20101016222822
+ Ignore-this: 9c8daaedcb674c022ddbcef19752d694
+] merger 0.0 (
+hunk ./wibble 2
++A
+hunk ./wibble 2
++B
+)
+
+Context:
+
+Patch bundle hash:
+1e2ce71b56e4666c1b086b09ae351a6c3c768b8c

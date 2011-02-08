@@ -1,0 +1,4 @@
+repo:http://darcs.net
+thisrepo:/home/emporas/lisp/darcs.net
+cache:/home/emporas/.darcs/cache
+thisrepo:/home/darcs-unstable/darcs

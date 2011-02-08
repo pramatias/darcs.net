@@ -1,0 +1,48 @@
+2 patches for repository /home/ganesh/darcs-comp/temp/empty:
+
+Thu Oct 21 18:28:18 BST 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * init
+
+Thu Oct 21 18:28:31 BST 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * ABC
+
+New patches:
+
+[init
+Ganesh Sittampalam <ganesh@earth.li>**20101021172818
+ Ignore-this: 6a770d5966ed23f56e94c08977507388
+] {
+addfile ./wibble
+hunk ./wibble 1
++1
++2
++3
++4
++5
++6
++7
++8
++9
++10
+}
+[ABC
+Ganesh Sittampalam <ganesh@earth.li>**20101021172831
+ Ignore-this: 157403967fc6753e0f2540535937da5b
+] hunk ./wibble 4
+ 1
+ 2
+ 3
+-4
+-5
+-6
++4A
++5B
++6C
+ 7
+ 8
+ 9
+
+Context:
+
+Patch bundle hash:
+0a20411489222e188722666cf0db4c5de2539aee

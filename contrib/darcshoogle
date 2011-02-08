@@ -1,0 +1,9 @@
+#!/bin/sh
+#darcshoogle - run hoogle on darcs code
+#This needs to be invoked with a relative or absolute path to
+#locate the index, so I recommend 
+#alias darcshoogle="/path/to/darcs/tools/darcshoogle"
+
+mydir=`dirname $0`
+hoogleidx=$mydir/../hoogle/default
+hoogle --data=$hoogleidx $*

@@ -1,0 +1,270 @@
+%  Copyright (C) 2004 David Roundy
+%
+%  This program is free software; you can redistribute it and/or modify
+%  it under the terms of the GNU General Public License as published by
+%  the Free Software Foundation; either version 2, or (at your option)
+%  any later version.
+%
+%  This program is distributed in the hope that it will be useful,
+%  but WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%  GNU General Public License for more details.
+%
+%  You should have received a copy of the GNU General Public License
+%  along with this program; if not, write to the Free Software Foundation,
+%  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+\chapter{Configuring darcs}\label{configuring}
+
+There are several ways you can adjust darcs' behavior to suit your needs.
+The first is to edit files in the \verb!_darcs/prefs/! directory of a
+repository.  Such configuration only applies when working with that
+repository.  To configure darcs on a per-user rather than per-repository
+basis (but with essentially the same methods), you can edit (or create)
+files in the \verb!~/.darcs/! directory.
+Finally, the behavior of some darcs commands can be modified by setting
+appropriate environment variables.
+
+\paragraph{Microsoft Windows}\label{ms_win}
+
+The global darcs directory is \verb!%APPDATA%\darcs\!.  This typically expands to
+\texttt{C:\textbackslash{}Documents And Settings\textbackslash{}\emph{user}\textbackslash{}Application Data\textbackslash{}darcs\textbackslash{}}.
+This folder contains the cache, as well as all the per-user
+settings files: preferences, boring etc... These will became the new defaults
+that can be overridden on per-repository basis.
+
+\input{Darcs/Repository/Prefs.lhs}
+
+\input{Darcs/Repository/Motd.lhs}
+
+\section{Environment variables}
+
+There are a few environment variables whose contents affect darcs'
+behavior.  Here is a quick list of all the variables and their
+documentation in the rest of the manual:
+
+\begin{tabular}{|l|r|}
+\hline
+\textbf{Variable} & \textbf{Section} \\
+\hline
+DARCS\_EDITOR, EDITOR, VISUAL & \ref{env:DARCS_EDITOR} \\
+DARCS\_PAGER, PAGER &  \ref{env:DARCS_PAGER} \\
+HOME & \ref{env:HOME} \\
+TERM & \ref{env:TERM} \\
+\hline
+DARCS\_EMAIL, EMAIL  & \ref{env:DARCS_EMAIL} \\
+\hline
+DARCS\_APPLY\_FOO & \ref{env:DARCS_X_FOO} \\
+DARCS\_GET\_FOO & \ref{env:DARCS_X_FOO} \\
+DARCS\_MGET\_FOO & \ref{env:DARCS_X_FOO} \\
+DARCS\_MGETMAX & \ref{env:DARCS_MGETMAX} \\
+DARCS\_PROXYUSERPWD & \ref{env:DARCS_PROXYUSERPWD} \\
+DARCS\_CONNECTION\_TIMEOUT & \ref{env:DARCS_CONNECTION_TIMEOUT}\\
+DARCS\_SSH & \ref{env:DARCS_SSH} \\
+DARCS\_SCP & \ref{env:DARCS_SCP} \\
+DARCS\_SFTP & \ref{env:DARCS_SFTP} \\
+SSH\_PORT & \ref{env:SSH_PORT} \\
+\hline
+DARCS\_ALTERNATIVE\_COLOR & \ref{env:DARCS_ALWAYS_COLOR}\\
+DARCS\_ALWAYS\_COLOR & \ref{env:DARCS_ALWAYS_COLOR}\\
+DARCS\_DO\_COLOR\_LINES & \ref{env:DARCS_DO_COLOR_LINES}\\
+DARCS\_DONT\_COLOR   & \ref{env:DARCS_ALWAYS_COLOR} \\
+DARCS\_DONT\_ESCAPE\_TRAILING\_CR     & \ref{env:DARCS_DONT_ESCAPE_white}\\
+DARCS\_DONT\_ESCAPE\_TRAILING\_SPACES & \ref{env:DARCS_DONT_ESCAPE_white} \\
+DARCS\_DONT\_ESCAPE\_8BIT & \ref{env:DARCS_DONT_ESCAPE_nonascii}\\
+DARCS\_DONT\_ESCAPE\_ANYTHING & \ref{env:DARCS_DONT_ESCAPE_nonascii}\\
+DARCS\_DONT\_ESCAPE\_ISPRINT & \ref{env:DARCS_DONT_ESCAPE_nonascii}\\
+DARCS\_ESCAPE\_EXTRA & \ref{env:DARCS_DONT_ESCAPE_nonascii}\\
+DARCS\_DONT\_ESCAPE\_EXTRA & \ref{env:DARCS_DONT_ESCAPE_nonascii}\\
+\hline
+\end{tabular}
+
+\section{General-purpose variables}
+
+\darcsEnv{DARCS_EDITOR}
+\darcsEnv{DARCS_PAGER}
+\darcsEnv{DARCS_TMPDIR}
+\darcsEnv{DARCS_KEEP_TMPDIR}
+\darcsEnv{HOME}
+
+\section{Remote repositories}
+\paragraph{DARCS\_CONNECTION\_TIMEOUT}
+\label{env:DARCS_CONNECTION_TIMEOUT}
+Set the maximum time in seconds that darcs allows and connection to
+take. If the variable is not specified the default are 30 seconds. This
+option only works with curl.
+\darcsEnv{DARCS_SSH}
+\darcsEnv{DARCS_SCP}
+\darcsEnv{SSH_PORT}
+\darcsEnv{HTTP_PROXY}
+\darcsEnv{DARCS_PROXYUSERPWD}
+
+\paragraph{DARCS\_GET\_FOO, DARCS\_MGET\_FOO and DARCS\_APPLY\_FOO}
+\label{env:DARCS_X_FOO}
+When trying to access a repository with a URL beginning foo://,
+darcs will invoke the program specified by the DARCS\_GET\_FOO
+environment variable (if defined) to download each file, and the
+command specified by the DARCS\_APPLY\_FOO environment variable (if
+defined) when pushing to a foo:// URL.  
+
+This method overrides all other ways of getting \verb!foo://xxx! URLs.
+
+Note that each command should be constructed so that it sends the downloaded
+content to STDOUT, and the next argument to it should be the URL\@.  Here are some
+examples that should work for DARCS\_GET\_HTTP:
+
+\begin{verbatim}
+fetch -q -o -  
+curl -s -f
+lynx -source 
+wget -q -O -
+\end{verbatim}
+
+Apart from such toy examples, it is likely that you will need to
+manipulate the argument before passing it to the actual fetcher
+program.  For example, consider the problem of getting read access to
+a repository on a CIFS (SMB) share without mount privileges:
+
+\begin{verbatim}
+export DARCS_GET_SMB="smbclient -c get"
+darcs get smb://fs/twb/Desktop/hello-world
+\end{verbatim}
+
+The above command will not work for several reasons.  Firstly, Darcs
+will pass it an argument beginning with `smb:', which smbclient does
+not understand.  Secondly, the host and share `//fs/twb' must be
+presented as a separate argument to the path `Desktop/hello-world'.
+Thirdly, smbclient requires that `get' and the path be a single
+argument (including a space), rather than two separate arguments.
+Finally, smbclient's `get' command writes the file to disk, while
+Darcs expects it to be printed to standard output.
+
+In principle, we could get around such problems by making the variable
+contain a shell script, e.g.
+
+\begin{verbatim}
+export DARCS_GET_SMB='sh -c "...; smbclient $x -c \"get $y\""'
+\end{verbatim}
+
+Unfortunately, Darcs splits the command on whitespace and does not
+understand that quotation or escaping, so there is no way to make
+Darcs pass the text after `-c' to sh as a single argument.  Therefore,
+we instead need to put such one-liners in separate, executable scripts.
+
+Continuing our smbclient example, we create an executable script
+\verb|~/.darcs/libexec/get_smb| with the following contents:
+
+\begin{verbatim}
+#!/bin/bash -e
+IFS=/ read host share file <<<"${1#smb://}"
+smbclient //$host/$share -c "get $file -"
+\end{verbatim}
+
+And at last we can say
+
+\begin{verbatim}
+export DARCS_GET_SMB=~/.darcs/libexec/get_smb
+darcs get smb://fs/twb/Desktop/hello-world
+\end{verbatim}
+
+
+If set, DARCS\_MGET\_FOO
+will be used to fetch many files from a single repository simultaneously.
+Replace FOO and foo as appropriate to handle other URL schemes.
+These commands are \emph{not} interpreted by a shell, so you cannot
+use shell metacharacters, and the first word in the command must
+be the name of an executable located in your path. The GET command
+will be called with a URL for each file.  The MGET command will be
+invoked with a number of URLs and is expected to download the files
+to the current directory, preserving the file name but not the path.
+The APPLY command will be called with a darcs patchfile piped into
+its standard input. Example:
+
+\begin{verbatim}
+wget -q 
+\end{verbatim}
+
+\paragraph{DARCS\_MGETMAX}
+\label{env:DARCS_MGETMAX}
+When invoking a DARCS\_MGET\_FOO command, darcs will limit the
+number of URLs presented to the command to the value of this variable,
+if set, or 200.
+
+These commands are \emph{not} interpreted by a shell, so you cannot use shell
+meta-characters.
+
+\section{Highlighted output}
+\label{env:DARCS_ALWAYS_COLOR}
+\label{env:DARCS_DO_COLOR_LINES}
+\label{env:DARCS_DONT_ESCAPE_white}
+
+If the terminal understands ANSI color escape sequences,
+darcs will highlight certain keywords and delimiters when printing patches.
+This can be turned off by setting the environment variable DARCS\_DONT\_COLOR to 1.
+If you use a pager that happens to understand ANSI colors, like \verb!less -R!,
+darcs can be forced always to highlight the output
+by setting DARCS\_ALWAYS\_COLOR to 1.
+If you can't see colors you can set DARCS\_ALTERNATIVE\_COLOR to 1,
+and darcs will use ANSI codes for bold and reverse video instead of colors.
+In addition, there is an extra-colorful mode, which is not enabled by
+default, which can be activated with DARCS\_DO\_COLOR\_LINES.
+
+By default darcs will escape (by highlighting if possible) any kind of spaces at the end of lines
+when showing patch contents.
+If you don't want this you can turn it off by setting
+DARCS\_DONT\_ESCAPE\_TRAILING\_SPACES to 1.
+A special case exists for only carriage returns:
+DARCS\_DONT\_ESCAPE\_TRAILING\_CR.
+
+
+\section{Character escaping and non-ASCII character encodings}
+\label{env:DARCS_DONT_ESCAPE_nonascii}
+
+Darcs needs to escape certain characters when printing patch contents to a terminal.
+Characters like \emph{backspace} can otherwise hide patch content from the user,
+and other character sequences can even in some cases redirect commands to the shell
+if the terminal allows it.
+
+By default darcs will only allow printable 7-bit ASCII characters (including space),
+and the two control characters \emph{tab} and \emph{newline}.
+(See the last paragraph in this section for a way to tailor this behavior.)
+All other octets are printed in quoted form (as \verb!^<control letter>! or
+\verb!\!\verb!<hex code>!).
+
+Darcs has some limited support for locales.
+If the system's locale is a single-byte character encoding,
+like the Latin encodings,
+you can set the environment variable DARCS\_DONT\_ESCAPE\_ISPRINT to 1
+and darcs will display all the printables in the current system locale
+instead of just the ASCII ones.
+NOTE: This curently does not work on some architectures if darcs is
+compiled with GHC~6.4 or later. Some non-ASCII control characters might be printed
+and can possibly spoof the terminal.
+
+For multi-byte character encodings things are less smooth.
+UTF-8 will work if you set DARCS\_DONT\_ESCAPE\_8BIT to 1,
+but non-printables outside the 7-bit ASCII range are no longer escaped.
+E.g., the extra control characters from Latin-1
+might leave your terminal at the mercy of the patch contents.
+Space characters outside the 7-bit ASCII range are no longer recognized
+and will not be properly escaped at line endings.
+
+As a last resort you can set DARCS\_DONT\_ESCAPE\_ANYTHING to 1.
+Then everything that doesn't flip code sets should work,
+and so will all the bells and whistles in your terminal.
+This environment variable can also be handy
+if you pipe the output to a pager or external filter
+that knows better than darcs how to handle your encoding.
+Note that \emph{all} escaping,
+including the special escaping of any line ending spaces,
+will be turned off by this setting.
+
+There are two environment variables you can set
+to explicitly tell darcs to not escape or escape octets.
+They are
+DARCS\_DONT\_ESCAPE\_EXTRA and DARCS\_ESCAPE\_EXTRA.
+Their values should be strings consisting of the verbatim octets in question.
+The do-escapes take precedence over the dont-escapes.
+Space characters are still escaped at line endings though.
+The special environment variable DARCS\_DONT\_ESCAPE\_TRAILING\_CR
+turns off escaping of carriage return last on the line (DOS style).

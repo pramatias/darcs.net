@@ -1,0 +1,2522 @@
+Darcs 2.5, 30 October 2010:
+
+ * Important changes in Darcs 2.5
+
+   * trackdown can now do binary search with the --bisect option
+   * darcs always stores patch metadata encoded with UTF-8
+   * diff now supports the --index option
+   * amend-record now supports the --ask-deps option
+   * apply now supports the --match option
+   * amend-record has a new --keep-date option
+   * inventory-changing commands (like record and pull) now operate in
+     constant time with respect to the number of patches in the repository
+   * the push, pull, send and fetch commands no longer set the default
+     repository by default
+   * the --edit-description option is now on by default for the send command
+
+ * Issues resolved in Darcs 2.5
+
+   * 64:   store metadata as UTF-8
+   * 121:  add --ask-deps support to amend-record
+   * 643:  darcs send -o outputs remote repo email address
+   * 1159: avoid bogus repository cache entries
+   * 1176: caches interfere with --remote-repo flag
+   * 1208: add trackdown --bisect
+   * 1210: global cache gets recorded in _darcs/prefs/sources
+   * 1232: darcs convert copies _darcs/prefs/prefs
+   * 1250: check for newlines in setpref values
+   * 1277: percolate repository format errors correctly
+   * 1288: the main darcs code now compiles and runs with witnesses
+   * 1290: support diff --index
+   * 1337: don't show unrelated patches in darcs changes on untracked path
+   * 1389: change predist pref to point people to use 'cabal sdist'
+   * 1427: accept gzipped patch bundles in darcs apply
+   * 1456: make dist write more portable archives
+   * 1473: make annotate accept '.' as argument
+   * 1503: prefer local caches to remote ones
+   * 1713: shorter interactive prompts
+   * 1716: allow mail header lines of all whitespace in test
+   * 1719: do not back up files when no conflict markers are inserted
+   * 1726: don't consider all files with _darcs prefix boring
+   * 1739: make ColorPrinter handle characters > 255
+   * 1763: use correct filename encoding in conflictors
+   * 1765: refuse to remove non-tracked directories recursively
+   * 1769: add support for --match 'comment ...'
+   * 1784: push and pull print remote address right away
+   * 1815: work around Cabal sdist permissions issue
+   * 1817: fix support for external merge tools
+   * 1824: avoid PACKAGE_VERSION under Windows
+   * 1825: do not omit important prims in unrecordedChanges w/ files
+   * 1860: (un)applying move patches doesn't corrupt pristine
+   * 1861: fix typo in --no-boring help
+   * 1874: recognise network tests on cabal test command line
+   * 1875: avoid accidentally setting default
+   * 1879: notice unexpected commute failure on merge
+   * 1887: add a missing newline to --list-options output
+   * 1893: move fields of conditional builds within scope of condition
+   * 1898: notify user when they can use set-default
+   * 1913: sort changes in treeDiff
+
+Darcs 2.4.4, 9 May 2010
+
+ * Important changes in Darcs 2.4.4
+
+   * darcs builds on Windows with GHC 6.10 (and GHC 6.12).
+   * darcs (built with GHC 6.12 on Windows) works with SSH again
+
+ * Issues resolved in Darcs 2.4.4
+
+   * 1814: Apply binary mode to ssh process and patch file handles.
+
+
+Darcs 2.4.3, 9 May 2010
+
+ * Important changes in Darcs 2.4.3
+
+   * darcs builds on Windows with GHC 6.12.
+
+Darcs 2.4.2, 8 May 2010
+
+ * Important changes in Darcs 2.4.2
+
+   * darcs will no longer give "mmap of _darcs_index" errors on Windows
+   * darcs convert performance regression (against 2.3.x) solved
+   * darcs get --partial no longer produces inconsistent repositories
+
+ * Issues resolved in Darcs 2.4.2
+
+   * 1761: mmap of '_darcs/index' failed on Windows mapped drives
+   * 1814: include contrib/darcs-errors.hlint in release tarball
+   * 1823: read (mmap) _darcs/index file correctly on Windows
+   * 1826: error building on Windows with GHC 6.12
+   * 1837: inconsistent repository upon darcs get --partial
+
+Darcs 2.4.1, 31 March 2010
+
+ * Important changes in Darcs 2.4.1
+
+   * darcs works again on Windows shared directories
+   * missing documentation and test files have been added to the tarball
+   * darcs will no longer give errors about a nonexistent file when compiled
+     with the wrong mmap
+   * moving files between directories can no longer break the directory index
+   * darcs handles the case that someone uses 'remove -r' on an
+     untracked directory
+
+ * Bugs Fixed in Darcs 2.4.1
+
+   * 1750: uncover help text for 'darcs show pristine'
+   * 1753: restrict mmap to version used by hashed-storage
+   * 1754: fix issue458.sh on systems with xattrs
+   * 1756: moving files between directories breaks index
+   * 1757: add test files to distribution tarball
+   * 1765: refuse to remove non-tracked directories recursively
+   * 1767: send CRC erros to standard error
+
+
+Darcs 2.4, 27 February 2010
+
+ * Important changes in Darcs 2.4
+
+   * Use fast index-based diffing everywhere (Petr)
+   * Interactive patch splitting (Ganesh)
+   * An 'optimize --upgrade' option to convert  to hashed format in-place
+     (Eric)
+   * Hunk matching (Kamil Dworakowski, tat.wright)
+   * Progress reporting is no longer deceptive (Roman)
+   * A 'remove --recursive' option to remove a directory tree from revision
+     control (Roman)
+   * 'show files' accepts arguments to show a subset of tracked files (Luca)
+   * A '--remote-darcs' flag for pushing to a host where darcs isn't called
+     darcs
+   * Many miscellaneous Windows improvements (Salvatore, Petr and others)
+   * 'darcs send' now mentions the repository name in the email body (Joachim)
+   * Handle files with boring names in the repository correctly (Petr)
+   * Fix parsing of .authorspellings file (Tomáš)
+   * Various sane new command-line option names (Florent)
+   * Remove the '--checkpoint' option (Petr)
+   * Use external libraries for all UTF-8 handling (Eric, Reinier)
+   * Use the Haskell zlib package exclusively for compression (Petr)
+
+ * Bugs Fixed in Darcs 2.4
+
+   *  183: do not sort changes --summary output
+   *  223: add --remote-darcs flag to specify name of remote darcs executable
+   *  291: provide (basic) interactive patch splitting
+   *  540: darcs remove --recursive
+   *  835: 'show files' with arguments
+   * 1122: get --complete should not offer to create a lazy repository
+   * 1216: list Match section in ToC
+   * 1224: refuse to convert a repo that's already in darcs-2 format
+   * 1300: logfile deleted on unsucessful record
+   * 1308: push should warn about unpulled patches before patch-selection
+   * 1336: sane error message on --last "" (empty string to numbers parser)
+   * 1362: mention repo name in mail send body
+   * 1377: getProgname for local darcs instances
+   * 1392: use parsec to parse .authorspelling
+   * 1424: darcs get wrongly reports "using lazy repository" if you ctrl-c 
+           old-fashioned get
+   * 1447: different online help for send/apply --cc
+   * 1488: fix crash in whatsnew when invoked in non-tracked directory
+   * 1548: show contents requires at least one argument
+   * 1554: allow opt-out of -threaded (fix ARM builds)
+   * 1563: official thank-you page
+   * 1578: don't put newlines in the Haskeline prompts
+   * 1583: on darcs get, suggest upgrading source repo to hashed
+   * 1584: provide optimize --upgrade command
+   * 1588: add --skip-conflicts option
+   * 1594: define PREPROCHTML in makefile
+   * 1620: make amend leave a log file when it should
+   * 1636: hunk matching
+   * 1643: optimize --upgrade should do optimize
+   * 1652: suggest cabal update before cabal install
+   * 1659: make restrictBoring take recorded state into account
+   * 1677: create correct hashes for empty directories in index
+   * 1681: preserve log on amend failure
+   * 1709: fix short version of progress reporting
+   * 1712: correctly report number of patches to pull
+   * 1720: fix cabal haddock problem
+   * 1731: fix performance regression in check and repair
+   * 1741: fix --list-options when option has multiple names
+   * 1749: refuse to remove non-empty directories
+
+
+Darcs 2.3.1, 20 Sep 2009
+
+ * Important changes in Darcs 2.3.1
+
+   * Fix bugs introduced by optimizations in 2.3.0 (Petr, Salvatore)
+   * Documentation improvements (Taylor, Trent)
+   * Remove autoconf build system (Petr)
+
+ * Bugs Fixed in Darcs 2.3.1
+
+   See http://bugs.darcs.net/issueN for details on bug number N.
+
+   * issue1373 darcs manual wrongly promises [^ ] is a valid token spec (Trent)
+   * issue1478: document summary mnemonics (Trent)
+   * issue1582 DeleteFile: permission denied (Access is denied.) (Salvatore)
+   * issue1507 whatsnew does not use 'current' when 'pristine' is missing (Petr)
+
+
+Darcs 2.3.0, 23 Jul 2009
+
+ * Important changes in Darcs 2.3.0
+
+   * Lots and lots of documentation changes (Trent).
+   * Haskeline improvements (Judah).
+   * Cabal as default buildsystem (many contributors).
+   * Fixes in darcs check/repair memory usage (Bertram, David).
+   * Performance improvement in subtree record (Reinier).
+   * New option: --summary --xml (Florian Gilcher).
+   * New option: changes --max-count (Eric and Petr).
+   * Fix changes --only-to-files for renames (Dmitry).
+   * Performance fix in "darcs changes" (Benedikt).
+   * Hardlinks on NTFS (Salvatore).
+   * Coalesce more changes when creating rollbacks (David).
+   * New unit test runner (Reinier).
+   * Inclusion of darcs-shell in contrib (László, Trent).
+   * Author name/address canonisation: .authorspellings (Simon).
+   * Working directory index and substantial "darcs wh" optimisation (Petr).
+   * New command: "darcs show index" (Petr).
+   * Gzip CRC check and repair feature (Ganesh).
+
+ * Bugs Fixed in Darcs 2.3.0
+
+   See http://bugs.darcs.net/issueN for details on bug number N.
+
+   *  948 darcsman (Trent)
+   * 1206 countable nouns (Trent)
+   * 1285 cabal test v. cabal clean (Trent)
+   * 1302 use resolved, not resolved-in-unstable (Trent)
+   * 1235 obliterate --summary (Rob)
+   * 1270 no MOTD for --xml-output (Lele)
+   * 1311 cover more timezones (Dave)
+   * 1292 re-encoding haskeline input (Judah)
+   * 1313 clickable ToC and refs in PDF manual Trent)
+   * 1310 create merged \darcsCommand{add} (Trent)
+   * 1333 better "cannot push to current repository" warning (Petr)
+   * 1347 (autoconf) check for unsafeMMapFile if mmap use enabled (Dave)
+   * 1361 specify required includes for curl in cabal file (Reinier)
+   * 1379 remove libwww support (Trent)
+   * 1366 remove unreachable code for direct ncurses use (Trent)
+   * 1271 do not install two copies of darcs.pdf (Trent)
+   * 1358 encode non-ASCII characters in mail headers (Reinier)
+   * 1393 swap "darcs mv" and "darcs move" (Trent)
+   * 1405 improve discoverability of global author file (Trent)
+   * 1402 don't "phone home" about bugs (Trent)
+   * 1301 remove obsolete zsh completion scripts (Trent)
+   * 1162 makeAbsolute is now a total function (Ben F)
+   * 1269 setpref predist - exitcode ignored bug (Ben M)
+   * 1415 --edit-long-comment, not --edit-description, in help (Trent)
+   * 1413 remove duplicate documentation (Trent)
+   * 1423 complain about empty add/remove (Trent)
+   * 1437 Implement darcs changes --max-count (Eric)
+   * 1430 lazy pattern matching in (-:-) from Changes command module (Dmitry)
+   * 1434 refactor example test (Trent)
+   * 1432 refer to %APPDATA%, not %USERPROFILE% (Trent)
+   * 1186 give a chance to abort if user did not edit description file (Dmitry)
+   * 1446 make amend-record -m foo replace only the patch name (Dmitry)
+   * 1435 default to get --hashed from a darcs-1.0 source (Trent)
+   * 1312 update and reduce build notes (Trent)
+   * 1351 fix repository path handling on Windows (Salvatore)
+   * 1173 support hard links on NTFS (Salvatore)
+   * 1248 support compressed inventories for darcs-1 repos (Ganesh)
+   * 1455 implement "darcs help environment" (Trent)
+
+
+Darcs 2.2.0, 16 Jan 2009
+
+ * Important changes in Darcs 2.2.0
+
+   * Support for GHC 6.10.
+   * Improved Windows support.
+   * Cabal is now supported as a build method for darcs.
+   * Low-level optimisations in filesystem code.
+   * Overhaul of the make-based build system.
+   * Extensive manual and online help improvements.
+   * Improved API documentation (haddock) for existing darcs modules.
+   * Improvements in the testing infrastructure.
+   * Improved performance for "darcs repair".
+   * Improved robustness for "darcs check".
+   * Numerous major and minor bug fixes, refactorings and cleanups.
+   * When recording interactively it is now possible to list all
+     currently selected hunks (command 'l').
+
+   * It is now possible to specify --in-reply-to when using darcs send,
+     to generate correct references in the mail header.
+
+   * Repositories can no longer be created with --no-pristine-tree.
+     This only affects the legacy darcs-1 repository format.
+
+   * Experimental Darcs library, providing increase flexibility and
+     efficiency to third-party utilities (compared to the command-line
+     interface).  Only built via Cabal.  NOT a stable API yet.
+
+ * Bugs Fixed in Darcs 2.2.0
+
+   See http://bugs.darcs.net/issueN for details on bug number N.
+
+   *  525 amend-record => darcs patches show duplicate additions
+   *  971 darcs check fails (case sensitivity on filenames)
+   * 1006 darcs check and repair do not look for adds
+   * 1043 pull => mergeAfterConflicting failed in geteff (2.0.2+)
+   * 1101 darcs send --cc recipient not included in success message
+   * 1117 Whatsnew should warn on non-recorded files
+   * 1144 Add darcs send --in-reply-to or --header "In-Reply-To:...
+   * 1165 get should print last gotten tag
+   * 1196 Asking for changes in /. of directory that doesn't exist...
+   * 1198 Reproducible "mergeConflictingNons failed in geteff with ix"
+   * 1199 Backup files darcs added after external merge
+   * 1223 sporadic init.sh test failure (2.1.1rc2+472)
+   * 1238 wish: darcs help setpref should list all prefs
+   * 1247 make TAGS is broken
+   * 1249 2.1.2 (+ 342 patches) local drive detection on Windows error
+   * 1272 amend-record not the same as unrecord + record
+   * 1273 renameFile: does not exist (No such file or directory)
+   * 1223 sporadic init.sh test failure (2.1.1rc2+472)
+
+
+darcs (2.1.2)
+
+ * Quality Assurance: Disable a new test that was not yet working
+   under Windows
+
+ -- Eric Kow <kowey@darcs.net>  Mon, 10 Nov 2008 10:40:00 GMT
+
+darcs (2.1.1)
+
+ -- Eric Kow <kowey@darcs.net>  Mon, 10 Nov 2008 08:18:00 GMT
+
+darcs (2.1.1rc2)
+
+  * Portability: Removed accidental QuickCheck 2.1 configure check.
+    Note that it may be required in a future version of darcs.
+
+ -- Eric Kow <kowey@darcs.net>  Mon, 10 Nov 2008 11:17:00 GMT
+
+darcs (2.1.1rc1)
+
+  * Portability: GHC 6.10.1 support (Petr Ročkai, Eric Kow)
+
+  * Bug Fix: Fix file handle leak and check for exceptions on process
+    running on Windows (issue784, Salvatore Insalaco)
+
+  * Quality Assurance: Consolidated regression test suites using
+    shell scripts only (Eric Kow, Tommy Petterson, Matthias Kilian)
+
+ -- Eric Kow <kowey@darcs.net>  Mon, 10 Nov 2008 09:49:00 GMT
+
+darcs (2.1.0)
+
+  * Bug Fix: Eliminate a 'same URLs with different parameters' error when
+    fetching files over HTTP (issue1131, Dmitry Kurochkin)
+
+  * User Experience: Corrections to the default boring file (Ben Franksen)
+
+  * Bug Fix: Fix the %a option in darcs send --sendmail-command (Ben Franksen)
+
+  * Bug Fix: Do not obscure the SSH prompts or text editor output with
+    progress reporting (issue1104, issue1109, Dmitry Kurochkin, David Roundy)
+
+  * Bug Fix: pull --intersection work now works as advertised (Tommy
+    Pettersson)
+
+ -- Eric Kow <E.Y.Kow@brighton.ac.uk>  Sun, 09 Oct 2008 12:05:32 GMT
+
+darcs (2.1.0pre3)
+
+  * Bug Fix: Eliminate an error merging repeated conflicts in darcs-2
+    repositories (issue1043, David Roundy)
+
+  * New Feature: Hide 'Ignore-this:' lines which will be generated by future
+    versions of darcs to prevent patch-id collisions. (issue1102, Eric Kow,
+    David Roundy)
+
+  * Bug Fix: Support darcs repositories which have symbolic links in their
+    paths (issue1078, Dmitry Kurochkin)
+
+  * Bug Fix: Make ssh connection sharing (darcs transfer-mode) work with
+    old-fashioned repositories (issue1003, David Roundy)
+
+ -- Eric Kow <E.Y.Kow@brighton.ac.uk>  Sun, 02 Oct 2008 09:12:41 GMT
+
+darcs (2.1.0pre2)
+
+  * IMPORTANT: Create darcs-2 repositories by default in darcs init (issue806,
+    David Roundy)
+
+  * User Experience: Do not allow users to add files to a darcs repository if
+    their filenames would be considered invalid under Windows. This can be
+    overridden with the --reserved-ok flag (issue53, Eric Kow)
+
+  * Bug Fix: Do not leave behind a half-gotten directory if darcs get fails
+    (issue1041, Vlad Dogaru, David Roundy)
+
+  * User Experience: notice when you are trying to pull from a seemingly
+    unrelated repository, that is one with a sufficiently different history.
+    This can be overridden with the --allow-unrelated-repos flag (Dmitry
+    Kurochkin, David Roundy)
+
+  * Bug Fix: Fix hang after a user input error (for example, EOF) (Judah
+    Jacobson)
+
+  * Quality Assurance: Improvements to documentation and online help (Simon
+    Michael)
+
+ -- Eric Kow <E.Y.Kow@brighton.ac.uk>  Sun, 25 Sep 2008 08:10:49 GMT
+
+darcs (2.0.3pre1)
+
+  * New Feature: Optional readline-like functionality when compiled with the
+    haskeline package (Judah Jacobson, Gaëtan Lehmann)
+
+  * Bug Fix: No more spurious pending patches (issue709, issue1012, David
+    Roundy)
+
+  * Bug Fix: darcs get --to-match now works with hashed repositories
+    (issue885, David Roundy)
+
+  * User Experience: Catch mistakes in _darcs/prefs/defaults (issue691, Dmitry
+    Kurochkin)
+
+  * User Experience: Improved support for darcs send over http (see also
+    tools/upload.cgi) (Dmitry Kurochkin, David Roundy)
+
+  * Bug Fix: Recognize user@example.com: as an ssh path, that is, not
+    requiring a path after the server component. (David Roundy)
+
+  * New Feature: Accept an optional directory argument in darcs send
+    --output-auto-name (Dmitry Kurochkin)
+
+  * User Experience: New --no-cache option to help debug network issues
+    (issue1054, Dmitry Kurochkin)
+
+  * Performance: New --http-pipelining and --no-http-pipelining flags. Passing
+    --http-pipelining to darcs can make darcs get and pull faster over HTTP.
+    Due to a libcurl bug, this is not the default option unless darcs is
+    compiled with libcurl 7.19.1, due 2008-11. (Dmitry Kurochkin)
+
+  * Bug Fix: Eliminate hanging and crashes while fetching files over HTTP
+    (issue920, issue977, issue996, issue1037, Dmitry Kurochkin)
+
+  * Security: Fix some insecure uses of printfs in darcs.cgi (Steve Cotton)
+
+  * Bug Fix: Handle filepaths in a simpler and more robust fashion. This fixes
+    relative filepaths and recognition of symbolic links and avoids possible
+    future bugs (issue950, issue1057, David Roundy, Dmitry Kurochkin)
+
+  * Bug Fix: Make darcs diff --patch work even if the patch is within a tag
+    (issue966, darcs 2 regression, Dmitry Kurochkin)
+
+  * Quality Assurance: Extend use of Haskell's GADTs to most of the darcs
+    code, fixing many potential bugs along the way (Jason Dagit, David Roundy)
+
+  * Quality Assurance: Several improvements to darcs code quality (Petr
+    Ročkai)
+
+  * Bug Fix: Correct assumptions made by darcs about Windows file size types
+    (issue1015, Simon Marlow, Ganesh Sittampalam)
+
+  * Bug Fix: Support case insensitive file systems using hashed repositories
+    in darcs repair (partial issue971, Petr Ročkai). IMPORTANT: This
+    introduces a memory use regression, which affects large repositories. We
+    found that doing a darcs repair on the GHC repository requires a machine
+    with 2 GB of RAM. The regression is well-understood and should be solved
+    in the next darcs release. In the meantime we felt that the improved
+    robustness was worth the performance trade-off.
+
+  * Quality Assurance: Simplify building darcs on Windows by optionally using
+    the zlib and terminfo Haskell packages (Ganesh Sittampalam, Petr Ročkai)
+
+  * User Experience: Better error reporting when patches that should commute
+    fail to do so. (Jason Dagit)
+
+  * New Feature: --match "touch filenames", for example --match 'touch
+    foo|bar|splotz.*(c|h)' (issue115, Dmitry Kurochkin)
+
+  * User Experience: Improve debugging and error messages in HTTP code (Dmitry
+    Kurochkin, David Roundy)
+
+  * Bug Fix: Ensure that darcs responds to Ctrl-C on Window, even if compiled
+    with GHC < 6.10 (issue1016, Simon Marlow)
+
+  * New Feature: darcs changes --context now also works with --human-readable
+    and --xml-output (issue995, Dmitry Kurochkin)
+
+  * Bug Fix: Always darcs send with context, as if --unified flag were used
+    (was implemented in 2.0.2, but not consistently) (David Roundy)
+
+  * Bug Fix: Make sure that darcs get --tag works even when the user hits
+    Ctrl-C to get a lazy repository (Dmitry Kurochkin)
+
+  * Quality Assurance: Improvements to documentation and online help, most
+    crucially, user-focused help on upgrading to darcs 2. (Trent Buck, Lele
+    Gaifax, Simon Michael, Max Battcher)
+
+  * New Feature: darcs changes --number associates each patch with number,
+    counting backwards (see the --index feature) (David Roundy)
+
+  * New Feature: ability to match patches on index, for example, darcs changes
+    --index=3-6 shows the last three to six patches (David Roundy)
+
+  * User Experience: slightly reduce the verbosity of darcs pull --verbose
+    (David Roundy)
+
+ -- Eric Kow <E.Y.Kow@brighton.ac.uk>  Sun, 18 Sep 2008 02:36:45 GMT
+
+darcs (2.0.2)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 24 Jun 2008 01:20:41 GMT
+
+darcs (2.0.1)
+
+  * Bug Fix: Make Ctrl-C work even though darcs is now compiled to use the
+    threaded runtime (issue916, David Roundy)
+
+  * New Feature: Include patch count in darcs --version, for example, 2.0.1 (+
+    32 patches) (David Roundy)
+
+  * Bug Fix: Avoid an error caused by renaming a file on case-insensitive
+    file-systems (Eric Kow)
+
+  * Bug Fix and New Feature: Improved XML output (Benjamin Franksen, Lele
+    Gaifax, David Roundy)
+
+  * User Experience: Always darcs send with context, as if --unified flag were
+    used (David Roundy)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 23 Jun 2008 21:47:07 GMT
+
+darcs (2.0.1rc2)
+
+  * Performance: Faster strings, using Data.Bytestring by default (Gwern
+    Branwen, Eric Kow, Ian Lynagh, David Roundy)
+
+  * User Experience: On Windows, use MS-DOS 'edit' as a default editor if
+    Emacs and friends are not available (Eric Kow)
+
+  * Bug Fix: On Windows, notice when external programs fail to launch because
+    they do not exist (Eric Kow)
+
+  * New Feature: darcs put --no-set-default and --set-default (Nicolas
+    Pouillard)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 13 Jun 2008 01:17:45 GMT
+
+darcs (2.0.1rc1)
+
+  * Bug Fix: Fix tag --checkpoint so that darcs get --partial can avoid
+    fetching all patches (issue873, David Roundy)
+
+  * User Experience: Better progress reporting [NB: darcs is now compiled with
+    threaded runtime by default] (issue739, David Roundy, Bertram Felgenhauer)
+
+  * Performance: Reduce memory usage of darcs put (David Roundy)
+
+  * Bug Fix: Improved date matching (issue793, issue187, Eric Kow)
+
+  * Performance: Fix an optimization in diff-detection (affects darcs whatsnew
+    and record) (Pekka Pessi)
+
+  * Quality Assurance: --enable-hpc for checking program coverage (Christopher
+    Lane Hinson)
+
+  * Bug Fix: Do not rollback if no primitive patches were selected (issue870,
+    Eric Kow)
+
+  * Bug Fix: Make it possible to --dry-run on repositories we cannot write to
+    (issue855, Eric Kow, David Roundy)
+
+  * Bug Fix: Avoid a race condition caused by cleaning out the pristine cache
+    (issue687, David Roundy)
+
+  * User Experience: When pushing, prints a small reminder when the remote
+    repository has patches to pull (Eric Kow, David Roundy)
+
+  * UI changes: --extended-help is now called --overview, no more
+    --verify-hash, no more send --unified (David Roundy, Eric Kow)
+
+  * User Experience: Show ssh's stderr output in case it wants to ask the user
+    something (issue845, Eric Kow)
+
+  * Bug Fix: Improved interaction with pager (David Roundy, Pekka Pessi, Eric
+    Kow)
+
+  * Bug Fix: darcs send -o - (Pekka Pessi)
+
+  * Bug Fix: (regression) Re-enable darcs mv as a means of informing darcs
+    about manual renames (issue803, David Roundy)
+
+  * Bug Fix: Fix bugs related to use of threaded runtime (issue776, David
+    Roundy)
+
+  * Portability: Respect OS conventions in creation of temporary files (Eric
+    Kow)
+
+  * New Feature: Check for and repair patches which remove non-empty files
+    (issue815, David Roundy)
+
+  * Bug Fix: Make get --to-match work with hashed repositories (David Roundy)
+
+  * Bug Fix: Conflict-handling with darcs-2 semantics (issue817, David Roundy)
+
+  * Bug Fix: Make --ask-deps ask the right questions (Tommy Pettersson)
+
+  * User Experience: Improved error messages and warnings (issue245, issue371,
+    Nicolas Pouillard, David Roundy, Eric Kow)
+
+  * New Feature: darcs trackdown --set-scripts-executable (Reinier Lamers)
+
+  * Quality Assurance: Various improvements to documentation (issue76,
+    issue809, Gwern Branwen, Lele Gaifax, Eric Kow, Nicolas Pouillard, David
+    Roundy)
+
+  * Bug Fix: Correct detection of incompatibility with future darcs (issue794,
+    Eric Kow)
+
+  * User Experience: Make darcs changes --interactive behave more like other
+    interactive commands (Eric Kow)
+
+  * Performance: Optimized handling of very large files (Gwern Branwen)
+
+  * New Feature: Colorize added and removed lines, if the environment variable
+    DARCS_DO_COLOR_LINES=True (Nicolas Pouillard)
+
+  * New Feature: --remote-repodir flag to allow separate default repositories
+    for push, pull and send (issue792, Eric Kow)
+
+  * Performance: Optimized get --to-match handling for darcs 1 repositories
+    (Reinier Lamers)
+
+  * Bug Fix: Make changes --repo work when not in a repository (David Roundy)
+
+  * New Feature: darcs changes --count (David Roundy)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 03 Jun 2008 12:43:31 GMT
+
+darcs (2.0.0)
+
+  * Fix silly bug which leads to darcs --version not showing release when it's
+    a released version. (David Roundy)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 07 Apr 2008 15:06:38 GMT
+
+darcs (2.0.0rc1)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 01 Apr 2008 15:44:11 GMT
+
+darcs (2.0.0pre4)
+
+  * When darcs encounters a bug, check version versus central server in order
+    to decide whether to recommend that the user report the bug.
+
+  * Display duplicate identical changes when using darcs-2 repository format.
+    (Issue579)
+
+  * Fix a bug in convert that lead to invalid tags in the converted
+    repository. (Issue585)
+
+  * Add an annoying warning when users run convert.
+
+  * Numerous fixes to the time/date matching code, which should now work even
+    in central Europe. (Eric Kow)
+
+  * Add support for reading hashed repositories that use SHA256 hashes. The
+    plan is to enable writing of SHA256 hashes in the next release. (David
+    Roundy)
+
+  * New Feature: Add a 'show authors' command (Eric Kow)
+
+  * darcs.cgi improvements: Patch pages show "Who" and "When" some file
+    annotation pages show "who" and "when" with a mouse-over. Also, darcs.cgi
+    can now be hosted in a path containing The tilde character. (Zooko, Mark
+    Stosberg)
+
+  * User Experience: Improved and added many debugging, error and progress
+    messages (David Roundy, Mark Stosberg, Eric Kow)
+
+  * New Feature: New DARCS_PATCHES, DARCS_FILES and DARCS_PATCHES_XML
+    environment variables are made available for the posthook system, allowing
+    for more easier options to to integrate darcs with other systems. (David
+    Roundy, Mark Stosberg)
+
+  * Quality Assurance: Added and updated automated regression tests (Mark
+    Stosberg, David Roundy, Eric Kow, Trent Buck, Nicolas Pouillard, Dave
+    Love, Tommy Pettersson)
+
+  * Bug Fix: Gzipped files stored in the repo are now handled properly (Zooko,
+    David Roundy)
+
+  * Quality Assurance: Various Documentation Improvements (issue347, issue55
+    Mark Stosberg, Nicolas Pouillard, Marnix Klooster)
+
+  * Bug Fix: With --repodir, commands could not be disabled (Trent Buck, David
+    Roundy)
+
+  * New Feature: tools/update_roundup.pl scripts allows the darcs bug tracker
+    to be notified with a darcs patch resolving a particular issue is applied.
+    A link to the patch in the web-based repo browser is provided in the
+    e-mail notifying bug subscribers. (Mark Stosberg)
+
+  * Internal: Begin work on memory efficiency improvements (David Roundy)
+
+  * Performance: darcs is faster when identifying remote repos handling
+    pending changes and running unrecord. (David Roundy)
+
+  * Internal: Source code clean-up and improvements (David Roundy, Jason
+    Dagit, Eric Kow, Mark Stosberg)
+
+  * User Experience: A pager is used automatically more often, especially when
+    viewing help. (Eric Kow)
+
+  * Bug Fix: push => incorrect return code when couldn't get lock. (issue257,
+    VMiklos, David Roundy, Eric Kow, Mark Stosberg)
+
+  * Bug Fix: 'whatsnew' and 'replace' now work together correctly. (Nicolas
+    Pouillard, David Roundy)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 21 Mar 2008 15:31:37 GMT
+
+darcs (2.0.0pre3)
+
+  * Fix issue 244, allowing users of darcs changes to specify the new name of
+    a file that has an unrecorded mv. (David Roundy, Mark Stosberg, Tuomo
+    Valkonen)
+
+  * Fix issue 600, bug in darcs optimize --relink. (David Roundy, Trent Buck,
+    Mark Stosberg, Tommy Pettersson)
+
+  * Add a new framework for outputting progress messages. If darcs takes more
+    than about one second to run a command, some sort of feedback should now
+    be provided. (David Roundy)
+
+  * Rewrite rollback, changing its behavior to be more useful. Rollback now
+    prompts for a name for the new "rollback" patches. It also allows you to
+    roll back multiple patches simultaneously, and to roll back only portions
+    of the patches selected. Altogether, rollback is now more interactive, and
+    should also be more useful. (David Roundy)
+
+  * Bug Fix: date parsing is now improved (Mark Stosberg, David Roundy)
+
+  * Performance: Improved speed of darcs pull on very large repos. (David
+    Roundy)
+
+  * Fix issue 586, but in darcs repair on hashed and darcs-2 repositories.
+    (Nicolas Pouillard)
+
+  * Improve docs for 'darcs init' (Mark Stosberg)
+
+  * Fix typo in test partial.sh which made part of the tests for --partial
+    invalid. (Mark Stosberg)
+
+  * Document that darcs handles some types of binary files automatically.
+    (issue55, Mark Stosberg)
+
+  * Fix typo in a test that made it compare a file to itself. (Mark Stosberg)
+
+  * Document that single quotes should be used in .darcs/defaults. (issue347,
+    Mark Stosberg)
+
+  * New Feature: Automatically create the the global cache if we define we
+    want to use it. (David Roundy, Trent Buck)
+
+  * Performance: Improved HTTP pipelining support (Dmitry Kurochkin)
+
+  * Fix issue 571, build failure when termio.h is not found. (Dave Love)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 22 Jan 2008 20:06:12 GMT
+
+darcs (2.0.0pre2)
+
+  * Add instructions in documentation for how to view patches in Mutt (a mail
+    reader). (Gwern Branwen)
+
+  * Fix build on Solaris. (Dave Love)
+
+  * Added "auto-optimize" support for hashed inventories, in that darcs
+    automatically optimizes inventories when it seems wise (which is currently
+    defined as "every time we modify the inventory").
+
+  * Fix expensive performance bugs involved in conflict handling. Thanks to
+    Peter for pointing these out!.
+
+  * Fix reading of hashed repositories to avoid reading patches that we don't
+    actually need (i.e. foolish inefficiency bug). Thanks to Simon for
+    reporting these performance bugs.
+
+  * Added a new --debug flag for debug output.
+
+  * Added compatibility with ghc 6.4. At this point darcs 2 should work with
+    any ghc from 6.4 to 6.8.2.
+
+  * Fix bug where parsing of setpref patch called tailPS unnecessarily. (David
+    Roundy)
+
+  * Refactor parsing of commands and command line arguments. Implement hidden
+    commands. (Eric Kow)
+
+  * Use a single command to initialize a remote repository. This replaces the
+    method of stringing together multiple commands with the shell-dependent &&
+    operator. (Tristan Seligmann)
+
+  * Allow for files in _darcs/inventories to be gzipped. This is not
+    specifically related to issue553, but it fixes a regression introduced by
+    the issue553 fix. (Issue553, Eric Kow)
+
+  * Check for potential hash collision in writeHashFile. (Eric Kow)
+
+  * Don't try to write hash file if it already exists, as you can not
+    overwrite an open file on Windows. (Issue553, Eric Kow)
+
+  * Close file handles when done reading it lazily. (Eric Kow)
+
+  * Modernize and enhance buggy renameFile workaround by using the
+    hierarchical library structure and only catching 'does not exist' errors.
+    (Eric Kow)
+
+  * Add "hidden" printer for decorating patches with color for easier reading
+    when printed to screen during verbose or debug output, but hides (removes)
+    the decoration when printing to the repository files. This is the
+    counterpart of the invisible printer, which makes non-human-friendly patch
+    contents invisible when printed to the screen. (David Roundy)
+
+  * Add "hidden" printer, for printing things to screen but not file. (David
+    Roundy)
+
+  * Make darcs distinguish between repository sub paths and "normal" relative
+    paths. Better handling of absolute paths. (Eric Kow)
+
+  * Fix some bugs introduced by Better handling of file paths. (Eric Kow)
+
+  * Handle corner case when polling from self. (issue354, issue358, Eric Kow)
+
+  * Handle corner cases when pulling from current repository. (Issue354,
+    Issue358, Eric Kow)
+
+  * Fix bug in make_dotdots when pushing from a sub directory. (issue268, Eric
+    Kow)
+
+  * Fix bug in make_dotdots when pushing from a subdirectory. (Issue268, Eric
+    Kow)
+
+  * Better handling of file paths. Distinguish between paths to files
+    belonging to the repository as well as not belonging to the repository,
+    both in absolute and relative form. (Eric Kow)
+
+  * Add path fixing to darcs send, and don't try sending to self. (issue427,
+    Eric Kow)
+
+  * Fix path issue for darcs send. (Issue427, Eric Kow)
+
+  * Disable mmap under Windows. (issue320, Eric Kow)
+
+  * Backup unmanaged working dir files as needed. (issue319, issue440, Eric
+    Kow)
+
+  * Backup unmanaged files in the working directory when they are overwritten
+    by managed files with the same names in pulled or applied patches.
+    (Issue319, Issue440, Eric Kow)
+
+  * Offer some advice if sendmail failed. (issue407, Eric Kow)
+
+  * Document behavior of "boring" managed files. (Issue259, Eric Kow)
+
+  * Make Doc a newtype, so we can define a Show instance. (David Roundy)
+
+  * Make make_changelog GHC 6.8 compliant. (Ganesh Sittampalam)
+
+  * GHC 6.8 needs containers package. (Ganesh Sittampalam)
+
+  * Configure hack to deal with openFd -> fdToHandle' renaming in GHC 6.8.
+    (Ganesh Sittampalam)
+
+  * Make makefile summarize calls to GHC when compiling. VERBOSE=1 turns the
+    long format back on. (Eric Kow)
+
+  * When building, print summarized call to GHC in makefile, instead of very
+    long command lines with many boring options. VERBOSE=1 reverts to showing
+    options again. (Eric Kow)
+
+  * Add svg logo. (David Roundy)
+
+  * Add mercurial files to the default boring file. (David Roundy)
+
+  * Add patterns for mercurial files to default boring patterns. (David Roundy)
+
+  * Define color versions of traceDoc and errorDoc for debugging. (David
+    Roundy)
+
+  * Clarify error message for --last. (issue537, Eric Kow)
+
+  * Clarify in error message that darcs option --last requires a *positive*
+    integer argument. (Issue537, Eric Kow)
+
+  * Optimize getCurrentDirectorySansDarcs a little. (Eric Kow)
+
+  * Never create temporary directories in the _darcs directory. (issue348,
+    Eric Kow)
+
+  * Never create temporary directories in the _darcs directory. (Issue348,
+    Eric Kow)
+
+  * Make revert short help less cryptic. (Eric Kow)
+
+  * Make revert short help less cryptic. (Eric Kow)
+
+  * Make --checkpoint short help more explicit. (issue520, Eric Kow)
+
+  * Make --checkpoint short help more explicit. (Issue520, Eric Kow)
+
+  * Add format infrastructure for darcs-2 repo format. (David Roundy)
+
+  * Always optimize the inventory in 'darcs tag'. (Eric Kow)
+
+  * Fix bug in Tag --checkpoint where the inventory was not updated. (Eric Kow)
+
+  * Fix accidental regression of --no-ssh-cm flag. (Eric Kow)
+
+  * Move conditional #include from Darcs.External to makefile. The GHC manual
+    says that this is *not* the preferred option, but for some reason, the
+    include pragmas seem to get ignored. Perhaps it is because the requirement
+    that the pragmas be on the top of the file conflict with the #ifdef
+    statements. In any case, this patch gets rid of the warning on MacOS X:
+    warning: implicit declaration of function 'tgetnum'. (Eric Kow)
+
+  * Pass CFLAGS to the assembler. E.g. -mcpu is essential on sparc. (Lennart
+    Kolmodin)
+
+  * Optimize 'darcs optimize --reorder'. (David Roundy)
+
+  * Add a table of environmental variables to the manual. (issue69, Eric Kow)
+
+  * Use System.Directory.copyFile for file copying. (Kevin Quick)
+
+  * Implement darcs show contents command. It shows the contents of a file at
+    a given version. (issue141, Eric Kow)
+
+  * Make Changes --context --repodir work. (Issue467, Erik Kow)
+
+  * Rename 'query' to 'show', but keep 'query' as an alias. (There is also an
+    extra alias 'list' that means the same as show.) The subcommand 'query
+    manifest' is renamed to 'show files', and does not list directories by
+    default, unless the alias 'manifest' is used. (Eric Kow)
+
+  * Support record -m --prompt-long-comment. (issue389, Eric Kow)
+
+  * Hide the command 'unpull' in favor of 'obliterate'. (Eric Kow)
+
+  * Make option --no-deps work again. It now also works for obliterate,
+    unrecord, push and send. (issue353, Tommy Pettersson)
+
+  * Make Record --ask-deps abort if user types 'q' instead of recording
+    without explicit dependencies. User is now required to type 'd' (done). If
+    the resulting patch is completely empty (no changes and no dependencies)
+    the record is automatically canceled. (issue308, issue329, Kevin Quick)
+
+  * Use pure record-access for PatchInfo in Patch.Info. (David Roundy)
+
+  * Improve error message when unable to access a repository. (David Roundy)
+
+  * Switch to using new Haskell standard library function cloneFile for
+    copying files. (Kevin Quick)
+
+  * Remove more GUI code. (Eric Kow)
+
+  * Fix some --dry-run messages: "Would push" instead of "Pushing". (issue386,
+    Eric Kow)
+
+  * Ensure that logfile for record has trailing newline. (issue313, Eric Kow)
+
+  * Add a stub command 'commit' that explains how to commit changes with
+    darcs. (Eric Kow)
+
+  * Makes non-repository paths in DarcsFlags absolute. (issue427, Zachary P.
+    Landau)
+
+  * Fix problem with missing newline in inventory, to simplify for third party
+    scripts. (Issue412, Eric Kow)
+
+  * Add all pulled repositories to _darcs/prefs/repos. (Issue368, Eric Kow)
+
+  * Implement Apply --dry-run. (Issue37, Eric Kow)
+
+  * Never change defaultrepo if --dry-run is used (issue186, Eric Kow)
+
+  * Filter out any empty filenames from the command line arguments. (Issue396,
+    Eric Kow)
+
+  * Use prettyException in clarify_errors so we don't blame user for darcs'
+    own errors. (Issue73, Eric Kow)
+
+  * Rename command 'resolve' to 'mark-conflicts'. 'Resolve' remains as a
+    hidden alias. (issue113, Eric Kow)
+
+  * Make 'query manifest' list directories by default. (issue456, Eric Kow)
+
+  * Allow --list-options even if command can not be run. (issue297, Eric Kow)
+
+  * Make 'unadd' an alias for 'remove'. Make 'move' an alias for 'mv'. Add a
+    stub for 'rm' that explains how to remove a file from a darcs repository.
+    (issue127, Eric Kow)
+
+  * Fix <supercommand> --help. (Issue282, Eric Kow)
+
+  * New --nolinks option to request actual copies instead of hard-links for
+    files. (Kevin Quick)
+
+  * Harmonize capitalization in flags help. (Eric Kow)
+
+  * Define datarootdir early enough in autoconf.mk.in. (Issue493, Eric Kow)
+
+  * Fix a bug where Get --partial would use a checkpoint without detecting it
+    was invalid. Checkpoints can for example become invalid after an Optimize
+    --reorder. (issue490, David Roundy)
+
+  * User Agent size limit for curl gets is removed. (Issue420, Kevin Quick)
+
+  * Don't garb string parameters passed to libcurl, as required by the api
+    specification. (Daniel Gorin)
+
+  * Fix handling of --repo with relative paths. (Eric Kow)
+
+  * Check for gzopen in zlib. curl depends on zlib and is detected prior to
+    zlib by the configure file, but without the -lz flag on some versions.
+    (Andres Loeh)
+
+  * Switch to haskell's System.Process under Unix for execution of external
+    commands; requires GHC 6.4. (Eric Kow)
+
+  * Remove (some more) conflictor code. (Eric Kow)
+
+  * Remove (unused) conflictor code. (David Roundy)
+
+  * Support makefile docdir/datarootdir variables. (Dave Love)
+
+  * Added prehooks that works the same as posthooks, but they run before the
+    command is executed. This can for example be used to convert line endings
+    or check character encodings before every Record. The darcs command aborts
+    if the prehook exits with an error status. (Jason Dagit)
+
+  * Use system instead of rawSystem for calling interactive cmds in Windows,
+    which lets us support switches, for example, in DARCS_EDITOR. (Eric Kow)
+
+  * add support for partial and lazy downloading of hashed repositories.
+    (David Roundy)
+
+  * Fix refactoring bug in Checkpoints where we sometimes looked for things in
+    the wrong place. (David Roundy)
+
+  * Fail on error in get_patches_beyond_tag. This will expose any bugs where
+    we use this function wrongly. (As was the case in darcs check --partial
+    with hashed inventories.) (David Roundy)
+
+  * Restructure the source tree hierarchy from a mostly flat layout to one
+    with directories and subdirectories that reflects the modularity of the
+    source. (Eric Kow)
+
+  * In tests, don't assume grep has -q and -x flags. (Dave Love)
+
+  * Add --output-auto-name option to Send (Zachary P. Landau)
+
+  * Added regression testing for the "pull --complement" operation. Updated
+    documentation to explain why "darcs pull --complement R1 R1" is the same
+    as "darcs pull R1" instead of the empty set. (Kevin Quick)
+
+  * Change all "current" to "pristine" in manual and help texts. (Tommy
+    Pettersson)
+
+  * Added the ability to specify the --complement argument on the pull command
+    as an alternative to --intersect and --union. When --complement is
+    specified, candidate patches for a pull are all of the pullable patches
+    that exist in the first repository specified but which don't exist in any
+    of the remaining repositories (the set-theory complement of the first
+    repository to the union of the remaining repositories). (Kevin Quick)
+
+  * Fix bug where darcs would try to write temporary files in the root
+    directory (/) if it couldn't find a repository root to write them in. Now
+    it uses the current directory in that case. (issue385, Zachary P. Landau)
+
+  * Make write_repo_format use the same syntax as read_repo_format when
+    dealing with different repository formats. (Benedikt Schmidt)
+
+  * Remove some unused functions from Population. (Eric Kow)
+
+  * Use IO.bracket instead of Control.Exception.bracket in Exec, to restore
+    the old way darcs works on *nix. (Eric Kow)
+
+  * Import bracketOnError from Workaround instead of Control.Exception to
+    support GHC 6.4. (Eric Kow)
+
+  * Switch to haskell's System.Process under Windows for execution of external
+    commands; requires GHC 6.4. (Simon Marlow)
+
+  * Fix bug where darcs ignored command arguments in the VISUAL environment
+    variable. (issue370, Benedikt Schmidt)
+
+  * Make annotate work on files with spaces in the name. (Edwin Thomson)
+
+  * Prettify exceptions in identifyRepository. (Juliusz Chroboczek)
+
+  * QP-encode patch bundles transfered with the Put command. (Juliusz
+    Chroboczek)
+
+  * Fix bug in darcs get --tag that left cruft in pending. (David Roundy)
+
+  * Fix bug when trying to 'darcs mv foo foo'. (issue360, David Roundy)
+
+  * Separate comment from OPTIONS pragma for GHC 6.4 compatibility. (Eric Kow)
+
+  * Make hashed inventories support optimize and reordering. (David Roundy)
+
+  * Change all Maybe Patch to the new type Hopefully Patch, which is similar
+    to Either String, for storing patches that may or may not exist. This
+    should make it much easier to improve error reporting. (David Roundy)
+
+  * Fix pending bug that broke several_commands.sh. (David Roundy)
+
+  * Fix hashed inventory bug in Add. (David Roundy)
+
+  * Make Get and Put reuse code for Initialize. This makes Put accept any
+    flags that Init accepts. (David Roundy)
+
+  * Fix new get to not mess up pending. (David Roundy)
+
+  * External resolution can resolve conflicting adds. (Edwin Thomson)
+
+  * Only copy the files that are needed for the resolution, when invoking an
+    external resolution tool. This saves much time and resources on
+    repositories with many files in them. (Edwin Thomson)
+
+  * Change message in 'darcs check' from "applying" to "checking". (issue147,
+    Tommy Pettersson)
+
+  * Add code fore hashed inventories. (David Roundy)
+
+  * New option for Diff: --store-in-memory. darcs diff usually builds the
+    version to diff in a temporary file tree, but with --store-in-memory it
+    will represent the files in memory, which is much faster (unless the tmp
+    directory already is a ram disk). (Edwin Thomson)
+
+  * Fix bug where duplicated file names on the command line would fool darcs.
+    (issue273, Tommy Pettersson)
+
+  * When recording with option --pipe, assume users local timezone if none is
+    given, instead of UTC. Except if the date is given in raw patch format
+    'yyyymmddhhmmss' it is still parsed as UTC. (issue220, Eric Kow)
+
+  * Account for timezone information, e.g. in dates when recording with option
+    --pipe. (issue173, Eric Kow)
+
+  * Fix bug in refactoring of get. (David Roundy)
+
+  * Refactor repository handling to allow truly atomic updates. (David Roundy)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 16 Dec 2007 20:16:47 GMT
+
+darcs (1.0.9)
+
+  * Make shell harness failures fatal in Makefile. (Eric Kow)
+
+  * Bugfix, fix bug where we add a file but not its boring parent directory.
+    (David Roundy)
+
+  * Allow escaped quotes in 'quoted' for match text. (Dave Love)
+
+  * Don't exit with failure when tests_to_run is used and there are no perl
+    tests. (David Roundy)
+
+  * Apply patches "tolerantly" to the working directory; don't quit, but print
+    a warning for every problem and continue. This is a workaround for a bug
+    in darcs where it sometimes fails to update the working directory. When
+    darcs updates the working directory it has already successfully updated
+    the inventory and the pristine cache, so the repository itself is not
+    corrupted. However, an incomplete update to the working directory results
+    in unintended differences between the working and pristine tree, looking
+    like spurious unrecorded changes. These can be easily removed with 'darcs
+    revert', but spurious changes have to be manually sorted out from real
+    unrecorded changes. By darcs no longer quiting at the first problem, more
+    of the working tree gets updated, giving less spurious changes and less
+    manual work to fix the mess should the bug bite you. (issue434, Eric Kow,
+    David Roundy)
+
+  * Add a README file, created from HACKING. (issue287, Eric Kow)
+
+  * New command, query tags (similar to 'darcs changes -t .) (Florian Weimer)
+
+  * Include the query commands in the manual. (Florian Weimer)
+
+  * The ssh control master is now off by default (it seems to hang on some
+    large repositories). The option --disable-ssh-cm is replaced by the two
+    options --ssh-cm and --no-ssh-cm (default). (Eric Kow)
+
+  * Do not append a colon to host name when calling sftp. This does not solve
+    all of issue362, just a minor annoyance along its way. (issue362, Eric Kow)
+
+  * Get 'open' and 'psignal' declared on Solaris. (Dave Love)
+
+  * Zsh completion supports new _darcs/pristine repository format. (Georg Neis)
+
+  * Add documentation for DARCS_PAGER. (Benedikt Schmidt)
+
+  * Turning off and on the ssh control master works for the Changes command.
+    (issue383, Georg Neis)
+
+  * Optimize unrecorded file moves with unrecorded file adds and removals.
+    That is, if you add, rename and remove files multiple times without
+    recording, whatsnew (and record) will only see the final result, not the
+    whole sequence of moves. (Marco Tulio Gontijo e Silva)
+
+  * Fix link error with errno for gcc 4.12 / glibc 2.4. (Benedikt Schmidt)
+
+  * Remove the confusing text "user error" from some of GHC's error
+    descriptions. (Juliusz Chroboczek)
+
+  * Check for and fail build configuration if module quickcheck isn't
+    available. (issue369, David Roundy)
+
+  * Make darcs push QP-encode the bundle before transferring. This should
+    hopefully fix issues with scp/sftp corrupting bundles in transit. (Juliusz
+    Chroboczek)
+
+  * Make it very clear in the documentation that the options --from and
+    --author does NOT have anything to do with the sender or email author when
+    sending patches as email with the darcs Send command. (Kirsten Chevalier)
+
+  * Allow commented tests in tests_to_run. (David Roundy)
+
+  * Make it an error to Put into a preexisting directory. Often one could be
+    tempted to try to put into a directory, expecting to have the repository
+    created as a subdirectory there, and it is confusing to have instead the
+    repository contents mingled with whatever was already in that directory.
+    (David Roundy)
+
+  * Explicitly flush output on Windows after waiting for a lock, because
+    Windows' stdout isn't always in line-buffered mode. (Simon Marlow)
+
+  * Improve unhelpful "fromJust" error message in Push command. (Kirsten
+    Chevalier)
+
+  * Support option --all for Obliterate, Unpull and Unrecord. (issue111, David
+    Roundy)
+
+  * Ignore failure to set buffering mode for terminal in some places
+    (supposedly fixes issue41, issue94, issue146 and issue318). (Tommy
+    Pettersson)
+
+  * Buildfix, don't import Control.Exception functions when compiling on
+    Windows. (Edwin Thomson)
+
+  * Add make rules for tag files. (Dave Love)
+
+  * Add a semi-automated test for SSH-related things. (Eric Kow)
+
+  * Allow Dist --dist-name to put the tar file in any directory by giving a
+    full path as the dist name. (issue323, Wim Lewis)
+
+  * Add rigorous error checking when darcs executes external commands. All
+    low-level C return values are checked and turned into exceptions if they
+    are error codes. In darcs main ExecExceptions are caught and turned into
+    error messages to help the user. (Magnus Jonsson)
+
+  * Redirect error messages from some external commands to stderr. (Tommy
+    Pettersson)
+
+  * Make configure fail if a required module is missing. (David Roundy)
+
+  * The options for turning off and on the ssh control master works from the
+    defaults file. (issue351, Tommy Pettersson)
+
+  * Amend-record now keeps explicit dependencies (made with --ask-deps) from
+    the amended patch. (issue328, Edwin Thomson)
+
+  * Make libcurl use any http authentication. This let darcs use repositories
+    protected with digest authentication. (Tobias Gruetzmacher)
+
+  * Turning off and on the ssh control master works for the Send command.
+    (Eric Kow)
+
+  * Redirect stderr to Null when exiting SSH control master. This suppresses
+    the output "Exit request sent" not suppressed by the quiet flag. (Eric Kow)
+
+  * Fix curses stuff, especially on Solaris 10. (Dave Love)
+
+  * Annotate various boring patterns. (Dave Love)
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 03 Jun 2007 21:37:06 GMT
+
+darcs (1.0.9rc2)
+
+  * Pass e-mail address only for %t in --sendmail-command. Msmtp seems to
+    require this. Note that the full address is encoded in the message body.
+    (Eric Kow)
+
+  * Show error messages on stderr when starting and stopping the ssh control
+    master. (Tommy Pettersson)
+
+  * Rewrite check for spoofed patches with malicious paths. The check can now
+    be turned off with the option --dont-restrict-paths (issue177). The new
+    check only works for Apply and Pull, and it only looks at the remote
+    patches. A more complete check is desirable. (Tommy Pettersson)
+
+  * Add LGPL file referenced in fpstring.c (Dave Love).
+
+  * Update FSF address in copyright headers(Dave Love).
+
+  * New default boring file patterns: ,v .# .elc tags SCCS config.log .rej
+    .bzr core .obj .a .exe .so .lo .la .darcs-temp-mail .depend and some more
+    (Dave Love).
+
+  * Move darcs.ps to the manual directory (Tommy Pettersson).
+
+  * Pass -q flag to scp only, not ssh and scp. Putty's SSH (plink) does not
+    recognize the -q flag. (issue334, Eric Kow)
+
+  * Bugfix. Make darcs.cgi look for both pristine and current (Dan).
+
+  * Don't lock the repo during `query manifest' (issue315, Dave Love).
+
+  * Buildfix. Include curses.h with term.h (issue326, Dave Love).
+
+  * Bugfix. Unrecord, Unpull and Obliterate could mess up a repository
+    slightly if they removed a tag with a corresponding checkpoint. Only the
+    commands Check and Repair were affected by the damage, and Get would also
+    copy the damage to the new repository. (issue281, Tommy Pettersson)
+
+  * Add a HACKING file with helpful references to pages on the darcs wiki
+    (Jason Dagit).
+
+  * New boring file patterns: hi-boot o-boot (Bulat Ziganshin, Eric Kow).
+
+  * Require 'permission denied' test for MacOS X again. Perhaps something in
+    MacOS X was fixed? (Eric Kow).
+
+  * Look for Text.Regex in package regex-compat. Needed for GHC 6.6. (Josef
+    Svenningsson)
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 16 Nov 2006 14:03:51 GMT
+
+darcs (1.0.9rc1)
+
+  * Improved handling of input, output and error output of external commands.
+    Null-redirection on windows now works. Only stderr of ssh is
+    null-redirected since putty needs stdin and stdout. (issue219, Eric Kow,
+    Tommy Pettersson, Esa Ilari Vuokko)
+
+  * Optimize away reading of non-managed files in summary mode of Whatsnew
+    --look-for-adds (issue79, Jason Dagit).
+
+  * Remove direct dependency to mapi32.dll; Improve MAPI compatibility. (Esa
+    Ilari Vuokko)
+
+  * Ignore .git if _darcs is found (Juliusz Chroboczek).
+
+  * Add a haskell code policy test to catch uses of unwanted functions, bad
+    formating and such. (Tommy Pettersson)
+
+  * If the logfile supplied with option --logfile does not exist, fail instead
+    of inserting no long comment. (issue142, Zachary P. Landau)
+
+  * Make the pull 'permission test' work when run as root (Jon Olsson).
+
+  * Handle unsimplified patches when further simplifying the summarized
+    output. For unknown reason (a possibly previous version of) darcs allows a
+    single patch to Add and Remove the same file in a single patch. The
+    Changes command used to combine them, showing just a Remove. (issue185,
+    Lele Gaifax)
+
+  * Add workaround for HasBounds that was removed in GHC 6.6 (Esa Ilari
+    Vuokko).
+
+  * Really make --disable-ssh-cm work (issue239, Eric Kow).
+
+  * Fix false errors in pull.pl test (David Roundy).
+
+  * Clean up docs on DarcsRepo format (David Roundy).
+
+  * Use stdin for passing the batch file to sftp, to allow password-based
+    authentication (issue237, Eric Kow, Ori Avtalion).
+
+  * Make darcs fail if the replace token pattern contains spaces. It would
+    otherwise create a non-parsable patch in pending. (issue231, Tommy
+    Pettersson)
+
+  * Set a default author in the test suite harness so not every test has to do
+    so. (Tommy Pettersson).
+
+  * Run external ssh and scp commands quietly (with the quiet flag), but not
+    sftp which doesn't recognize it (issue240). This reduces the amount of
+    bogus error messages from putty. (Eric Kow)
+
+  * Implement help --match, which lists all available forms for matching
+    patches and tags with the various match options (Eric Kow).
+
+  * Added .elc and .pyc suffixes to default binary file patterns (Juliusz
+    Chroboczek ).
+
+  * Added a link to the 'projects' part of the cgi repository interface, so
+    that you go back to the project list (Peter Stuifzand).
+
+  * Add a test suite for calling external programs (Eric Kow).
+
+  * Don't warn about non-empty dirs when in quiet mode (Eric Kow).
+
+  * New option --umask. This is best used in a repository's defaults file to
+    ensure newly created files in the repository are (not) readable by other
+    users. It can also be used when invoking darcs from a mail reader that
+    otherwise sets a too restrictive umask. (Issue50, Juliusz Chroboczek)
+
+  * Only check for ssh control master when it might be used. This suppresses
+    the annoying "invalid command" error message. (Issue171, Eric Kow)
+
+  * Fail with a sensible message when there is no default repository to pull
+    from. (Lele Gaifax)
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 08 Oct 2006 17:52:07 GMT
+
+darcs (1.0.7)
+
+  * Fixed bug leading to a spurious "darcs failed: resource vanished" error
+    message when darcs output is piped to a program such as head that then
+    exits. (Issue160, David Roundy)
+
+  * New option --diff-command overrides the default value of "diff" when darcs
+    calls an external program to show differences between versions (Eric Kow).
+
+  * Use the ControlMaster feature in OpenSSH version 3.9 and above to
+    multiplex ssh sessions over a single connection, instead of opening a new
+    connection for every patch (Issue32, Eric Kow).
+
+  * Add a standalone graphical interface (experimental). The gui code prior to
+    this patch allows graphical darcs forms to be run from the command line.
+    This builds off that functionality by adding a graphical front-end,
+    allowing users to access these forms with a click of a button. In other
+    words, this allows users to run darcs without the command line. (Eric Kow)
+
+  * Make unpull, unrecord, obliterate accept --gui (Eric Kow).
+
+  * Freshen GUI code so that it compiles (Eric Kow).
+
+  * Provide more information when a remote repository can't be correctly
+    identified. (Juliusz Chroboczek)
+
+  * The Send command can save, reuse and delete the accompanying description
+    in a logfile. (Zachary P. Landau)
+
+  * Display list of subcommands when getting help on a supercommand. (Eric Kow)
+
+  * A proper fix for the problem with rmdir when there are non-managed files
+    left in the working copy of the directory so it can't really be removed.
+    This solves the two related problems with a missguiding error message in
+    one case, and an unreported repository corruption in the other. Now there
+    is no false warning and no repository coruption. (issue154, Eric Kow)
+
+  * Escaping of trailing spaces and coloring now works with in the pager
+    called with 'p' from interactive dialogues. (issue108, Tommy Pettersson)
+
+  * Added default recognized binary file extensions: bmp, mng, pbm, pgm, pnm,
+    ppm, tif, tiff. (Daniel Freedman)
+
+  * Added a RSS link to common.xslt. (Peter Stuifzand)
+
+  * Make short option -i a synonym for --interactive (Zachary P. Landau).
+
+  * Improved argument substitution for --external-merger. All apperences of %N
+    are replaced, not only those occurring as single words. (Daan Leijen)
+
+  * Transition from _darcs/current to _darcs/pristine completed. New
+    repositories are created with a "pristine" directory. Previous versions of
+    darcs have been looking for this directory since version 1.0.2, but older
+    versions than that can't read the new repository format. (Juliusz
+    Chroboczek)
+
+  * If you specify a repository directory, any absolute paths prefixed by this
+    directory are converted to be ones relative to the repodir. (issue39, Eric
+    Kow)
+
+  * The --repodir flag works with many more commands: changes, dist, get,
+    optimize, repair, replace, setpref, tag, trackdown. (RT#196, RT#567, Eric
+    Kow)
+
+  * The --repodir flag works with initialize command, and tries to create it
+    if it does not exists. (RT#104, Eric Kow)
+
+  * Add autom4te.cache to default boring patterns. (Kirill Smelkov)
+
+  * Don't create temporary copies of the repository for the external merger
+    program, unless there is for sure some conflict to resolve. (Edwin Thomson)
+
+  * Modify Changes --interactive dialogue to behave like other interactive
+    commands: accept 'y' and 'n' as answers and exit automatically after last
+    question. (Zachary P. Landau)
+
+  * Unnamed patches are now called "changes" in the interactive patch
+    selection dialogues. (Tommy Pettersson)
+
+  * Treat Enter as an invalid response in single character prompt mode, and
+    give feedback instead of being mysteriously silent and unresponsive.
+    (RT#261, Eric Kow)
+
+  * Make short option -f a synonym for --force (Zooko).
+
+  * Posthooks no longer cause an output message about success or failure,
+    unless the --verbose option is used. (Jason Dagit)
+
+  * Fix crash when using changes --interactive with --patch or --match
+    (Zachary P. Landau).
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 13 May 2006 17:14:38 GMT
+
+darcs (1.0.6)
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 28 Feb 2006 11:18:41 GMT
+
+darcs (1.0.6rc1)
+
+  * Check paths when applying patches to files and directories to stop
+    maliciously handcrafted patches from modifying files outside of the
+    repository or inside darcs private directories (issue48, Tommy Pettersson).
+
+  * Revert optimization that sometimes applied patches incorrectly and
+    corrupted the repository. This make darcs somewhat slower when applying
+    patches. A full pull of the darcs repository itself takes 50% longer.
+    (issue128, Tommy Pettersson).
+
+  * Fix bug in Get --tag that produced a corrupt repository (issue67, Edwin
+    Thomson).
+
+  * Add newline between long comment and changed files list in dry-run summary
+    to remove ambiguity (Edwin Thomson).
+
+  * Extended date matching functionality: ISO 8601 dates and intervals, a
+    larger subset of English like "yesterday at noon" (issue31/RT#34, Eric
+    Kow).
+
+  * Allow rename to different case (RT #466, Eric Kow).
+
+  * Save long comment in a file if record fails the test run (Zachary P.
+    Landau).
+
+  * Fix win32 build breaks (Will Glozer).
+
+  * Make --exact-version work when darcs is built from distributed tar ball
+    (Marnix Klooster).
+
+  * Coalesce pending changes created with setpref (issue70/RT#349, Eric Kow).
+
+  * Support --interactive option in changes command (issue59, Zachary P.
+    Landau).
+
+  * New help command (RT#307, Eric Kow).
+
+  * Add --without-docs option to configure (Richard Smith).
+
+  * Obey normal autoconf conventions. Allows you to 'make install prefix=...'
+    and doesn't change default for sysconfdir. (Dave Love)
+
+  * Fix bug with non-existing directories. (David Roundy)
+
+  * Remote apply does not use cd to change current directory to target
+    directory any more. It uses --repodir when invoking remote darcs. This may
+    break some darcs wrappers. (Victor Hugo Borja Rodriguez)
+
+  * Support signed push (Esa Ilari Vuokko).
+
+  * Added support for pulling from multiple repositories with one pull. The
+    choice of --union/--intersection determines whether all new patches are
+    pulled, or just those which are in all source repositories. This feature
+    implements a suggestion by Junio Hamano of git. (David Roundy)
+
+  * Patch bundle attachments get a file name, based on the first patch.
+    (Zachary P. Landau)
+
+  * The send command now takes a --subject flag. (Joeri van Ruth)
+
+  * Fix --set-scripts-executable to work also when getting a local repository.
+    (issue38, Eric Kow)
+
+  * Removed the helper program darcs-createrepo. It was used for guided settup
+    of a darcs repository and a corresponding user account to accept patches
+    from signed emails. (issue14, Jason Dagit)
+
+  * Print out the patch name when a test fails. (Zachary P. Landau).
+
+  * Bugfix for --sendmail-command in Windows (Esa Ilari Vuokko).
+
+  * Make apply --verify work with GnuPG in Windows (Esa Ilari Vuokko)
+
+  * Bugfix for handling of absolute paths in Windows (issue47, Will Glozer)
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 19 Feb 2006 23:19:19 GMT
+
+darcs (1.0.5)
+
+  * Fixes for Windows (Will Glozer).
+
+  * Adapt makefile to work with current ghc 6.4 (Will Glozer).
+
+  * --help and --list-commands ignore other options (issue34, Eric Kow).
+
+  * Fix apply with --verify for patch bundles signed by GnuPG in Windows (Esa
+    Ilari Vuokko).
+
+  * Make patch selection options together with --context work again (Daniel
+    Bünzli).
+
+  * Make option --commands outside of a repository work again (issue9, David
+    Roundy).
+
+  * Bugfix for pushing with ssh under Windows (issue15, Will Glozer).
+
+  * Fix superfluous input bug in test suite (Florian Weimer).
+
+  * Many English and markup fixes (Dave Love).
+
+ -- Tommy Pettersson <ptp@lysator.liu.se>  Sun, 07 Dec 2005 11:27:30 GMT
+
+darcs (1.0.4)
+
+  * Fixed a bug in the external conflict resolution code. (bug #577, David
+    Roundy)
+
+  * Fixed a bug which made apply sometimes (but rarely) fail to check the the
+    hash on patch bundles corrupted in just the wrong way. (David Roundy)
+
+  * Added a simple check to darcs replace that avoids tokenizing lines that
+    don't contain the token we're replacing. I feel a bit bad about
+    introducing an optimization this late in the release cycle, but it makes a
+    huge difference, and really should be safe. (David Roundy---famous last
+    words)
+
+  * Fixed bug where darcs didn't honor the SSH_PORT environment variable when
+    calling sftp. (bug #576, fix suggested by Nicolas Frisby)
+
+  * Avoid putting a wrongly-named directory in the tarball generated by darcs
+    dist, if the name we wanted already exists in $TMPDIR. (Simon McVittie)
+
+  * Fixed bug which caused "pull_firsts_middles called badly" errors when
+    running record with --ask-deps flag. (bug #476, David Roundy)
+
+  * Fixed bug where 'darcs changes --context' created a context that contained
+    escapes that prevented its use with send. (bug #544, David Roundy)
+
+  * Make interactive push/pull/send/apply respect the --summary option by
+    printing each patch as if you had hit 'x'. (David Roundy, bug #512)
+
+  * Fix bug when calling whatsnew --summary when a file without a trailing
+    newline has been deleted. (David Roundy)
+
+  * Fix --set-scripts-executable to work again. This feature had been broken
+    since version 1.0.3. (David Roundy)
+
+  * Simple (safe) fix for a bug which caused darcs to run out of file
+    descriptors when pulling over 1000 patches. (David Roundy)
+
+  * Fix bug in perl parts of test suite which led to spurious warning
+    messages. (David Roundy)
+
+  * Fix bug in configure when compiling darcs from tarball on a system that
+    has no darcs present. (David Roundy)
+
+  * Fix bug that shows up when recording in a repository lacking a pristine
+    tree. (David Roundy)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 13 Nov 2005 13:44:31 GMT
+
+darcs (1.0.4pre4)
+
+  * Fix error in install target of makefile, which was introduced in
+    1.0.4pre3. (Andres Loeh)
+
+  * Fix problem where make install modified the permissions on system
+    directories. (David Roundy, bug #494)
+
+  * Fix bug in display when whatsnew is given "-l" twice. (David Roundy, bug
+    #501)
+
+  * Added support for --posthook to all commands. (Jason Dagit)
+
+  * Made repair able to work on partial repositories. (fixes bug #189)
+
+  * Changed the delimiter in the long-comment file from ***DARCS*** to ***END
+    OF DESCRIPTION*** and clarified its meaning a bit. (Jason Dagit and David
+    Roundy)
+
+  * Added code to allow darcs to apply some patch bundles that have had
+    carriage returns added to their line endings. (David Roundy, bug #291)
+
+  * Make darcs accept command line flags in any order, rather than requiring
+    that they precede file, directory or repository arguments. Fixes bug #477
+    (David Roundy)
+
+  * Modified darcs get to display patch numbers rather than a bunch of dots
+    while applying patches during a darcs get. Also added similar feedback to
+    the check and repair commands. (Mat Lavin, bug #212)
+
+  * Made revert --all not ask for confirmation, so it can be used in
+    scripting, as one would use pull --all or record --all. (Jani Monoses)
+
+  * Added file ChangeLog.README explaining how to add entries to the
+    changelog. (Mark Stosberg and David Roundy)
+
+  * Fixed incompatibility with somewhat older versions of libcurl. (Kannan
+    Goundan)
+
+  * Fixed bug that showed up when after editing a long comment, the long
+    comment file is empty. (David Roundy, bug #224)
+
+ -- David Roundy <droundy@darcs.net>  Sun, 01 Sep 2005 11:04:18 GMT
+
+darcs (1.0.4pre2)
+
+  * (EXPERIMENTAL) Added support for reading and writing to git repositories.
+    There remain efficiency issues with the handling of git merges and darcs
+    is not yet able to either create a new git repository, or to pull from a
+    remote git repository. See building darcs chapter in manual for
+    instructions on building darcs with git support. (Juliusz Chroboczek,
+    configuration contributed by Wim Lewis)
+
+  * Add new "query manifest" command to list files and/or directories in
+    repository. Add some related infrastucture to support "subcommands".
+    (Florian Weimer)
+
+  * Make configure properly detect that we're on windows when building under
+    mingw. (David Roundy)
+
+  * Fixed bug #208: error when specifying pulling from a relative default
+    repository if we are ourselves within a subdirectory of our repository.
+    (David Roundy)
+
+  * Change internal mechanism for writing the "pending" file to be (hopefully)
+    more robust. (David Roundy, original idea by Ian Lynagh)
+
+  * Fixed a bug that caused get --partial to fail sometimes. (David Roundy)
+
+  * Made push/pull --verbose --dry-run now display contents of patches,
+    analogous to the behavior of changes --verbose. (Jim Radford)
+
+  * Various build system cleanups. (Peter Simons)
+
+ -- David Roundy <droundy@abridgegame.org>  Sun, 31 Jul 2005 12:10:29 GMT
+
+darcs (1.0.4pre1)
+
+  * Performance improvement: Several commands now read patches lazily, which
+    reduces memory usage. A test of 'darcs check' on the Linux kernel
+    repository showed the memory usage was nearly cut in half, from about 700
+    Megs to 400. Coded by David Roundy.
+
+  * New feature: darcs put, the easiest way to create a remote repo, symmetric
+    with 'darcs get'. Coded by Josef Svenningsson.
+
+  * Performance improvement: RT#222: darcs performs better on files with
+    massive changes. Coded by Benedikt Schmidt.
+
+  * New Feature: darcs optimize now has "--modernize-patches" and
+    "--reorder-patches" flags. See the manual for details.
+
+  * Performance improvement: Using 'darcs diff' is now exponentially faster
+    when comparing specific files in the working directory to the most recent
+    copy in the repo. Coded by kannan@cakoose.com.
+
+ -- David Roundy <droundy@abridgegame.org>  Sun, 18 Jul 2005 11:22:34 GMT
+
+darcs (1.0.3)
+
+  * Fixed bug #396: error when specifying a removed file on the command line
+    of darcs record.
+
+ -- Tomasz Zielonka <tomasz.zielonka@gmail.com>  Sun, 24 May 2005 21:51:27 GMT
+
+darcs (1.0.3rc2)
+
+  * Internals: darcs' ChangeLog is automatically generated from repo history
+    and a database of ChangeLog entries (Tomasz Zielonka)
+
+  * Fixed: RT#370: --tags work in unpull and unrecord (Tommy Pettersson)
+
+  * New feature: added support for displaying patches with pager when
+    selecting patches (Benedikt Schmidt)
+
+  * New feature: new match type "exact" (John Goerzen)
+
+  * Feature: unrevert accepts --all and --interactive options (Jani Monoses)
+
+  * Fixed: darcs works with nvi (Benedikt Schmidt)
+
+ -- Tomasz Zielonka <tomasz.zielonka@gmail.com>  Sun, 15 May 2005 08:56:17 GMT
+
+darcs (1.0.3rc1)
+
+  * New Feature: darcs.cgi now uses appropriate caching headers. This will
+    make repeated calls to the same pages by cache-aware browsers much faste
+    in some cases. It also means that darcs.cgi can be usefully combined with
+    a cache-aware proxy for even better performance. (Will Glozer)
+
+  * New feature: more control over color and escaping in printed patches,
+    alternative color scheme, escaping of trailing spaces (Tommy Pettersson)
+
+  * Fixed: fixed bug manifesting with failed createDirectory (David Roundy)
+
+  * Internals: RT#255, several welcome refactors were made to the test suite,
+    including comprehensible shell test script output, improved portability,
+    and easier maintenance. (Michael Schwern).
+
+  * New Feature: RT#245: Using --look-for-adds with 'whatsnew' implies
+    --summary. This should save some typing for the common case. (Karel
+    Gardas, Mark Stosberg)
+
+  * New Feature: RT#231: darcs gives better feedback now if you try to record
+    nonexistent files or directories. (Karel Gardas, Mark Stosberg)
+
+  * New feature: send accepts --sendmail-command that allows to customize the
+    command used for sending patch bundles (Benedikt Schmidt)
+
+  * Fixed: RT#266: Adding a non-existent dir and file gives the expected
+    message now. (Tomasz Zielonka).
+
+  * Fixed: RT#10, a missed conflict resolution case. More accurately, we
+    noticed at had been fixed some point. A regression test for it was added.
+    (Tomasz Zielonka, Mark Stosberg)
+
+  * New feature: darcs tag can now accept the tag name on the command line
+    (RT#143). (Josef Svenningsson, Mark Stosberg, David Roundy)
+
+  * New feature: unrecord and unpull have a more powerful interface similar to
+    'darcs pull'. This allows for multiple patch selection. Coded by Tommy
+    Pettersson.
+
+  * Bug fix: RT#305: Removed '--patch' from the 'changes', which conflicted
+    with the new '--patches' option.
+
+  * New feature: Automatically add parent directories for darcs add. (RT#20)
+    Coded by Benedikt Schmidt.
+
+  * Add helpful diagnostic message when there is a failure while pulling
+    (RT#201)
+
+ -- Tomasz Zielonka <tomasz.zielonka@gmail.com>  Sun, 26 Apr 2005 00:25:54 GMT
+
+darcs (1.0.2)
+
+  * No changes from 1.0.2rc4.
+
+ -- David Roundy <droundy@darcs.net>  Fri,  4 Feb 2005 07:33:09 -0500
+
+darcs (1.0.2rc4)
+
+  * More documentation improvements, plus one clearer error message.
+  * Fixed (new since 1.0.1) bug which broke darcs repair.
+  * Fixed problem with makefile which caused spurious relinkings.
+  * Fixed bug in new optimize --relink command, which could cause
+    repository corruption.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed, 2 Feb 2005 06:24:19 -0500
+
+darcs (1.0.2rc3)
+
+  * Documentation improvements related to Juliusz new code.
+  * Fixed longstanding leaks in zlib/threads code.
+  * Fixed some bugs in the new optimize --relink code.
+  * Fixed bug in darcs diff when the repository name is empty.
+
+ -- David Roundy <droundy@abridgegame.org>  Sat, 29 Jan 2005 07:28:39 -0500
+
+darcs (1.0.2rc2)
+
+  * Fixed bug on win32 when there are spaces in a repositories path and an
+    external program (i.e. ssh) is called. (Will Glozer)
+
+ -- David Roundy <droundy@abridgegame.org>  Thu, 27 Jan 2005 06:46:37 -0500
+
+darcs (1.0.2rc1)
+
+  * Added experimental support for repositories without a "pristine tree"
+    This is the new name for the cache stored in _darcs/current/.
+    (Juliusz Chroboczek)
+  * Added an optimize --relink command to save disk space when using
+    multiple repositories. (Juliusz Chroboczek)
+  * Ignore conflict markers in the boring and binaries files.
+  * Fixed bug in get --partial when patches are in an unusual order.
+    (Andrew Johnson)
+  * Fixed bug which caused a crash on a local get of a repository owned by
+    another user.
+  * Fixed bug in changes/annotate that shows up when a directory has been
+    moved.
+  * Allow ncurses in addition to curses in configure.
+  * Added --set-scripts-executable option. (Karel Gardas)
+  * Added configure option to fix path to sendmail even if it's not
+    present.
+  * Made bash completion more robust regarding shell special chars.
+  * Added konquerer workaround to cgi annotate. (Will Glozer)
+  * Addressed bug #114 - provide a better error when you accidently try to
+    pull from yourself. (Mark Stosberg)
+  * Made a few documentation improvements.
+  * Made http user agent reflect the darcs and libcurl version.
+  * Fixed commute bug in merger code.
+  * Fixed bug in decoding mime messages.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed, 26 Jan 2005 08:51:24 -0500
+
+darcs (1.0.1)
+
+  * Made darcs changes --context work on an empty repo.
+  * Fixed bug in relative directories as arguments to pull/push.
+  * Fixed bug leading to extraneous changes in pending.
+  * Fixed bug #137 - XML escaping for >.
+  * Fixed gui code to compile with wxhaskell 0.8 (but it's still buggy).
+
+ -- David Roundy <droundy@abridgegame.org>  Tue, 14 Dec 2004 08:16:10 -0500
+
+darcs (1.0.1rc3)
+
+  * Made it so adding and removing a file doesn't leave changes in pending.
+  * Fixed bug in creating the file to be edited for the long comment.
+  * Made "bug in get_extra" message explain possible cause of the problem,
+    which is related to a bug in commutation that made it into version
+    1.0.0.
+  * Fixed stubborn bug in annotate.
+  * Fixed problem when unrecording binary file patches.
+
+ -- David Roundy <droundy@abridgegame.org>  Sat, 11 Dec 2004 14:23:53 -0500
+
+darcs (1.0.1rc2)
+
+  * Various optimizations.
+  * darcs now supports an arbitrary number of transport protocols through the
+    use new environment variables. See DARCS_GET_FOO in the 'Configuring
+    Darcs' chapter in the manual for more details.
+  * darcs now supports an arbitrary number of concurrent connections when
+    communicating with remote repos. See the documentation for DARCS_MGET_FOO
+    in the 'Configuring Darcs' chapter in the manual for more details.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed,  8 Dec 2004 08:02:48 -0500
+
+darcs (1.0.1rc1)
+
+  * Fixed bug in commutation of adjacent hunks which have either no new or
+    no old lines.
+  * Numerous newline fixes for windows.
+  * On windows, use MAPI to resolve to and from addresses.
+  * Fixed problem where the --cc was ignored in apply if the patch
+    succeeded.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed,  1 Dec 2004 06:24:08 -0500
+
+darcs (1.0.1pre1)
+
+  * Changed apply to by default refuse to apply patches that would lead to
+    conflicts.
+  * Removed the old darcs_cgi script, in favor of the darcs.cgi script.
+  * Fixed changes to work better in partial repositories.
+  * Set stdin and stdout to binary mode to fix end of line problems with
+    push under windows.
+  * Made send create proper MIME email.
+  * Removed reportbug command, really wasn't necesary, and didn't work
+    well.  Report bugs by an email to bugs@darcs.net, which creates a
+    ticket in our BTS.
+  * Allow darcs to work with a password protected proxy.
+  * Get multiple files with a single wget call when darcs is compiled
+    without libcurl support.
+  * Use sftp instead of scp to copy patches via ssh -- this reuses a single
+    connection for better speed.
+  * Made _darcs/current polymorphic (but not really documented).
+  * Made optimize --uncompress work with --partial repos.
+  * Various minor interface improvements.
+  * Made changes work better when specifying a file, and working in a
+    partial repository.
+  * Fixed bug in causing "Fail: _darcs/patches/unrevert: removeFile: does
+    not exist (No such file or directory)".  Resolves bugs #57, #61.
+
+ -- David Roundy <droundy@abridgegame.org>  Sun, 21 Nov 2004 08:29:24 -0500
+
+darcs (1.0.0)
+
+  * Fixed compile error when antimemoize is enabled.
+  * Fixed bug that showed up when dealing with international characters in
+    filenames.
+  * Various documentation improvements.
+
+ -- David Roundy <droundy@abridgegame.org>  Mon,  8 Nov 2004 06:12:08 -0500
+
+darcs (1.0.0rc4)
+
+  * Use autoconf to check for working install program.
+  * Renamed rerecord to amend-record in a futile attempt to avoid
+    confusion.
+  * Made pull accept the --repodir option.
+  * Fixed off-by-one error in annotate that kept users from seeing
+    "deleted" version.
+  * Check filesystem semantics at runtime to avoid using mmap on
+    windows filesystems.
+  * Fixed darcs.cgi to work properly when browsing history of renamed
+    files.
+  * Use anonymous file handle for temporary files in darcs.cgi -- fixes a
+    temporary file leak and potentially improves security.
+  * Added --summary option to commands that accept --dry-run.
+  * Made pull prompt for confirmation when there is a conflict with
+    unrecorded changes.
+  * Made unrevert interactive.
+  * Don't try to generate a new name on get if name was given explicitely.
+  * Always mark conflicts, even if there's an obvious solution.
+  * Quote conflict attribute values in xml output.
+  * Fail if the user gives a newline in the patch name.
+  * Fixed bug where new files didn't show up in darcs diff.
+  * Really fix newlines in whatsnew -u.
+  * Fixed bug in handling of tags in changes and annotate.
+  * Fixed bug in default options containing "--".
+  * Fixed various other build problems in 1.0.0rc3.
+  * Fixed embarrassing failure-to-compile-on-windows bug.
+
+ -- David Roundy <droundy@abridgegame.org>  Mon,  1 Nov 2004 05:19:01 -0500
+
+darcs (1.0.0rc3)
+
+  * Fixed bug leading to creation of empty "hunk" patches.
+  * Fixed bug in rollback when there are pending changes.
+  * Fixed push bug when default apply is --interactive.
+  * Fixed a bug where "darcs pull --list-options" would try to
+    complete to "home/.../darcs_repo" instead of "/home/.../darcs_repo".
+  * Fixed flushing bug in darcs.cgi.
+  * Fixed commutation bug with renames and file adds/removals.
+  * Made --summary indicate conflicted changes.
+  * Fixed generation of extra hunk in diff algorithm.
+  * Added X-Mail-Originator header to emails sent by darcs.
+  * Fixed a couple of bugs in the resolve command.
+  * Added new cgi diff command to produce unified diff.
+  * Notify when there are conflicts on push.
+  * Added 'a' key to say yes to all remaining changes for interactive
+    commands.
+  * Automatically generate AUTHORS file from repo history.
+  * Made pull --quiet actually quiet.
+  * Fixed bugs in whatsnew -ls, and distinguished between manually added
+    files and automatically added files.
+  * Fixed bug in darcs --commands when called outside a repo.
+
+ -- David Roundy <droundy@abridgegame.org>  Sun,  3 Oct 2004 07:45:05 -0400
+
+darcs (1.0.0rc2)
+
+  * Added support for comments in prefs files.
+  * Added new --enable-antimemoize compile option which reduces memory
+    usage at the expense of increased computational time.
+  * Added a new command:  "reportbug"
+  * Fixed a bug that prevented applying of a patch bundle to an
+    "unoptimized" repo.
+  * Fixed bug where asking for changes to a nonexistent file in a
+    subdirectory would show the patch that created or renamed that
+    subdirectory.
+  * Improved the robustness of unrevert.  Now actions that will make
+    unrevert impossible should warn the user.
+  * Fixed bug when moving files or directories to the root directory of
+    repo.
+  * Various changes to make the --logfile way of specifying the patch name
+    and comments in record more friendly:
+    - Allows editing of the long comment even when --logfile is specified,
+      if the --edit-long-comment option is also used.
+    - When editing the long comment, the change summary is included below
+      the actual text for reference, and the patch name is included in the
+      first line (and thus may be modified).
+    - The --logfile option is ignored if such a file doesn't exist.
+    - A --delete-logfile option was added, which tells darcs to delete the
+      file after doing the record.  This is intended to allow you to stick
+      a --logfile=foo option in your defaults without accidentally
+      recording multiple patches with the same comments because you forgot
+      to modify it.
+  * Fixed bug leading to .hi files in tarball.
+  * Made ctrl-C work under windows, but only "pure" windows consoles, not
+    in cygwin shells or mingw's rxvt (room for improvement here).
+  * Fixed bug that led to curl not being tried when darcs is not compiled
+    with libcurl.
+  * Added an environment variable DARCS_USE_ISPRINT for people who use
+    non-ascii characters in their files to indicate if the haskell standard
+    library "isPrint" function works properly on their system (which
+    depends on locale).
+  * Reduced the number of hunks produced by the internal diff algorithm,
+    when there are multiple equivalent ways of interpreting a change.
+  * Made the --from-{patch,tag,match} options inclusive, and added a
+    --{patch,match} option to diff (which was made easier to define by the
+    inclusiveness change, since --patch x is now equivalent to
+    --from-patch x --to-patch x).
+  * Added support for a second argument to get, which specifies the name of
+    the new directory.
+
+ -- David Roundy <droundy@abridgegame.org>  Sun, 12 Sep 2004 06:54:45 -0400
+
+darcs (1.0.0rc1)
+
+  * Remove some lazy file IO which may have been causing trouble pushing in
+    windows and using windows shares.
+  * Various interface improvements and improved error messages.
+  * Fixed bug that could cause conflicts in pending when unrecording a
+    patch that contained two non-commuting non-hunk patches.
+  * Fixed bug in --ask-deps option of record.
+  * Added --exact-version option which gives the precise darcs context from
+    which darcs was compiled.
+  * MIME fixes in patch forwarding.
+  * Various improvements to the darcs.cgi script.
+  * Added --reverse option to changes.
+  * Fixed patch numbering when file or directory arguments are given to an
+    interactive command.
+
+ -- David Roundy <droundy@abridgegame.org>  Sun, 15 Aug 2004 07:43:30 -0400
+
+darcs (0.9.23)
+
+  * Added a rerecord command, which will add changes to an existing
+    recorded patch
+  * Added support for a MOTD.
+  * Vastly improved the speed and memory use of darcs optimize --checkpoint
+    as well as darcs record, in the case where a record consists primarily
+    of adds.
+
+ -- David Roundy <droundy@abridgegame.org>  Mon, 26 Jul 2004 08:11:20 -0400
+
+darcs (0.9.22)
+
+  * add preliminary --context option to changes and get.
+  * display change number, e.g. "(1/3)" in interactive commands.
+  * show moves in summary format.
+  * add hash of patch bundles in darcs send.
+  * properly support --verbose and --quiet in add.
+  * don't display binary data to screen.
+  * fix bug in selecting patches by pattern.
+  * fix various locking-related bugs introduced in 0.9.21.
+  * fix bug when specifying logfile in a subdirectory.
+  * support backslashes for directory separators in windows.
+  * fix file modification time bug.
+
+ -- David Roundy <droundy@abridgegame.org>  Sat, 26 Jun 2004 07:42:05 -0400
+
+darcs (0.9.21)
+
+  * made mv work even if you've already mv'ed the file or directory.
+  * remember configure settings when reconfiguring.
+  * added --leave-test-directory to save the directory in which the test is
+    run on record or check.
+  * added HTTP redirect support (thanks Benedikt).
+  * fixed problems when unrecording a patch with conflits.
+  * fixed locking on nfs (thanks Juliusz).
+  * added preliminary version of a new cgi script for browsing darcs
+    repositories (thanks to Will Glozer for contributing this).
+  * add and modify a number of short flag options.
+  * fix bug in applying new order patch bundles that are GPG signed.
+  * fix bug in diff when a tagged version was requested.
+
+ -- David Roundy <droundy@abridgegame.org>  Sat, 12 Jun 2004 05:39:48 -0400
+
+darcs (0.9.20)
+
+  * fix bug in darcs-createrepo.
+  * add support for DARCS_SCP and DARCS_SSH environment variables.
+  * add XML support for --summary options of changes and annotate.
+  * better command-line completion on commands accepting a list of files or
+    directories.
+  * fix bug causing empty hunk patches to lead to failures.
+  * fix bug where --all overrode file choice in record.
+  * fix bug when testing patches that create subdirectories within subdirectories.
+  * preserve pending changes when pulling or applying.
+  * give better error message in pull when patch isn't readable.
+  * allow sendEmail with no "to", just "cc" recipients.  This should fix
+    the trouble with trying to --reply to a patch coming from a push rather
+    than a send.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed,  5 May 2004 06:01:48 -0400
+
+darcs (0.9.19)
+
+  * fix bugs leading to failures in the wxhaskell interface.
+  * fix bug that caused darcs diff to fail.
+  * fixed bug in get that lead to _darcs/current/_darcs directories.
+  * improved error reporting in several situations.
+  * fixed bug when pulling or pushing into an empty repo.
+  * added --summary option to changes to summarize the changes made in each
+    patch.
+
+ -- David Roundy <droundy@abridgegame.org>  Fri,  9 Apr 2004 07:19:34 -0400
+
+darcs (0.9.18)
+
+  * added support for sending email from windows using the MAPI interface.
+    This code attaches the patch bundle in base64-encoded form, which darcs
+    can't currently decode (expect that in the next release), but the patch
+    bundle can be manually applied if a mail program does the decoding.
+  * renamed "darcs push" to "darcs send" and added a new "darcs push"
+    command roughly equivalent to the old "darcs push --and-apply".
+  * removed support for setting up a test suite by simple creating a file
+    named "darcs_test".  You now should use setpref to define the test
+    suite command.
+  * fixed some problems when working in a --partial repository.
+  * lots of code was cleaned up.  We have enabled the -Wall compiler flag
+    and are in the process of eliminating all the warnings.  This should
+    make the code more friendly to new developers, and also helps with the
+    next bullet point:
+  * improved handling of errors--informative failure messages are more
+    likely than they were before.
+  * by default only check changes made since last checkpoint--this greatly
+    speeds up check.
+  * add --quiet option.  Some commands don't yet support this.  If
+    there's a command you want to quiet down, let us know.
+  * several performance enhancements: improved SHA1 performance, faster
+    check and get on repositories with a long history and improved
+    performance with very large files.
+
+ -- David Roundy <droundy@abridgegame.org>  Thu,  1 Apr 2004 05:43:18 -0500
+
+darcs (0.9.17)
+
+  * fixed bug in darcs apply that made the --no-test option fail.
+  * fixed bug that caused darcs to set file permissions to be
+    non-world-readable.
+  * darcs record and whatsnew can now accept file or directory arguments
+    and limit their actions to changes in those files or directories.
+  * darcs changes now can accept file or directory arguments and limit
+    itself to changes affecting those files or directories.
+
+ -- David Roundy <droundy@abridgegame.org>  Sat, 21 Feb 2004 08:12:34 -0500
+
+darcs (0.9.16)
+
+  * Add --sign-as=KEYID option to push command.
+  * make optimize split up inventory for faster pulls
+  * Allow use of a different make command for tests, such as gmake
+  * Can now put prefs that would normally go in _darcs/prefs (defaults,
+    binaries and boring) in ~/.darcs/ to set the prefs for all your
+    repositories at once.
+  * add primitive xml output to annotate of directory.
+  * When pushing a patch, add the list of changes in the description.
+  * refuse to rollback a patch twice, since that would cause problems.
+  * make darcs diff accept optional arguments indicating files and
+    directories to diff.
+  * preserve permissions on files in working directory.
+  * put docs in ...share/doc/darcs not share/darcs/doc.
+  * add support for multiple-choice options.  This means that you can now
+    set your default option in _darcs/prefs/defaults, and then override
+    that default on the command line.
+  * shortened --use-external-merge-tool option to --external-merge
+  * more "boring" patterns.
+
+ -- David Roundy <droundy@abridgegame.org>  Tue, 10 Feb 2004 07:08:14 -0500
+
+darcs (0.9.15)
+
+  * next step repository format transition--we use the new patch filenames.
+  * fix handling of text files with no trailing newline--this will cause
+    some trouble.  Darcs will require that you convert your repository
+    using convert-repo.  This will leave you with a bunch of changes
+    regarding trailing newlines which you will either want to record or
+    revert.
+  * the windows support is somewhat improved.
+  * added simple "repair" command that can repair some kinds of
+    inconsistencies in the repository.
+  * added primitive "annotate" command to extract information about
+    modifications to files and directories.
+  * fixed handling of darcs mv to allow moving to directories in a more
+    intuitive manner.
+  * handling of binary files was dramatically improved in both memory and
+    cpu usage.
+  * added autoconf testing framework to clean up code dealing with
+    different versions of ghc, features that don't exist on windows, bugs
+    that only exist on windows, etc.
+  * don't accept invalid flags.
+  * add more patterns to boring and binary.
+  * use autoconf test to handle posix signals and windows '\\' handling.
+  * switch to using new patch filenames.
+  * XML formatted output for 'changes' command
+  * add support for unidiff-like whatsnew output.
+  * fix bug in RTS memory calculation for large RAM size
+  * add rollback command.
+  * improve checkpointing support.
+  * add diff-opts option to darcs diff.
+  * add support for building docs using htlatex or hevea rather than
+    latex2html.
+  * use locking whereever it is needed.
+  * add safe (atomic) writing of inventory files.
+
+ -- David Roundy <droundy@abridgegame.org>  Fri, 12 Dec 2003 07:59:54 -0500
+
+darcs (0.9.14)
+
+  * darcs changes now shows times formatted according to current locale.
+  * add support for automatically treating files containing ^Z or '\0' as
+    binary.
+  * add experimental checkpointing, allowing get to only download the
+    recent change history.
+  * allow darcs to be called within subdirectories of a repository.
+  * make default be to compress patches.
+  * add --summary option to whatsnew.
+  * add trackdown command.
+  * fix bug in darcs dist --verbose.
+  * make darcs diff have closer behavior to cvs diff.  In particular, darcs
+    diff with no arguments now gives you the difference between the working
+    directory and the latest recorded version.
+  * support external graphical merge tools.
+  * fix bug where binary patch is created even with no change.
+  * support darcs -v for version.  Also mention the darcs version in the
+    usage mesage.
+  * ignore empty lines in boring file and binary file.
+  * preserve pending changes (e.g. file adds or darcs replaces) across
+    revert and record.
+  * create repositories with new patch filename format.
+    The new repo format is now created alongside the old format, but the
+    old format is read.  There is a tool called convert-repo that will
+    convert an old format repo to have both formats.
+  * use iso format for dates in record.
+  * New patch-selecting interface.
+    This patch only uses the new routine for revert, since it's not
+    particularly well tested.  The text method now allows one to go back
+    and edit previous patches.  The idea is that eventually all commands
+    that need the user to select a subset of patches will use this routine.
+  * use hash for cgi cache file names.
+  * add preliminary experimental GUI support using wxhaskell.
+  * remember author name after first record in a repo.
+  * add unrevert command.
+  * always match full pathnames when checking boringness or binaryness.
+  * rewrite replace tokenizer for more speed.
+  * make darcs compile with ghc 6.2 and later.
+  * fix some bugs in darcs diff.
+  * make --and-apply work locally as well as via ssh.
+    Also added a --and-apply-as that uses sudo to run the apply command as
+    a different user.
+
+ -- David Roundy <droundy@abridgegame.org>  Mon, 10 Nov 2003 07:08:20 -0500
+
+darcs (0.9.13)
+
+  * Various performance enhancements.
+  * add --pipe option to tag and record, which causes them to prompt for
+    all their input, including date.  This can be useful when creating
+    repository converters.
+  * remove '-t' short command line option for '--to' and the '-o' short
+    option for '--reponame'.
+  * remove the darcs-patcher program.
+        The functionality of the darcs-patcher program is taken over by
+        the darcs apply command.  Several fancy features have been added,
+        as described in the Apply section of the manual.
+  * support spaces and (maybe) unicode in filenames.
+  * updates to win32 support
+  * push via ssh
+  * add --without-libcurl option to configure
+  * include DarcsURL in push email.
+  * add support for reading and writing gzipped patch files.
+  * allow multiple --to addresses on push, and also support --cc for
+    additional addresses.
+  * when pulling or pushing from lastrepo, say where lastrepo is.
+  * only save lastrepo in get if the source repo wasn't a relative
+    directory path.
+
+ -- David Roundy <droundy@abridgegame.org>
+
+darcs (0.9.12)
+
+  * add manual section on building darcs.
+  * improve scaling of checking for and resolving conflicts, which was an
+    O(n^2) function.
+  * escape ESC char when printing patches.
+  * don't reorder patches unless necesary--this avoids an O(n^2) operation
+    which was making a darcs record very slow when a lot of files were
+    added.
+  * fix default regexps for boring file (Thanks Trevor!)
+  * replace now ignores files that aren't in the repo.
+  * make darcs add refuse to add files whose subdirectories don't exist.
+  * implement support for binary files.
+  * added support for running external programs to fetch files.
+  * fix conflict resolution bug from 0.9.11.
+  * make the patcher run the test prior to applying.
+  * add repo locking.
+  * Fix bug when pulling from a repo containing just one patch (thanks
+    Peter).
+  * install cgi script in cgi-bin directory.
+
+ -- David Roundy <droundy@abridgegame.org>
+
+darcs (0.9.11)
+
+  * A rewrite of the configure code and makefile (thanks to Peter Simons).
+  * Added several new repository configuration options including a setpref
+    command which allows you to set preferences options that are pulled
+    from repo to repo.
+  * Yet another rewrite of the merging code.
+  * User can now revert changes on a change-by-change basis.
+  * Yet another major improvement in speed and memory consumption.
+  * Add a darcs diff command to compare two versions.
+
+ -- David Roundy <droundy@abridgegame.org>  Mon, 30 Jun 2003 06:42:10 -0400
+
+darcs (0.9.10)
+
+  * Added a way to configure the default values for options to darcs
+    commands.  See Appendix B of manual.
+  * darcs push and pull now default to pulling and pushing from the most
+    recently accessed repository (if you don't specify a repo).
+  * Numerous bugfixes.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed, 21 May 2003 07:08:40 -0400
+
+darcs (0.9.9)
+
+  * Created a way to have a "centralized server".  (See darcs-patcher
+    chapter in manual).
+  * Added new darcs-server package.
+  * Switch to new repository format.  Note that your repo will only be
+    converted to the new format if you use certain commands such as
+    unpull.  You can recognize the new format by the presence of a
+    _darcs/inventories/ directory.
+  * Add the ability to sign patches sent with push using gnupg and to
+    verify those signatures when applying.  (This is the authentication
+    basis for the above-mentioned server).
+  * Fix bug in application of a file rename patch.
+
+ -- David Roundy <droundy@abridgegame.org>  Thu,  8 May 2003 06:58:42 -0400
+
+darcs (0.9.8)
+
+  * Fix rare bug in check when files happen to be a multiple of 1024 bytes
+    in length.
+  * Fix bug in reading patch ids with long comments from local files.
+  * Prepare for a change in the repository format.  The format doesn't
+    change for this version, but version 0.9.8 is able to read the new
+    repository format.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed, 30 Apr 2003 08:54:18 -0400
+
+darcs (0.9.7)
+
+  * Fix a couple of rename conflict bugs.
+  * Add new test suite framework, along with several tests.
+  * Several major optimizations for speed and memory.
+  * Added --ignore-times option to not assume that when a file
+    modification time hasn't changed the file itself hasn't changed.
+
+ -- David Roundy <droundy@abridgegame.org>  Sat, 26 Apr 2003 07:57:01 -0400
+
+darcs (0.9.6)
+
+  * Fixed a couple of bugs in the merging of conflicting renames.
+  * Added an interface to include long comments when recording.
+  * Improve the interface of pull, allowing for viewing the patches before
+    pulling them.
+  * Include zsh command completion examples with docs.
+  * Massively improved responsiveness in command completion.
+  * Use packed strings to save memory.
+  * Fixed a bug that shows up in empty repos.
+  * Fixed multiple bugs in the mv command.
+
+ -- David Roundy <droundy@abridgegame.org>  Thu, 17 Apr 2003 09:34:34 -0400
+
+darcs (0.9.5)
+
+  * Improve merge of creation of files and directories with the same name.
+  * Add darcs push and apply commands, which are the beginning of work
+    towards supporting a "centralized server" concept a la CVS.  However,
+    they are also useful for a "Linus" style workflow, based on emailing
+    patches.  In theory they could also be used to provide a smart server
+    that could server pulls using less bandwidth.
+  * Add an unpull command analagous to unrecord, but which removes the
+    patches from the working directory also.
+  * Enable the mv command, since the mv patches have now been supported by
+    a couple of versions.
+  * Include zsh_completion code, thanks to Aaron Denney <wnoise@ofb.net>.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed,  9 Apr 2003 07:52:01 -0400
+
+darcs (0.9.4)
+
+  * Speed up whatsnew and record in the case where there are huge numbers
+    of extra files in the working directory.
+  * Small (~10%) speedup in get.
+
+ -- David Roundy <droundy@abridgegame.org>  Fri,  4 Apr 2003 09:08:38 -0500
+
+darcs (0.9.3)
+
+  * Optimized whatsnew and record by seting modification time of "current"
+    files equal to that of working files if they are identical, so I won't
+    have to check again if the working one hasn't been changed.
+  * Rewrite file renaming code (no creation).
+  * Add support for replacing tokens in files.
+  * Make cgi output work more accurately, and point out which files were
+    modified by each patch.
+  * Add a caching feature to the cgi script to speed things up a bit.
+  * Turn on creation of dependencies when recording.
+  * Add a 'tag' command.
+  * Rewrote the 'pull' code to hopefully speed it up (and in any case to
+    greatly simplify it).
+
+ -- David Roundy <droundy@abridgegame.org>  Thu,  3 Apr 2003 07:08:05 -0500
+
+darcs (0.9.2)
+
+  * Add build dependency on tetex and latex2html
+  * Have internal diff code properly respond to deleted files and
+    directories.
+  * Create file and directory rename patch types. (no creation--which
+    means that I am waiting to create commands to create such patches
+    until later, to avoid backward compatibility issues of repos.)
+  * Add support for patch dependencies. (no creation)
+  * Add support for token replacement patches. (no creation)
+
+ -- David Roundy <droundy@abridgegame.org>  Thu, 27 Mar 2003 07:59:09 -0500
+
+darcs (0.9.1)
+
+  * Make darcs get --verbose actually be verbose (which is important
+    because it takes so long that the user might be afraid it's hanging.
+  * Speed up the merge in complicated cases, possibly dramatically.
+  * Add a darcs remove command.
+
+ -- David Roundy <droundy@abridgegame.org>  Mon, 10 Mar 2003 09:48:55 -0500
+
+darcs 0.9.0
+
+  * Initial Release.
+
+ -- David Roundy <droundy@abridgegame.org>  Wed,  3 Mar 2003 13:51:58 -0500
+
+
+
+Local variables:
+mode: outline
+outline-regexp: "[dD]\\| +\\*+"
+paragraph-separate: "[  ]*$"
+end:

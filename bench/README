@@ -1,0 +1,15 @@
+This directory is for scripts demonstrating where darcs is slow.  I'd like
+to eventually stick a driver or makefile in here that runs the tests and
+presents their timings in a nice format.  But for now, this is just a place
+to stick cases that we'd like to see improved eventually.
+
+I'd *love* to have scripts in here that would generate large repositories
+or repositories with large files in them and/or long histories and time
+various darcs operations on a whole range of repositories to determine how
+darcs scales with regard to different parameters in both time and memory
+use.
+
+But that's a large project.  For now, this is just a warehouse for test
+cases.
+
+David

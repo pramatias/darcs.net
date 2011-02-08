@@ -1,0 +1,668 @@
+%  Copyright (C) 2002-2003 David Roundy
+%
+%  This program is free software; you can redistribute it and/or modify
+%  it under the terms of the GNU General Public License as published by
+%  the Free Software Foundation; either version 2, or (at your option)
+%  any later version.
+%
+%  This program is distributed in the hope that it will be useful,
+%  but WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%  GNU General Public License for more details.
+%
+%  You should have received a copy of the GNU General Public License
+%  along with this program; see the file COPYING.  If not, write to
+%  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+%  Boston, MA 02110-1301, USA.
+
+\documentclass{book}
+%\usepackage{color}
+
+\usepackage{verbatim}
+\usepackage{html}
+\usepackage{fancyvrb}
+\newenvironment{code}{\comment}{\endcomment}
+% \newenvironment{code}{\color{blue}\verbatim}{\endverbatim}
+
+\begin{document}
+
+
+% Definition of title page:
+\title{Darcs User Manual}
+\date{
+\darcsVersion
+} % icky newline before closing brace is to appease preproc.hs.
+\author{David Roundy}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Introduction}
+
+This manual provides a stable documentation for using darcs.
+To find more up-to-date and complementary information, please consult the
+darcs wiki at
+\htmladdnormallinkfoot{http://wiki.darcs.net}{http://wiki.darcs.net}.
+
+Darcs is a revision control system, along the lines of Subversion, Git or
+Mercurial.  That means that it keeps track of various revisions and branches of your
+project, allows for changes to propagate from one branch to another.  Darcs
+is intended to be an ``advanced'' revision control system.  Darcs has two
+particularly distinctive features which differ from other revision control
+systems: 1) each copy of the source is a fully functional branch, and 2)
+it is based on changes and not revisions.
+
+\paragraph{Every source tree a branch}
+The primary simplifying notion of darcs is that \emph{every} copy of your
+source code is a full repository. This is dramatically different from Subversion,
+in which the normal usage is for there to be one central repository from
+which source code will be checked out. It is closer to the notion of arch,
+since the `normal' use of arch is for each developer to create his own
+repository. However, darcs makes it even easier, since simply checking out
+the code is all it takes to create a new repository. This has several
+advantages, since you can harness the full power of darcs in any scratch
+copy of your code, without committing your possibly destabilizing changes to
+a central repository.
+
+%% FIXME: unbound personal pronoun (me).  Use third person, passive voice.
+
+\paragraph{Change-oriented}
+The development of a simplified theory of patches is what originally
+motivated the creation of darcs. This patch formalism means that darcs patches
+have a set of properties, which make possible manipulations that couldn't be
+done in other revision control systems. First, every patch is invertible.
+Secondly, sequential patches (i.e.\ patches that are created in sequence, one
+after the other) can be reordered, although this reordering can fail, which
+means the second patch is dependent on the first. Thirdly, patches which are
+in parallel (i.e.\ both patches were created by modifying identical trees)
+can be merged, and the result of a set of merges is independent of the order
+in which the merges are performed. This last property is critical to darcs'
+philosophy, as it means that a particular version of a source tree is fully
+defined by the list of patches that are in it, i.e.\ there is no issue
+regarding the order in which merges are performed. For a more thorough
+discussion of darcs' theory of patches, see Appendix~\ref{Patch}.
+
+%% FIXME: clarify - the theory is advanced, the UI is simple.
+
+\paragraph{A simple advanced tool}
+Besides being ``advanced'' as discussed above, darcs is actually also quite
+simple. Versioning tools can be seen as three layers. At the foundation is
+the ability to manipulate changes. On top of that must be placed some kind
+of database system to keep track of the changes. Finally, at the very top is
+some sort of distribution system for getting changes from one place to
+another.
+
+In darcs, only the first of these three layers is of particular interest,
+so the other two are done as simply as possible.  At the database
+layer, darcs just has an ordered list of patches along with the patches
+themselves, each stored as an individual file.  Darcs' distribution system
+is based on a dumb server, typically apache or just a local or network file
+system when pulling patches.
+darcs has built-in support for using \verb!ssh! to write to a remote file
+system. A darcs executable is called on the remote system to apply the patches.
+Arbitrary other transport protocols are supported, through an environment
+variable describing a command that will run darcs on the remote system.
+See the documentation for DARCS\_APPLY\_FOO in Chapter~\ref{configuring}
+for details.
+
+The recommended method is to send patches through gpg-signed email
+messages, which has the advantage of being mostly asynchronous.
+
+\paragraph{Keeping track of changes rather than versions}
+
+In the last paragraph, I explained revision control systems in terms of
+three layers.  One can also look at them as having two distinct uses.  One
+is to provide a history of previous versions.  The other is to keep track
+of changes that are made to the repository, and to allow these changes to
+be merged and moved from one repository to another.  These two uses are
+distinct, and almost orthogonal, in the sense that a tool can support one
+of the two uses optimally while providing no support for the other.  Darcs
+is not intended to maintain a history of versions, although it is possible
+to kludge together such a revision history, either by making each new patch
+depend on all previous patches, or by tagging regularly.  In a sense, this
+is what the tag feature is for, but the intention is that tagging will be
+used only to mark particularly notable versions (e.g.\ released versions, or
+perhaps versions that pass a time consuming test suite).
+
+Other revision control systems are centered upon the job of keeping track
+of a history of versions, with the ability to merge changes being added as
+it was seen that this would be desirable.  But the fundamental object
+remained the versions themselves.
+
+In such a system, a patch (I am using patch here to mean an encapsulated
+set of changes) is uniquely determined by two trees.  Merging changes that
+are in two trees consists of finding a common parent tree, computing the
+diffs of each tree with their parent, and then cleverly combining those two
+diffs and applying the combined diff to the parent tree, possibly at some
+point in the process allowing human intervention, to allow for fixing up
+problems in the merge such as conflicts.
+
+In the world of darcs, the source tree is \emph{not} the fundamental
+object, but rather the patch is the fundamental object.  Rather than a
+patch being defined in terms of the difference between two trees, a tree is
+defined as the result of applying a given set of patches to an empty tree.
+Moreover, these patches may be reordered (unless there are dependencies
+between the patches involved) without changing the tree.  As a result,
+there is no need to find a common parent when performing a merge.  Or, if
+you like, their common parent is defined by the set of common patches, and
+may not correspond to any version in the version history.
+
+One useful consequence of darcs' patch-oriented philosophy is that since a
+patch need not be uniquely defined by a pair of trees (old and new), we can
+have several ways of representing the same change, which differ only in how
+they commute and what the result of merging them is.  Of course, creating
+such a patch will require some sort of user input.  This is a Good Thing,
+since the user \emph{creating} the patch should be the one forced to think
+about what he really wants to change, rather than the users merging the
+patch.  An example of this is the token replace patch (See
+Section~\ref{token_replace}).  This feature makes it possible to create a
+patch, for example, which changes every instance of the variable
+``stupidly\_named\_var'' to ``better\_var\_name'', while leaving
+``other\_stupidly\_named\_var'' untouched.  When this patch is merged with
+any other patch involving the ``stupidly\_named\_var'', that instance will
+also be modified to ``better\_var\_name''.  This is in contrast to a more
+conventional merging method which would not only fail to change new
+instances of the variable, but would also involve conflicts when merging
+with any patch that modifies lines containing the variable.  By more using
+additional information about the programmer's intent, darcs is thus able to
+make the process of changing a variable name the trivial task that it
+really is, which is really just a trivial search and replace, modulo
+tokenizing the code appropriately.
+
+The patch formalism discussed in Appendix~\ref{Patch} is what makes darcs'
+approach possible.  In order for a tree to consist of a set of patches,
+there must be a deterministic merge of any set of patches, regardless of the
+order in which they must be merged.  This requires that one be able to
+reorder patches.  While I don't know that the patches are required to be
+invertible as well, my implementation certainly requires invertibility.  In
+particular, invertibility is required to make use of
+Theorem~\ref{merge_thm}, which is used extensively in the manipulation of
+merges.
+
+\input{features.tex}
+
+\chapter{Getting started}
+
+This chapter will lead you through an example use of darcs, which hopefully
+will allow you to get started using darcs with your project.
+
+\section{Creating your repository}
+
+Creating your repository in the first place just involves telling darcs to
+create the special directory (called {\tt \_darcs}) in your project tree,
+which will hold the revision information.  This is done by simply calling
+from the root directory of your project:
+\begin{verbatim}
+$ cd my_project/
+$ darcs initialize
+\end{verbatim}
+This creates the \verb|_darcs| directory and populates it with whatever
+files and directories are needed to describe an empty project.  You now
+need to tell darcs what files and directories in your project should be
+under revision control.  You do this using the command \verb|darcs add|:
+\begin{verbatim}
+$ darcs add *.c Makefile.am configure.ac
+\end{verbatim}
+When you have added all your files (or at least, think you have), you will
+want to record your changes.  ``Recording'' always includes adding a note
+as to why the change was made, or what it does.  In this case, we'll just
+note that this is the initial version.
+\begin{verbatim}
+$ darcs record --all
+What is the patch name? Initial revision.
+\end{verbatim}
+Note that since we didn't specify a patch name on the command line we were
+prompted for one.  If the environment variable `EMAIL' isn't set, you will
+also be prompted for your email address.  Each patch that is recorded is
+given a unique identifier consisting of the patch name, its creator's email
+address, and the date when it was created.
+
+\section{Making changes}
+
+Now that we have created our repository, make a change to one or more of
+your files.  After making the modification run:
+\begin{verbatim}
+$ darcs whatsnew
+\end{verbatim}
+This should show you the modifications that you just made, in the darcs
+patch format.  If you prefer to see your changes in a different format,
+read Section~\ref{whatsnew}, which describes the whatsnew command in
+detail.
+
+Let's say you have now made a change to your project.  The next thing to do
+is to record a patch.  Recording a patch consists of grouping together a
+set of related changes, and giving them a name.  It also tags the patch
+with the date it was recorded and your email address.
+
+To record a patch simply type:
+\begin{verbatim}
+$ darcs record
+\end{verbatim}
+darcs will then prompt you with all the changes that you have made that
+have not yet been recorded, asking you which ones you want to include in
+the new patch.  Finally, darcs will ask you for a name for the patch.
+
+You can now rerun whatsnew, and see that indeed the changes you have
+recorded are no longer marked as new.
+
+\section{Making your repository visible to others}
+How do you let the world know about these wonderful changes?  Obviously,
+they must be able to see your repository.  Currently the easiest way to do
+this is typically by http using any web server.  The recommended way to do
+this (using apache in a UNIX environment) is to create a directory called
+{\tt /var/www/repos}, and then put a symlink to your repository there:
+\begin{verbatim}
+$ cd /var/www/repos
+$ ln -s /home/username/myproject .
+\end{verbatim}
+
+\section{Getting changes made to another repository}
+Ok, so I can now browse your repository using my web browser\ldots\ so
+what? How do I get your changes into \emph{my} repository, where they can
+do some good? It couldn't be easier.  I just \verb|cd| into my repository,
+and there type:
+\begin{verbatim}
+$ darcs pull http://your.server.org/repos/yourproject
+\end{verbatim}
+Darcs will check to see if you have recorded any changes that aren't in my
+current repository.  If so, it'll prompt me for each one, to see which ones
+I want to add to my repository.  Note that you may see a different series
+of prompts depending on your answers, since sometimes one patch depends on
+another, so if you answer yes to the first one, you won't be prompted for
+the second if the first depends on it.
+
+Of course, maybe I don't even have a copy of your repository.  In that case
+I'd want to do a
+\begin{verbatim}
+$ darcs get http://your.server.org/repos/yourproject
+\end{verbatim}
+which gets the whole repository.
+
+I could instead create an empty repository and fetch all of your patches
+with pull.  Get is just a more efficient way to clone a whole repository.
+
+Get, pull and push also work over ssh.  Ssh-paths are of the same form
+accepted by scp, namely \verb|[username@]host:/path/to/repository|.
+
+\section{Moving patches from one repository to another}
+
+Darcs is flexible as to how you move patches from one repository to another.
+This section will introduce all the ways you can get patches from one place
+to another, starting with the simplest and moving to the most complicated.
+
+\subsection{All pulls}
+
+The simplest method is the ``all-pull'' method.  This involves making each
+repository readable (by http, ftp, nfs-mounted disk, whatever), and you
+run \verb|darcs pull| in the repository you want to move the patch to.  This is nice,
+as it doesn't require you to give write access to anyone else, and is
+reasonably simple.
+
+\subsection{Send and apply manually}
+
+Sometimes you have a machine on which it is not convenient to set up a web
+server, perhaps because it's behind a firewall or perhaps for security
+reasons, or because it is often turned off.  In this case you can use
+\verb|darcs send|
+from that computer to generate a patch bundle destined for another
+repository.  You can either let darcs email the patch for you, or save it
+as a file and transfer it by hand.  Then in the destination repository you
+(or the owner of that repository) run \verb|darcs apply| to apply the patches contained
+in the bundle.  This is also quite a simple method since, like the all-pull
+method, it doesn't require that you give anyone write access to your
+repository.  But it's less convenient, since you have to keep track of the
+patch bundle (in the email, or whatever).
+
+If you use the send and apply method with email, you'll probably want to
+create a \verb!_darcs/prefs/email! file containing your email address.
+This way anyone who sends to your repository will automatically send the
+patch bundle to your email address.
+
+If you receive many patches by email, you probably will benefit by running
+darcs apply directly from your mail program.  I have in my \verb!.muttrc!
+the following:
+\begin{verbatim}
+auto_view text/x-patch text/x-darcs-patch
+macro pager A "<pipe-entry>darcs apply --verbose --mark-conflicts \
+        --reply droundy@abridgegame.org --repodir ~/darcs"
+\end{verbatim}
+which allows me to view a sent patch, and then apply the patch directly from \verb!mutt!, sending a
+confirmation email to the person who sent me the patch. The autoview line relies on on the following
+lines, or something like them, being present in one's \verb!.mailcap!:
+\begin{verbatim}
+text/x-patch;                           cat; copiousoutput
+text/x-darcs-patch;                     cat; copiousoutput
+\end{verbatim}
+
+\subsection{Push}
+
+If you use ssh (and preferably also ssh-agent, so you won't have to keep
+retyping your password), you can use the push method to transfer changes
+(using the scp protocol for communication).  This method is again not very
+complicated, since you presumably already have the ssh permissions set up.
+Push can also be used when the target repository is local, in which case
+ssh isn't needed.  On the other hand, in this situation you could as easily
+run a pull, so there isn't much benefit.
+
+Note that you can use push to administer a multiple-user repository.  You
+just need to create a user for the repository (or repositories), and give
+everyone with write access ssh access, perhaps using
+\verb!.ssh/authorized_keys!.  Then they run
+\begin{verbatim}
+$ darcs push repouser@repo.server:repo/directory
+\end{verbatim}
+
+\subsection{Push ---apply-as}
+
+Now we get more subtle.  If you like the idea in the previous paragraph
+about creating a repository user to own a repository which is writable by
+a number of users, you have one other option.
+
+Push \verb!--apply-as! can run on either a local repository or one accessed
+with ssh, but uses \verb!sudo! to run a darcs apply command (having created
+a patch bundle as in send) as another user.  You can add the following line
+in your \verb|sudoers| file to allow the users to apply their patches to a
+centralized repository:
+{\small
+\begin{verbatim}
+ALL   ALL = (repo-user) NOPASSWD: /usr/bin/darcs apply --all --repodir /repo/path*
+\end{verbatim}
+}
+This method is ideal for a centralized repository when all the users have
+accounts on the same computer, if you don't want your users to be able to
+run arbitrary commands as repo-user.
+
+\subsection{Sending signed patches by email}
+
+Most of the previous methods are a bit clumsy if you don't want to give
+each person with write access to a repository an account on your server.  Darcs
+send can be configured to send a cryptographically signed patch by email.
+You can then set up your mail system to have darcs verify that patches were
+signed by an authorized user and apply them when a patch is received by
+email.  The results of the apply can be returned to the user by email.
+Unsigned patches (or patches signed by unauthorized users) will be
+forwarded to the repository owner (or whoever you configure them to be
+forwarded to\ldots).
+
+This method is especially nice when combined with the \verb!--test! option
+of darcs apply, since it allows you to run the test suite (assuming you
+have one) and reject patches that fail---and it's all done on the server,
+so you can happily go on working on your development machine without
+slowdown while the server runs the tests.
+
+Setting up darcs to run automatically in response to email is by far the
+most complicated way to get patches from one repository to another\ldots\ so it'll
+take a few sections to explain how to go about it.
+
+\paragraph{Security considerations}
+
+When you set up darcs to run apply on signed patches, you should assume
+that a user with write access can write to any file or directory that is
+writable by the user under which the apply process runs.  Unless you
+specify the \verb!--no-test! flag to darcs apply (and this is \emph{not}
+the default), you are also allowing anyone with write access to that
+repository to run arbitrary code on your machine (since they can run a test
+suite---which they can modify however they like).  This is quite a
+potential security hole.
+
+For these reasons, if you don't implicitly trust your users, it is
+recommended that you create a user for each repository to limit the damage
+an attacker can do with access to your repository.  When considering who to
+trust, keep in mind that a security breach on any developer's machine could
+give an attacker access to their private key and passphrase, and thus to
+your repository.
+
+\paragraph{Installing necessary programs}
+
+You also must install the following programs: gnupg, a mailer configured to
+receive mail (e.g.\ exim, sendmail or postfix), and a web server (usually
+apache).
+
+\paragraph{Granting access to a repository}
+
+You create your gpg key by running (as your normal user):
+\begin{verbatim}
+$ gpg --gen-key
+\end{verbatim}
+You will be prompted for your name and email address, among other options.
+%%To add your public key to the allowed keys keyring.
+Of course, you can
+skip this step if you already have a gpg key you wish to use.
+
+You now need to export the public key so we can tell the patcher about it.
+You can do this with the following command (again as your normal user):
+\begin{verbatim}
+$ gpg --export "email@address" > /tmp/exported_key
+\end{verbatim}
+And now we can add your key to the \verb!allowed_keys!:
+\begin{verbatim}
+(as root)> gpg --keyring /var/lib/darcs/repos/myproject/allowed_keys \
+               --no-default-keyring --import /tmp/exported_key
+\end{verbatim}
+You can repeat this process any number of times to authorize multiple users
+to send patches to the repository.
+
+You should now be able to send a patch to the repository by running as your
+normal user, in a working copy of the repository:
+\begin{verbatim}
+$ darcs send --sign http://your.computer/repos/myproject
+\end{verbatim}
+You may want to add ``send sign'' to the file \verb!_darcs/prefs/defaults!
+so that you won't need to type \verb!--sign! every time you want to
+send\ldots
+
+If your gpg key is protected by a passphrase, then executing \verb!send!
+with the \verb!--sign! option might give you the following error:
+\begin{verbatim}
+darcs failed:  Error running external program 'gpg'
+\end{verbatim}
+The most likely cause of this error is that you have a misconfigured
+gpg that tries to automatically use a non-existent gpg-agent
+program. GnuPG will still work without gpg-agent when you try to sign
+or encrypt your data with a passphrase protected key. However, it will
+exit with an error code 2 (\verb!ENOENT!) causing \verb!darcs! to
+fail. To fix this, you will need to edit your \verb!~/.gnupg/gpg.conf!
+file and comment out or remove the line that says:
+\begin{verbatim}
+use-agent
+\end{verbatim}
+If after commenting out or removing the \verb!use-agent! line in your
+gpg configuration file you still get the same error, then you probably
+have a modified GnuPG with use-agent as a hard-coded option. In that
+case, you should change \verb!use-agent! to \verb!no-use-agent! to
+disable it explicitly.
+
+\paragraph{Setting up a sendable repository using procmail}
+If you don't have root access on your machine, or perhaps simply don't want
+to bother creating a separate user, you can set up a darcs repository using
+procmail to filter your mail.  I will assume that you already use procmail
+to filter your email.  If not, you will need to read up on it, or perhaps
+should use a different method for routing the email to darcs.
+
+To begin with, you must configure your repository so that a darcs send to
+your repository will know where to send the email.  Do this by creating a
+file in \verb!/path/to/your/repo/_darcs/prefs! called \verb!email!
+containing your email address.  As a trick (to be explained below), we will
+create the email address with ``darcs repo'' as your name, in an email
+address of the form ``David Roundy $<$droundy@abridgegame.org$>$.''
+\begin{verbatim}
+$ echo 'my darcs repo <user@host.com>' \
+      > /path/to/your/repo/_darcs/prefs/email
+\end{verbatim}
+
+The next step is to set up a gnupg keyring containing the public keys of
+people authorized to send to your repository.  Here I'll give a second way of
+going about this (see above for the first).  This time I'll assume you
+want to give me write access to your repository.  You can do this by:
+\begin{verbatim}
+gpg --no-default-keyring \
+    --keyring /path/to/the/allowed_keys --recv-keys D3D5BCEC
+\end{verbatim}
+This works because ``D3D5BCEC'' is the ID of my gpg key, and I have
+uploaded my key to the gpg keyservers.  Actually, this also requires that
+you have configured gpg to access a valid keyserver.  You can, of course,
+repeat this command for all keys you want to allow access to.
+
+Finally, we add a few lines to your \verb!.procmailrc!:
+\begin{verbatim}
+:0
+* ^TOmy darcs repo
+|(umask 022; darcs apply --reply user@host.com \
+    --repodir /path/to/your/repo --verify /path/to/the/allowed_keys)
+\end{verbatim}
+The purpose for the ``my darcs repo'' trick is partially to make it easier
+to recognize patches sent to the repository, but is even more crucial to
+avoid nasty bounce loops by making the \verb!--reply! option have an email
+address that won't go back to the repository.  This means that unsigned
+patches that are sent to your repository will be forwarded to your ordinary
+email.
+
+Like most mail-processing programs, Procmail by default sets a tight umask.
+However, this will prevent the repository from remaining world-readable;
+thus, the ``umask 022'' is required to relax the umask.
+(Alternatively, you could set Procmail's global \verb!UMASK! variable
+to a more suitable value.)
+
+\paragraph{Checking if your e-mail patch was applied}
+
+After sending a patch with \verb!darcs send!, you may not receive any feedback,
+even if the patch is applied. You can confirm whether or not your patch was applied
+to the remote repository by pointing \verb!darcs changes! at a remote repository:
+\begin{verbatim}
+darcs changes --last=10 --repo=http://darcs.net/
+\end{verbatim}
+
+That shows you the last 10 changes in the remote repository. You can adjust the options given
+to \verb!changes! if a more advanced query is needed.
+
+\input{configuring_darcs.tex}
+
+\input{best_practices.tex}
+
+\input{formats.tex}
+
+\chapter{Darcs commands}
+
+\input{Darcs/Commands.lhs}
+
+\section{Options apart from darcs commands}
+\begin{options}
+--help
+\end{options}
+Calling darcs with just \verb|--help| as an argument gives a brief
+summary of what commands are available.
+\begin{options}
+--version, --exact-version
+\end{options}
+Calling darcs with the flag \verb|--version| tells you the version of
+darcs you are using.  Calling darcs with the flag \verb|--exact-version|
+gives the precise version of darcs, even if that version doesn't correspond
+to a released version number.  This is helpful with bug reports, especially
+when running with a ``latest'' version of darcs.
+\begin{options}
+--commands
+\end{options}
+Similarly calling darcs with only \verb|--commands| gives a simple list
+of available commands.  This latter arrangement is primarily intended for
+the use of command-line autocompletion facilities, as are available in
+bash.
+
+\section{Getting help}
+
+\input{Darcs/Commands/Help.lhs}
+
+\section{Creating repositories}
+
+\input{Darcs/Commands/Init.lhs}
+
+\input{Darcs/Commands/Get.lhs}
+
+\input{Darcs/Commands/Put.lhs}
+
+\section{Modifying the contents of a repository}
+
+\input{Darcs/Commands/Add.lhs}
+
+\input{Darcs/Commands/Remove.lhs}
+
+\input{Darcs/Commands/Move.lhs}
+
+\input{Darcs/Commands/Replace.lhs}
+
+\section{Working with changes}
+
+\input{Darcs/Commands/Record.lhs}
+
+\input{Darcs/Commands/Pull.lhs}
+
+\input{Darcs/Commands/Push.lhs}
+
+\input{Darcs/Commands/Send.lhs}
+
+\input{Darcs/Commands/Apply.lhs}
+
+\section{Seeing what you've done}
+
+\input{Darcs/Commands/WhatsNew.lhs}
+
+\input{Darcs/Commands/Changes.lhs}
+
+\input{Darcs/Commands/Show.lhs}
+
+\section{More advanced commands}
+
+\input{Darcs/Commands/Tag.lhs}
+
+\input{Darcs/Commands/SetPref.lhs}
+
+\input{Darcs/Commands/Check.lhs}
+
+\input{Darcs/Commands/Optimize.lhs}
+
+\section{Undoing, redoing and running in circles}
+
+\input{Darcs/Commands/AmendRecord.lhs}
+
+\input{Darcs/Commands/Rollback.lhs}
+
+\input{Darcs/Commands/Unrecord.lhs}
+
+\input{Darcs/Commands/Revert.lhs}
+
+\input{Darcs/Commands/Unrevert.lhs}
+
+\section{Advanced examination of the repository}
+
+\input{Darcs/Commands/Diff.lhs}
+
+\input{Darcs/Commands/Annotate.lhs}
+
+% Includes the show commands.
+\input{Darcs/Commands/Show.lhs}
+
+\section{Rarely needed and obscure commands}
+
+\input{Darcs/Commands/Convert.lhs}
+
+\input{Darcs/Commands/MarkConflicts.lhs}
+
+\input{Darcs/Commands/Dist.lhs}
+
+\input{Darcs/Commands/TrackDown.lhs}
+
+\input{Darcs/Commands/Repair.lhs}
+
+\appendix
+
+\input{building_darcs.tex}
+
+\input{Darcs/Patch.lhs}
+
+\input{Darcs/Repository/DarcsRepo.lhs}
+
+\input{gpl.tex}
+
+\end{document}
+
+

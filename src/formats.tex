@@ -1,0 +1,69 @@
+\chapter{Repository formats}
+
+Darcs 2 supports three repository formats:
+
+\begin{itemize}
+\item The current format, called `darcs-2'.  It has the most features.
+\item The original format, called `darcs-1' or `old-fashioned inventory'.
+  It is the only format supported by Darcs releases prior to 2.0.
+  Patches cannot be shared between darcs-2 and darcs-1 repositories.
+\item An intermediary format, called `hashed'.  It provides some of
+  the features of darcs-2, while retaining the ability to exchange
+  patches with darcs-1.  Patches cannot be shared between darcs-2 and
+  hashed repositories.
+\end{itemize}
+
+Note that references to the hashed format refer to hashed darcs-1
+repositories.  All darcs-2 repositories are also hashed, and `darcs
+show repo' in a darcs-2 repository will report the format as `hashed,
+darcs-2'.
+
+The hashed (and darcs-2) format improves on the darcs-1 format in the
+following ways:
+
+\begin{itemize}
+\item Improved atomicity of operations.  This improves the safety and
+  efficiency of those operations.
+\item File names in the `pristine' copy of the working tree are
+  hashed.  This greatly reduces the chance of a program accidentally
+  treating files in \_darcs/pristine as part of the working tree.
+
+  For example, in darcs-1 running \verb|find -name "*.gif" -delete|
+  instead of \verb|find -name _darcs -prune -o -name "*.gif" -delete|
+  would result in GIF files in pristine files being deleted.
+
+\item Support for `lazy' repositories.  This causes patches to be
+  copied from the parent repository on demand, rather than during the
+  initial `darcs get'.  For repositories that only operate on recent
+  patches (such as feature branches), this reduces the repository's
+  size, and the time and bandwidth taken to create it.
+
+  Lazy repositories are first-class repositories, and all operations
+  are supported as long as the parent repository remains accessible.
+  This isn't the case for the `partial' feature of the darcs-1 format.
+
+\item Support for caches that are shared by all repositories.  When
+  operating on many similar repositories, the patches and pristine
+  files they have in common are hard links to the cache.  This greatly
+  reduces storage requirements, and the time and bandwidth needed to
+  make similar repositories.
+\end{itemize}
+
+The darcs-2 format improves on the hashed format in the following
+ways:
+
+\begin{itemize}
+\item The `exponential merge' problem is \emph{far} less likely to
+  occur (it can still be produced in deliberately pathological cases).
+\item Identical primitive changes no longer conflict.  For example, if
+  two patches both attempt to add a directory `tests', these patches
+  will not conflict.
+\end{itemize}
+
+% The following reference is particularly important because init
+% explains *when* to use each format, which I don't want to
+% copy-and-paste here because then the two copies will get out of
+% sync.
+
+See also `darcs initialize' (\ref{initialize}), `darcs convert'
+(\ref{convert}) and `darcs get' (\ref{get}).

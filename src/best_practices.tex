@@ -1,0 +1,625 @@
+% This file (unlike the rest of darcs) is in the public domain.
+ 
+
+\chapter{Best practices}
+
+This chapter is intended to review various scenarios and describe in each
+case effective ways of using darcs.  There is no one ``best practice'', and
+darcs is a sufficiently low-level tool that there are many high-level ways
+one can use it, which can be confusing to new users.  The plan (and hope)
+is that various users will contribute here describing how they use darcs in
+different environments.  However, this is not a wiki, and contributions
+will be edited and reviewed for consistency and wisdom.
+
+
+\section{Creating patches}
+
+This section will lay down the concepts around patch creation.
+The aim is to develop a way of thinking
+that corresponds well to how darcs is behaving
+--- even in complicated situations.
+
+	In a single darcs repository you can think of two ``versions'' of the source tree.
+	They are called the \emph{working} and \emph{pristine} trees.
+    \emph{Working} is your normal source tree, with or without darcs alongside.
+	The only thing that makes it part of a darcs repository
+	is the \verb!_darcs! directory in its root.
+    \emph{Pristine} is the recorded state of the source tree.
+	The pristine tree is constructed from groups of changes,
+        called {\em patches\/} (some other version control systems use the
+	term {\em changeset\/} instead of {\em patch\/}).\footnote{If
+	you look inside \_darcs you will find files or directories named
+	{\tt patches} and {\tt inventories}, which store all the patches
+          ever recorded.  If the repository holds a cached pristine tree, it
+          is stored in a directory called {\tt pristine} or {\tt current\/};
+          otherwise, the fact that there is no pristine tree is marked
+          by the presence of a file called {\tt pristine.none} or {\tt
+            current.none}.}
+	Darcs will create and store these patches
+	based on the changes you make in \emph{working}.
+
+
+\subsection{Changes}
+	If \emph{working} and \emph{pristine} are the same,
+	there are ``no changes'' in the repository.
+	Changes can be introduced (or removed) by editing the files in \emph{working}.
+	They can also be caused by darcs commands,
+	which can modify \emph{both} \emph{working} and \emph{pristine}.
+	It is important to understand for each darcs command
+	how it modifies \emph{working}, \emph{pristine} or both of them.
+
+	\verb!whatsnew! (as well as \verb!diff!) can show
+	the difference between \emph{working} and \emph{pristine} to you.
+	It will be shown as a difference in \emph{working}.
+	In advanced cases it need \emph{not} be \emph{working} that has changed;
+	it can just as well have been \emph{pristine}, or both.
+	The important thing is the difference and what darcs can do with it.
+
+\subsection{Keeping or discarding changes}
+    If you have a difference in \emph{working}, you do two things
+    with it: \verb!record! it to keep it, or \verb!revert! it to lose the changes.%
+		\footnote{%
+		Revert can undo precious work in a blink.
+		To protect you from great grief,
+		the discarded changes are saved temporarily
+		so the latest revert can be undone with unrevert.}
+
+	If you have a difference between \emph{working} and \emph{pristine}%
+	---for example after editing some files in \emph{working}---%
+	\verb!whatsnew! will show some ``unrecorded changes''.
+	To save these changes, use \verb!record!.
+	It will create a new patch in \emph{pristine} with the same changes,
+	so \emph{working} and \emph{pristine} are no longer different.
+	To instead undo the changes in \emph{working}, use \verb!revert!.
+	It will modify the files in \emph{working} to be the same as in \emph{pristine}
+	(where the changes do not exist).
+
+
+\subsection{Unrecording changes}
+    \verb!unrecord! is a command meant to be run only in private
+    repositories. Its intended purpose is to allow developers the flexibility
+    to undo patches that haven't been distributed yet.
+
+    However, darcs does not prevent you from unrecording a patch that
+    has been copied to another repository. Be aware of this danger!
+
+	If you \verb!unrecord! a patch, that patch will be deleted from \emph{pristine}.
+	This will cause \emph{working} to be different from \emph{pristine},
+	and \verb!whatsnew! to report unrecorded changes.
+	The difference will be the same as just before that patch was \verb!record!ed.
+	Think about it.
+	\verb!record! examines what's different with \emph{working}
+	and constructs a patch with the same changes in \emph{pristine}
+	so they are no longer different.
+	\verb!unrecord! deletes this patch;
+	the changes in \emph{pristine} disappear and the difference is back.
+
+	If the recorded changes included an error,
+	the resulting flawed patch can be unrecorded.
+	When the changes have been fixed,
+	they can be recorded again as a new---hopefully flawless---patch.
+
+	If the whole change was wrong it can be discarded from \emph{working} too,
+	with \verb!revert!.
+	\verb!revert! will update \emph{working} to the state of \emph{pristine},
+	in which the changes do no longer exist after the patch was deleted.
+
+	Keep in mind that the patches are your history,
+	so deleting them with \verb!unrecord! makes it impossible to track
+	what changes you \emph{really} made.
+	Redoing the patches is how you ``cover the tracks''.
+	On the other hand,
+	it can be a very convenient way to manage and organize changes
+	while you try them out in your private repository.
+	When all is ready for shipping,
+	the changes can be reorganized in what seems as useful and impressive patches.
+	Use it with care.
+
+	All patches are global,
+	so don't \emph{ever} replace an already ``shipped'' patch in this way!
+	If an erroneous patch is deleted and replaced with a better one,
+	you have to replace it in \emph{all} repositories that have a copy of it.
+	This may not be feasible, unless it's all private repositories.
+	If other developers have already made patches or tags in their repositories
+	that depend on the old patch, things will get complicated.
+
+
+\subsection{Special patches and pending}
+
+The patches described in the previous sections have mostly been hunks.
+A \emph{hunk} is one of darcs' primitive patch types,
+and it is used to remove old lines and/or insert new lines.
+There are other types of primitive patches,
+such as \emph{adddir} and \emph{addfile}
+which add new directories and files,
+and \emph{replace}
+which does a search-and-replace on tokens in files.
+
+Hunks are always calculated in place with a diff algorithm
+just before \verb!whatsnew! or \verb!record!.
+But other types of primitive patches need to be explicitly created
+with a darcs command.
+They are kept in \emph{pending}%
+\footnote{In the file {\tt\_darcs/patches/pending}.}
+until they are either recorded or reverted.
+
+\emph{Pending} can be thought of as a special extension of \emph{working}.
+When you issue, e.g., a darcs \verb!replace! command,
+the replace is performed on the files in \emph{working}
+and at the same time a replace patch is put in \emph{pending}.
+Patches in \emph{pending} describe special changes made in \emph{working}.
+The diff algorithm will fictively apply these changes to \emph{pristine}
+before it compares it to \emph{working},
+so all lines in \emph{working} that are changed by a \verb!replace! command
+will also be changed in \emph{pending}$+$\emph{pristine}
+when the hunks are calculated.
+That's why no hunks with the replaced lines will be shown by \verb!whatsnew!;
+it only shows the replace patch in \emph{pending} responsible for the change.
+
+If a special patch is recorded, it will simply be moved to \emph{pristine}.
+If it is instead reverted, it will be deleted from \emph{pending}
+and the accompanying change will be removed from \emph{working}.
+
+Note that reverting a patch in pending is \emph{not} the same as
+simply removing it from pending.
+It actually applies the inverse of the change to \emph{working}.
+Most notable is that reverting an addfile patch
+will delete the file in \emph{working} (the inverse of adding it).
+So if you add the wrong file to darcs by mistake,
+\emph{don't} \verb!revert! the addfile.
+Instead use \verb!remove!, which cancels out the addfile in pending.
+
+
+\section{Using patches} % still basics
+
+This section will lay down the concepts around patch distribution and branches.
+The aim is to develop a way of thinking
+that corresponds well to how darcs is behaving
+--- even in complicated situations.
+
+A repository is a collection of patches.
+Patches have no defined order,
+but patches can have dependencies on other patches.
+Patches can be added to a repository in any order
+as long as all patches depended upon are there.
+Patches can be removed from a repository in any order,
+as long as no remaining patches depend on them.
+
+Repositories can be cloned to create branches.
+Patches created in different branches may conflict.
+A conflict is a valid state of a repository.
+A conflict makes the working tree ambiguous until the conflict is resolved.
+
+
+\subsection{Dependencies}
+
+There are two kinds of dependencies:
+implicit dependencies and explicit dependencies.
+
+Implicit dependencies is the far most common kind.
+These are calculated automatically by darcs.
+If a patch removes a file or a line of code,
+it will have to depend on the patch that added that file or line of code.\footnote{%
+Actually it doesn't have to---in theory---,
+but in practice it's hard to create ``negative'' files or lines in the working tree.
+See the chapter about Theory of patches for other constraints.}
+If a patch adds a line of code,
+it will usually have to depend on the patch or patches that added the adjacent lines.
+
+Explicit dependencies can be created if you give the \verb|--ask-deps| option to \verb|darcs record|.
+This is good for assuring that logical dependencies hold between patches.
+It can also be used to group patches---%
+a patch with explicit dependencies doesn't need to change anything---%
+and pulling the patch also pulls all patches it was made to depend on.
+
+
+\subsection{Branches: just normal repositories}
+
+Darcs does not have branches---it doesn't need to.
+Every repository can be used as a branch.
+This means that any two repositories are ``branches'' in darcs,
+but it is not of much use unless they have a large portion of patches in common.
+If they are different projects they will have nothing in common,
+but darcs may still very well be able to merge them,
+although the result probably is nonsense.
+Therefore the word ``branch'' isn't a technical term in darcs;
+it's just the way we think of one repository in relation to another.
+
+Branches are \emph{very} useful in darcs.
+They are in fact \emph{necessary} if you want to do more than only simple work.
+When you \verb|get| someone's repository from the Internet,
+you are actually creating a branch of it.
+But darcs is designed this way, and it has means to make it efficient.
+The answer to many questions about how to do a thing with darcs is: ``use a branch''.
+It is a simple and elegant solution with great power and flexibility,
+which contributes to darcs' uncomplicated user interface.
+
+You create new branches (i.e., clone repositories)
+with the \verb|get| and \verb|put| commands.
+
+
+\subsection{Moving patches around---no versions}
+
+Patches are global, and a copy of a patch either is or is not present in a branch.
+This way you can rig a branch almost any way you like,
+as long as dependencies are fulfilled---%
+darcs \emph{won't} let you break dependencies.
+If you suspect a certain feature from some time ago introduced a bug,
+you can remove the patch/patches that adds the feature,
+and try without it.\footnote{%
+darcs even has a special command, {\tt trackdown}
+that automatically removes patches
+until a specified test no longer fails.}
+
+Patches are added to a repository with \verb|pull|
+and removed from the repositories with \verb|obliterate|.
+Don't confuse these two commands with \verb|record| and \verb|unrecord|,
+which constructs and deconstructs patches.
+
+It is important not to lose patches when (re)moving them around.
+\verb|pull| needs a source repository to copy the patch from,
+whereas \verb|obliterate| just erases the patch.
+Beware that if you obliterate \emph{all} copies of a patch
+it is completely lost---forever.
+Therefore you should work with branches when you obliterate patches.
+The \verb|obliterate| command can wisely be disabled in a dedicated main repository
+by adding \verb|obliterate disable| to the repository's defaults file.
+
+For convenience, there is a \verb|push| command.
+It works like \verb|pull| but in the other direction.
+It also differs from \verb|pull| in an important way:
+it starts a second instance of darcs to apply the patch in the target repository,
+even if it's on the same computer.
+It can cause surprises if you have a ``wrong'' darcs in your PATH.
+
+
+\subsection{Tags---versions}
+
+While \verb|pull| and \verb|obliterate| can be used to
+construct different ``versions'' in a repository,
+it is often desirable to name specific configurations of patches
+so they can be identified and retrieved easily later.
+This is how darcs implements what is usually known as versions.
+The command for this is \verb|tag|,
+and it records a tag in the current repository.
+
+A tag is just a patch, but it only contains explicit dependencies.
+It will depend on all the patches in the current repository.\footnote{%
+It will omit patches already depended upon by other patches,
+since they will be indirectly depended upon anyway.}
+Darcs can recognize if a patch is as a tag;
+tags are sometimes treated specially by darcs commands.
+
+While traditional revision control systems tag versions in the time line history,
+darcs lets you tag any configuration of patches at any time,
+and pass the tags around between branches.
+
+With the option \verb|--tag| to \verb|get| you can easily get
+a named version in the repository
+as a new branch.
+
+
+\subsection{Conflicts}
+
+This part of darcs becomes a bit complicated,
+and the description given here is slightly simplified.
+
+Conflicting patches are created when
+you record changes to the same line in two different repositories.
+Same line does \emph{not} mean the same line number and file name,
+but the same line added by a common depended-upon patch.
+
+If you are using a darcs-2 repository (Section \ref{initialize}),
+darcs does \emph{not} consider two patches making the \emph{same} change to be a
+conflict, much in the same fashion as other version control systems.
+(The caveat here is two non-identical patches with some identical
+changes may conflict.  For the most part, darcs should just do what you
+expect).
+
+A conflict \emph{happens} when two conflicting patches meet in the same repository.
+This is no problem for darcs; it can happily pull together just any patches.
+But it is a problem for the files in \emph{working} (and \emph{pristine}).
+The conflict can be thought of as
+two patches telling darcs different things about what a file should look like.
+
+Darcs escapes this problem
+by ignoring those parts\footnote{%
+The primitive patches making up the total patch.}
+of the patches that conflict.
+They are ignored in \emph{both} patches.
+If patch~A changes the line ``FIXME'' to ``FIXED'',
+and patch~B changes the same line to ``DONE'',
+the two patches together will produce the line ``FIXME''.
+Darcs doesn't care which one you pulled into the repository first,
+you still get the same result when the conflicting patches meet.
+All other changes made by A and B are performed as normal.
+
+Darcs can mark a conflict for you in \emph{working}.
+This is done with \verb|mark-conflicts|.
+Conflicts are marked such that both conflicting changes
+are inserted with special delimiter lines around them.
+Then you can merge the two changes by hand,
+and remove the delimiters.
+
+When you pull patches,
+darcs automatically performs a \verb|mark-conflicts| for you if a conflict happens.
+You can remove the markup with \verb|revert|,
+Remember that the result will be the lines from
+the previous version common to both conflicting patches.
+The conflict marking can be redone again with \verb|mark-conflicts|.
+
+A special case is when a pulled patch conflicts with unrecorded changes in the repository.
+The conflict will be automatically marked as usual,
+but since the markup is \emph{also} an unrecorded change,
+it will get mixed in with your unrecorded changes.
+There is no guarantee you can revert \emph{only} the markup after this,
+and \verb|resolve| will not be able to redo this markup later if you remove it.
+It is good practice to record important changes before pulling.
+
+\verb|mark-conflicts| can't mark complicated conflicts.
+In that case you'll have to use \verb|darcs diff| and other commands
+to understand what the conflict is all about.
+If for example two conflicting patches create the same file,
+\verb|mark-conflicts| will pick just one of them,
+and no delimiters are inserted.
+So watch out if darcs tells you about a conflict.
+
+\verb|mark-conflicts| can also be used to check for unresolved conflicts.
+If there are none, darcs replies ``No conflicts to resolve''.
+While \verb|pull| reports when a conflict happens,
+\verb|obliterate| and \verb|get| don't.
+
+
+\subsection{Resolving conflicts}
+
+A conflict is resolved
+(not marked, as with the command \verb|mark-conflicts|)
+as soon as some new patch depends on the conflicting patches.
+This will usually be the resolve patch you record after manually putting together the pieces
+from the conflict markup produced by \verb|mark-conflicts| (or \verb|pull|).
+But it can just as well be a tag.
+So don't forget to fix conflicts before you accidently ``resolve'' them by recording other patches.
+
+If the conflict is with one of your not-yet-published patches,
+you may choose to amend that patch rather than creating a resolve patch.
+
+If you want to back out and wait with the conflict,
+you can \verb|obliterate| the conflicting patch you just pulled.
+Before you can do that you have to \verb|revert| the conflict markups
+that \verb|pull| inserted when the conflict happened.
+
+\section{Use a Global Cache}
+
+When working with darcs 2 it is recommended to use a global cache, as this
+is one of the biggest performance enhancing tools of darcs 2.  The global
+cache acts as a giant patch pool where darcs first looks for a patch when
+grabbing new patches. This saves time by not downloading the same patch
+twice from a remote server. It also saves space by storing the patch only
+once, if you ensure your cache and your repositories are on the same
+hardlink-supporting filesystem. 
+
+Darcs now enables a global patch cache under your home directory by default.
+Older darcs 2.x versions required this manual step:
+
+\begin{verbatim}
+$ mkdir -p $HOME/.darcs/cache
+$ echo cache:$HOME/.darcs/cache > $HOME/.darcs/sources
+\end{verbatim}
+
+On MS Windows~\ref{ms_win}, using \verb|cmd.exe| (Command Prompt under Accessories):
+
+\begin{verbatim}
+> md "%UserProfile%\Application Data\darcs\cache" (notice double quotes!)
+> echo cache:%UserProfile%\Application Data\darcs\cache > "%UserProfile%\Application Data\darcs\sources"
+\end{verbatim}
+
+There are some other advanced things you can do in \verb!_darcs/prefs/sources!,
+such as create per-repository caches, read-only caches and even set a
+primary source repository above any used in a \verb|darcs get| or 
+\verb|darcs pull| command.
+
+\subsection{Per-repository caches}
+Each time a repository is get, its location is added as an
+entry in \_darcs/prefs/sources.  If one of these repositories were to
+become totally or temporarily unreachable, it can cause darcs to hang
+for a long time trying to reach it.  Fortunately darcs has a mechanism
+which helps us to deal with that problem: if an unreachable entry is
+discovered, darcs stops using it for the rest of the session and then
+notifies to the user to take further action. It will display a message
+like the following.\\
+\begin{verbatim}
+> I could not reach the following repository:
+> http://darcs.net/
+> If you're not using it, you should probably delete
+> the corresponding entry from _darcs/prefs/sources.
+\end{verbatim}
+
+\section{Distributed development with one primary developer}
+\label{darcs-development-practices}
+
+This is how darcs itself is developed.  There are many contributors to
+darcs, but every contribution is reviewed and manually applied by myself.
+For this sort of a situation, \verb|darcs send| is ideal, since the barrier for
+contributions is very low, which helps encourage contributors.
+
+One could simply set the \verb!_darcs/prefs/email! value to the project
+mailing list, but I also use darcs send to send my changes to the main
+server, so instead the email address is set to
+``\verb!Davids Darcs Repo <droundy@abridgegame.org>!''.  My
+\verb-.procmailrc-
+file on the server has the following rule:
+\begin{verbatim}
+:0
+* ^TODavids Darcs Repo
+|(umask 022; darcs apply --reply darcs-devel@abridgegame.org \
+             --repodir /path/to/repo --verify /path/to/allowed_keys)
+\end{verbatim}
+This causes darcs apply to be run on any email sent to ``Davids Darcs
+Repo''.
+\verb'apply' actually applies them only if they are signed by an
+authorized key.  Currently, the only authorized key is mine, but of course
+this could be extended easily enough.
+
+The central darcs repository contains the following values in its
+\verb!_darcs/prefs/defaults!:
+\begin{verbatim}
+apply test
+apply verbose
+apply happy-forwarding
+\end{verbatim}
+The first line tells apply to always run the test suite.  The test suite is
+in fact the main reason I use send rather than push, since it allows me to
+easily continue working (or put my computer to sleep) while the tests are
+being run on the main server.  The second line is just there to improve the
+email response that I get when a patch has either been applied or failed
+the tests.  The third line makes darcs not complain about unsigned patches,
+but just to forward them to \verb!darcs-devel!.
+
+On my development computer, I have in my \verb!.muttrc! the following
+alias, which allows me to easily apply patches that I get via email
+directly to my darcs working directory:
+\begin{verbatim}
+macro pager A "<pipe-entry>(umask 022; darcs apply --no-test -v \
+        --repodir ~/darcs)"
+\end{verbatim}
+
+
+\section{Development by a small group of developers in one office}
+\label{dft-development-practices}
+
+This section describes the development method used for the density
+functional theory code DFT++, which is available at
+\verb!http://dft.physics.cornell.edu/dft!.
+
+We have a number of workstations which all mount the same \verb!/home! via NFS.
+We created a special ``dft'' user, with the central repository living in that
+user's home directory.  The ssh public keys of authorized persons are added to
+the ``dft'' user's \verb!.ssh/allowed_keys!, and we commit patches to this
+repository using
+\verb'darcs push'.  As in Section~\ref{darcs-development-practices},
+we have the central repository set to run the test suite before the push goes
+through.
+
+Note that no one ever runs as the dft user.
+
+A subtlety that we ran into showed up in the running of the test suite.
+Since our test suite includes the running of MPI programs, it must be run
+in a directory that is mounted across our cluster.  To achieve this, we set
+the \verb!$DARCS_TMPDIR! % following is added to make emacs color right:$
+environment variable to \verb!~/tmp!.
+
+Note that even though there are only four active developers at the moment,
+the distributed nature of darcs still plays a large role.  Each developer
+works on a feature until it is stable, a process that often takes quite a
+few patches, and only once it is stable does he
+\verb'push' to the central repository.
+
+\section{Personal development}
+
+It's easy to have several personal development trees using darcs, even
+when working on a team or with shared code.  The number and method of
+using each personal tree is limited only by such grand limitations as:
+your disk space, your imagination, available time, etc.
+
+For example, if the central darcs repository for your development team
+is $R_{c}$, you can create a local working directory for feature
+$f_1$.  This local working directory contains a full copy of $R_c$
+(as of the time of the ``darcs get'' operation) and can be denoted
+$R_1$.  In the midst of working on feature $f_1$, you realize it
+requires the development of a separate feature $f_2$.  Rather than
+intermingling $f_1$ and $f_2$ in the same working tree, you can create
+a new working tree for working on $f_2$, where that working tree
+contains the repository $R_2$.
+
+While working on $f_2$, other developers may have made other changes;
+these changes can be retrieved on a per-patch selection basis by
+periodic ``darcs pull'' operations.
+
+When your work on $f_2$ is completed, you can publish it for the use
+of other developers by a ``darcs push'' (or ``darcs send'') from $R_2$
+to $R_c$.  Independently of the publishing of $f_2$, you can merge
+your $f_2$ work into your $f_1$ working tree by a ``darcs pull $R_2$''
+in the $R_1$ development tree (or ``darcs push'' from $R_2$ to $R_1$).
+
+When your work on $f_1$ is completed, you publish it as well by a
+``darcs push'' from $R_1$ to $R_c$.  
+
+Your local feature development efforts for $f_1$ or $f_2$ can each
+consist of multiple patches.  When pushing or pulling to other trees,
+these patches can either all be selected or specific patches can be
+selected.  Thus, if you introduce a set of debugging calls into the
+code, you can commit the debugging code in a distictly separate patch
+(or patches) that you will not push to $R_c$.
+
+\subsection{Private patches}
+
+As discussed in the section above, a developer may have various
+changes to their local development repositories that they do not ever
+wish to publish to a group repository (e.g. personal debugging code),
+but which they would like to keep in their local repository, and
+perhaps even share amongst their local repositories.
+
+This is easily done via darcs, since those private changes can be
+committed in patches that are separate from other patches; during the
+process of pushing patches to the common repository ($R_c$), the
+developer is queried for which patches should be moved to ($R_c$) on a
+patch-by-patch basis.
+
+The \verb!--complement! flag for the ``darcs pull'' operation can
+further simplify this effort.  If the developer copies (via ``darcs
+push'' or ``darcs pull'') all private patches into a special
+repository/working tree ($R_p$), then those patches are easily
+disregarded for pulling by adding \verb!--complement! to the ``darcs
+pull'' line and listing $R_p$ after the primary source repository.
+
+The \verb!--complement! flag is only available for ``darcs pull'', and
+not ``darcs push'' or ``darcs send'', requiring the user to have pull
+access to the target repository.  While the actual public repository
+is often not shared in this manner, it's simple to create a local
+version of the public repository to act as the staging area for that
+public repository.
+
+The following example extends the two feature addition example in the
+previous section using a local staging repository ($R_l$) and a
+private patch repository:
+
+\begin{verbatim}
+$ cd working-dir
+$ darcs get http://server/repos/Rc Rl
+
+$ darcs get Rl R1
+$ cd R1
+...development of f1
+$ darcs record -m'p1: f1 initial work'
+...
+$ darcs record -m'p2: my debugging tracepoints'
+...
+
+$ cd ..
+$ darcs get http://server/repos/Rc R2
+$ cd R2
+$ darcs pull -p p2 ../R1
+... development of f2
+$ darcs record -m'p3: f2 finished'
+
+$ cd ..
+$ darcs get Rl Rp
+$ cd Rp
+$ darcs pull -p p2 ../R2
+
+$ cd ../Rl
+$ darcs pull --complement ../R2 ../Rp
+$ darcs send
+... for publishing f2 patches to Rc
+
+$ cd ../R1
+$ darcs pull ../R2
+... updates R1 with f2 changes from R2
+... more development of f1
+$ darcs record -m'p4: f1 feature finished.'
+
+$ cd ../Rl
+$ darcs pull --complement ../R1 ../Rp
+$ darcs send
+\end{verbatim}
+

@@ -1,0 +1,235 @@
+7 patches for repository /tmp/tmp5411/temp/empty-hashed:
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * wibble
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * A1
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * A2
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * B1
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * B2
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * C1
+
+Sat Oct 16 23:27:21 BST 2010  tester
+  * C2
+
+New patches:
+
+[wibble
+tester**20101016222721
+ Ignore-this: 64432ba123d81c8f0e688b44feb8f587
+] {
+addfile ./wibble
+hunk ./wibble 1
++wibble
+}
+[A1
+tester**20101016222721
+ Ignore-this: d749f48333e6ff2e994b1df71e76933b
+] hunk ./wibble 2
+ wibble
++A1
+[A2
+tester**20101016222721
+ Ignore-this: 6f006a52975a708a8038d52e5e39ef0f
+] hunk ./wibble 3
+ wibble
+ A1
++A2
+[B1
+tester**20101016222721
+ Ignore-this: f4d4b5b1c73bd6fa8abe6e5e680d66a7
+] merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+)
+[B2
+tester**20101016222721
+ Ignore-this: 1d60b6c0ba913fff4d1e32ad26ae07bb
+] merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+hunk ./wibble 3
++A2
+)
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++B1
+hunk ./wibble 2
++A1
+)
+hunk ./wibble 3
++B2
+)
+)
+[C1
+tester**20101016222721
+ Ignore-this: 25b6a6959d19980ad16983a542c6825
+] merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+hunk ./wibble 3
++A2
+)
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++B1
+hunk ./wibble 2
++A1
+)
+hunk ./wibble 3
++B2
+)
+)
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+)
+merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++C1
+)
+)
+)
+)
+[C2
+tester**20101016222721
+ Ignore-this: c16d607216c36d5f7727c64d2ec103d4
+] merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+)
+merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++C1
+)
+)
+)
+merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+hunk ./wibble 3
++A2
+)
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++B1
+hunk ./wibble 2
++A1
+)
+hunk ./wibble 3
++B2
+)
+)
+)
+merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++C1
+)
+)
+merger 0.0 (
+hunk ./wibble 3
++A2
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++B1
+)
+)
+)
+merger 0.0 (
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++A1
+hunk ./wibble 2
++C1
+)
+hunk ./wibble 3
++A2
+)
+merger 0.0 (
+merger 0.0 (
+hunk ./wibble 2
++C1
+hunk ./wibble 2
++A1
+)
+hunk ./wibble 3
++C2
+)
+)
+)
+)
+
+Context:
+
+Patch bundle hash:
+1069761dac242f9583871b27db2fabbd00d6f805

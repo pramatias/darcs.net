@@ -1,0 +1,20 @@
+1 patch for repository /tmp/tmp5746/temp/empty-hashed:
+
+Sat Oct 16 23:28:30 BST 2010  tester
+  * wibble
+
+New patches:
+
+[wibble
+tester**20101016222830
+ Ignore-this: f155bc27211e0233c23b8c0a757b8071
+] {
+addfile ./wibble
+hunk ./wibble 1
++wibble
+}
+
+Context:
+
+Patch bundle hash:
+1bfa82f0941e1dcc13f9f94179dd6a7426ca0b6f

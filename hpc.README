@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# To use hpc (Haskell Program Coverage) with darcs you need at least
+# ghc 6.8.3.
+
+# You can build darcs with hpc support using:
+# cabal configure -fhpc --enable-executable-profiling
+
+# Then create a directory and set it as HPCTIXDIR.
+# Note that simply building darcs will begin populating
+# this directory before you ever run any tests.
+# Therefore, clean the directory after building.
+
+set -e
+
+export HPCTIXDIR=${PWD}/hpctixdir
+mkdir -p $HPCTIXDIR
+
+cabal configure -fhpc --enable-executable-profiling
+cabal build
+
+rm -f $HPCTIXDIR/*.tix
+
+echo "hpc.README: running tests."
+cabal test
+cabal test network
+
+# The shell harness combines the tixfiles automatically into a sum.tix in
+# HPCTIXDIR.
+
+mkdir -p dist/hpc
+echo "hpc.README: generating report."
+hpc markup $HPCTIXDIR/sum.tix --destdir=dist/hpc

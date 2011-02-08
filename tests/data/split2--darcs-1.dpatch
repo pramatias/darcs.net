@@ -1,0 +1,51 @@
+2 patches for repository /home/ganesh/temp/empty-old:
+
+Tue Nov 16 18:32:25 GMT 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * wibble
+
+Tue Nov 16 18:32:38 GMT 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * 'nums'
+
+
+New patches:
+
+[wibble
+Ganesh Sittampalam <ganesh@earth.li>**20101116183225
+ Ignore-this: 5e5df9907f191511650c2ed66754d17
+] {
+addfile ./wibble
+hunk ./wibble 1
++A
++B
++C
++D
+}
+['nums'
+Ganesh Sittampalam <ganesh@earth.li>**20101116183238
+ Ignore-this: e865de7aa7e896c759dabccf510c59bf
+] {
+hunk ./wibble 1
++1
+ A
+ B
+ C
+(
+hunk ./wibble 3
++2
+hunk ./wibble 5
++3
+)
+hunk ./wibble 7
+ B
+ 3
+ C
++4
+ D
+hunk ./wibble 9
++5
+}
+
+Context:
+
+Patch bundle hash:
+cdfc4f7087525b0298d4f08e6e497f925f85e406

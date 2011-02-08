@@ -1,0 +1,75 @@
+Darcs
+=====
+This is the source tree for darcs, a distributed version control system
+written in Haskell.
+
+For more information, visit the darcs web site:
+
+   http://www.darcs.net
+
+
+Compilation and Installation
+============================
+
+Building Darcs requires GHC, version 6.10.3 or higher. It also requires the
+Cabal package, version 1.6 or higher.  The cabal-install package is also
+recommended.
+
+If you have the "cabal-install" package on your system (that is, there is a
+"cabal" executable in your path), you can use the following command to create
+an executable in ~/.cabal/bin/darcs (this will also automatically fetch and
+build dependencies from the Hackage server).
+
+    $ cabal update
+    $ cabal install
+
+Otherwise, if you have the "cabal" package but not the "cabal-install"
+package, run the following:
+
+    $ runghc Setup configure
+    $ runghc Setup build
+    $ sudo runghc Setup install
+
+You may also omit the last step and copy the darcs executable (found in
+dist/build/darcs/darcs) to a location of your choosing.
+
+More detailed instructions can be found at
+<http://www.haskell.org/haskellwiki/Cabal/How_to_install_a_Cabal_package>
+including instructions on obtaining a copy of cabal-install.
+
+Please also note that the cabal-based build by default requires the cURL
+library (and development headers). If, for some reason, you cannot provide
+cURL, please pass "-f-curl" to the configure step above.
+
+
+Hacking
+=======
+For more information about darcs hacking and best practices please check
+the darcs wiki at http://wiki.darcs.net
+
+Of particular interest are the following documents:
+  * http://wiki.darcs.net/Development/GettingStarted
+  * http://wiki.darcs.net/Development/FAQ
+
+Comments about do-notation warnings
+===================================
+You may find a number of comments (163 of them at the time of writing) looking
+like:
+-- Warning:  A do-notation statement discarded a result of type Whatever.
+They signal warnings issued by GHC that have been automatically silenced.
+See http://bugs.darcs.net/issue1988 for more detail.
+
+These warnings were most certainly harmless, but who knows... If you stumble
+upon one such comment, take a minute or two to check if it is really okay to
+ignore the return value (look for "_ <- " on the line next to the comment).  If
+everything is correct, please remove the comment and send a patch (mentioning
+issue1988).  If it isn't, you have found a bug, congratulations!  Fix it, or
+fill a bug report on http//bugs.darcs.net/.  Finally, if in doubt, leave it as
+is.  Many thanks.
+
+Testing
+=======
+For more information about the test suite, including how to run specific
+tests please read tests/README.test_maintainers.txt.
+
+Happy hacking!

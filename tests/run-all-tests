@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -ev
+
+#autoconf
+#./configure
+#make clean
+make -j4 darcs
+
+echo "Let's check that make dist works properly..."
+
+rm -rf darcs-test.tar.gz darcs-test
+make -j4 darcs-test.tar.gz
+tar zxvf darcs-test.tar.gz
+
+cd darcs-test
+cat release/STATE
+echo
+./configure
+
+cat release/STATE
+
+make src/ThisVersion.hs
+
+cat release/STATE
+
+make release/STATE
+
+diff -u ../src/ThisVersion.hs src/ThisVersion.hs
+diff -u ../release/STATE release/STATE

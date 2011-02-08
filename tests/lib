@@ -1,0 +1,61 @@
+# This is a -*- sh -*- library.
+
+## I would use the builtin !, but that has the wrong semantics.
+not () { "$@" && exit 1 || :; }
+
+# trick: OS-detection (if needed)
+abort_windows () {
+if echo $OS | grep -i windows; then
+  echo This test does not work on Windows
+  exit 200
+fi
+}
+
+pwd() {
+    ghc --make -o hspwd "$TESTBIN/hspwd.hs"
+    "./hspwd"
+}
+
+# switch locale to latin9 if supported if there's a locale command, skip test
+# otherwise
+switch_to_latin9_locale () {
+    if ! which locale ; then
+        echo "no locale command"
+        exit 200 # skip test
+    fi
+
+    latin9_locale=`locale -a | grep @euro | head -n 1` || exit 200
+    test -n "$latin9_locale" || exit 200
+
+    echo "Using locale $latin9_locale"
+    export LC_ALL=$latin9_locale
+    echo "character encoding is now `locale charmap`"
+}
+
+
+serve_http() {
+    cat > light.conf <<EOF
+    server.document-root       = "$PWD"
+    server.errorlog            = "/dev/null"
+    server.port                = 23032 ## FIXME
+    server.bind                = "localhost"
+    server.pid-file            = "$PWD/light.pid"
+EOF
+    trap "finish_http \"$PWD\"" EXIT
+    lighttpd -f light.conf || exit 200
+    ps `cat light.pid` > /dev/null 2>&1 || exit 200
+    baseurl="http://localhost:23032"
+}
+
+finish_http() {
+    test -e "$1/light.pid" && kill `cat "$1/light.pid"` || true
+}
+
+skip-formats() {
+    for f in "$@"; do grep $f $HOME/.darcs/defaults && exit 200 || true; done
+}
+
+grep -q darcs-2 .darcs/defaults && format=darcs-2
+grep -q hashed .darcs/defaults && format=hashed
+
+set -vex -o pipefail

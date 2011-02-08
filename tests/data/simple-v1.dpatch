@@ -1,0 +1,20 @@
+1 patch for repository /home/ganesh/darcs-comp/temp/empty:
+
+Wed Oct 20 07:12:31 BST 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * wibble
+
+New patches:
+
+[wibble
+Ganesh Sittampalam <ganesh@earth.li>**20101020061231
+ Ignore-this: f4ff110805aca7a2d8805acf18605523
+] {
+addfile ./wibble
+hunk ./wibble 1
++wibble
+}
+
+Context:
+
+Patch bundle hash:
+3c6e5041f7e4b286c8884247a155a5d80d0dd77b

@@ -1,0 +1,252 @@
+This is the list of all contributors as of 2008-05-22 and license exceptions
+they are willing to accept.
+
+Currently it is a license violation to REDISTRIBUTE binaries of Darcs linked
+against OpenSSL.  We hope to eventually fix this using this file to track
+license exceptions.  In the meantime, GnuTLS can be used.
+
+Another potential use of this list is to facilitate moving code to the BSD
+license when it is appropriate to do so, for example, when spinning things off
+into general libraries
+
+Note that regression tests introduced after 2009-05-15 are BSD licensed, as are
+any tests written by David Roundy.
+
+Key
+----------------------------------------------------------------------
+zooko_please
+ From Zooko's message to darcs-devel 'May I please combine darcs with OpenSSH'?
+ on 2006-05-21
+
+zooko_private
+ Private reply to Zooko
+
+kowey_private
+ Private reply to Eric
+
+To do 2009-09-17
+----------------------------------------------------------------------
+The following authors have not yet been contacted.
+
+Adam Vogt <vogt.adam@gmail.com>
+Alex Lance <alla@cyber.com.au>
+Ben Moseley <ben@moseley.name>
+CSÉCSY László <boobaa@frugalware.org>
+Christian Kellermann <Christian.Kellermann@nefkom.net>
+Dan Pascu <dan@ag-projects.com>
+David Caldwell <david@porkrind.org>
+Don Stewart <dons@galois.com>
+Duncan Coutts <duncan@haskell.org>
+Eric P. Mangold <teratorn@gmail.com>
+Florent Becker <florent.becker@ens-lyon.org>
+Florian Gilcher <flo@andersground.net>
+J. Garrett Morris <jgmorris@cecs.pdx.edu>
+Judah Jacobson <judah.jacobson@gmail.com>
+Kamil Dworakowski <kamil@dworakowski.name>
+Matthias Kilian <kili@outback.escape.de>
+Max Battcher <me@worldmaker.net>
+Pavel Shramov <shramov@mexmat.net>
+Rob Hoelz <rob@hoelzro.net>
+Salvatore Insalaco <kirby81@gmail.com>
+Stephen Hicks <sdh33@cornell.edu>
+Steve Cotton <steve@s.cotton.clara.co.uk>
+Taylor R Campbell <campbell@mumble.net>
+Thomas Hartman <thomashartman1@gmail.com>
+Thorkil Naur <naur@post11.tele.dk>
+Vlad Dogaru <ddvlad@anaconda.cs.pub.ro>
+Aaron Kaplan <dk59gjhnd@aaronkaplan.info>
+Gaetan Lehmann <gaetan.lehmann@jouy.inra.fr>
+Kari Hoijarvi <kari@hoijarvi.org>
+Nathniel Filardo <nwf@cs.jhu.edu>
+
+Cannot find contact info
+----------------------------------------------------------------------
+We would appreciate help tracking these people down
+
+Christian Egli <christian.egli@wyona.com>	typo-manual
+Martin Schaffner <schaffner@gmx.li>	ui_messages
+
+Still no reply...
+----------------------------------------------------------------------
+Eric Kow sent a personal letter to each of these but never got a reply
+
+Andrew L Johnson <andrew@siaris.net>	bugfix-get_partial
+Daniel Freedman <freedman@alum.mit.edu>	binary_regex
+Florian Weimer <fw@deneb.enyo.de>	show-tags
+Ian Lynagh <igloo@earth.li>	significant
+Jan Scheffczyk <jan@informatik.unibw-muenchen.de>	population
+Jim Marshall <jmarshall99@qwest.net>	minor
+Nigel Rowe <rho@swiftdsl.com.au>	cgi-makefile-doc
+Peter Prohaska <pitrp@wg78.de>	minor
+Thies C. Arntzen <thies@thieso.net>	minor-see-changes
+Thomas L. Bevan <thomas_bevan@toll.com.au>	proxy_password
+
+Pending legal
+-------------
+The following users have submitted code on company time (or the equivalent) and require
+verification from their legal people before they can accept the exception.
+
+Michael de la Rue [redhat!, but we can nix the spec file]
+
+GPL 2 or later ONLY
+----------------------------------------------------------------------
+These are people who have said that the would only accept the current license conditions.
+
+Simon Michael <simon@joyful.com>	kowey_private	2008-06-09	could_acquiese_if_droundy_felt_strongly
+Thomas Zander <zander@kde.org>  	kowey_private	2008-07-01	chose_the_GPL_for_a_reason_must_rewrite	ui-boring_regex-docs
+
+GPL 2 or later with OpenSSL/Eclipse/Common Public License exemption
+-------------------------------------------------------------------
+The following people accept these terms
+
+  As a special exception, you have permission to link this program with code
+  which is licensed under the Common Public Licence, the Eclipse Public Licence,
+  or the OpenSSL License, as long as you follow the requirements of the GNU GPL
+  in regard to all of the software in the executable aside from the software
+  which is licensed under the Common Public License or the Eclipse Public
+  License.
+
+We may need to chase up on some of them later to see how much more they'd be
+willing to liberalise things
+
+Aaron Denney <wnoise@ofb.net>	kowey_private	2008-06-05
+Adam Megacz <adam@megacz.com>	kowey_private	2008-06-05
+Aggelos Economopoulos <aoiko@cc.ece.ntua.gr>	kowey_private	2008-06-05
+Anders Hockersten <chucky@dtek.chalmers.se>	kowey_private	2008-06-05
+Andres Loeh <mail@andres-loeh.de>	kowey_private	2008-06-05
+Andrew Pimlott <andrew@pimlott.net>	kowey_private	2008-06-05
+Anthony Towns <aj@azure.humbug.org.au>	kowey_private	2008-06-06
+Bertram Felgenhauer <int-e@gmx.de>	kowey_private	2008-06-06
+Brian Alliet <brian@brianweb.net> kowey_private	2008-06-05
+Bryce Wilcox-O'Hearn <zooko@zooko.com>	well-duh	2006-05-21
+Daan Leijen <daan@microsoft.com>	kowey_private	2008-06-05
+Dan <greenash@yahoo.com>	kowey_private	2008-06-09
+Daniel Gorin <dgorin@dc.uba.ar>	kowey_private	2008-06-05
+David Roundy <droundy@darcs.net>	kowey_private	2008-06-13	eclipse-ok-after-all
+Dmitry Kurochkin <dmitry.kurochkin@gmail.com>	kowey_private	2008-06-05
+Don Bindner <dbindner@truman.edu>	kowey_private	2008-06-05
+Edwin Thomson <edwin.thomson@businesswebsoftware.com>	kowey_private	2008-06-05
+Erik Schnetter <schnetter@cct.lsu.edu>	kowey_private	2008-06-05
+Ferenc Wagner <wferi@niif.hu>	kowey_private	2008-06-05
+Gabriel Ebner <ge@gabrielebner.at>	debian	kowey_private	2008-06-24
+Georg Neis <gn@oglaroon.de>	kowey_private	2008-06-07
+Henning Glawe <glaweh@physik.fu-berlin.de>	kowey_private	2008-06-05
+Jan Braun <janbraun@gmx.net>	kowey_private	2008-06-05
+Jan-Benedict Glaw <jbglaw@lug-owl.de>	kowey_private	2008-06-25	worth_asking	unwilling_to_assign_copyright
+Jason Dagit <dagit@codersbase.com>	zooko_please	2006-05-21
+Joeri van Ruth <jvr@blub.net>	kowey_private	2008-06-06
+John Goerzen <jgoerzen@complete.org>	kowey_private	2008-06-05	ok_if_droundy_ok
+John Meacham <john@repetae.net>	kowey_private	2008-06-12	worth_asking
+Jon Olsson <jon@vexed.se>	kowey_private	2008-06-11	tests
+Josef Svenningsson <josef.svenningsson@gmail.com>	kowey_private	2008-06-05
+Juliusz Chroboczek <jch@pps.jussieu.fr>	zooko_please	2006-05-26
+Kannan Goundan <kannan@cakoose.com>	kowey_private	2008-06-05
+Karel Gardas <kgardas@objectsecurity.com>	kowey_private 2008-06-05
+Ketil Malde <ketil@ii.uib.no>	kowey_private	2008-06-06
+Kevin Quick <quick@sparq.org>	kowey_private	2008-06-05
+Kirill Smelkov <kirr@landau.phys.spbu.ru>	kowey_private	2008-06-08
+Kirsten [Tim] Chevalier <chevalier@alum.wellesley.edu>	kowey_private	2008-06-05
+Marco Tulio Gontijo e Silva <malebria@riseup.net>	kowey_private	2008-06-05
+Mark Stosberg <mark@summersault.com>	issue176	2008-01-26
+Marnix Klooster <marnix.klooster@gmail.com>	kowey_private	2008-06-05
+Matt Brubeck <mbrubeck@cs.hmc.edu>	kowey_private	2008-06-05
+Matt Kraai <kraai@ftbfs.org>	kowey_private	2008-06-05
+Matt Lavin <matt.lavin@gmail.com>	kowey_private	2008-06-05
+Matyas Janos <mjanos5@gmail.com>	kowey_private	2008-06-05
+Michael G Schwern <schwern@pobox.com>	kowey_private	2008-06-11	tests
+Michal Sojka <sojkam1@fel.cvut.cz>	kowey_private	2008-06-05
+Misha Aizatulin <avatar@hot.ee>	kowey_private	2008-07-15	rolledback
+Nicolas Pouillard <nicolas.pouillard@gmail.com>	kowey-private	2008-07-02	unwilling_to_assign_copyright	significant
+Nils Decker <nils@ndecker.de>	kowey_private	2008-06-06
+Nimrod A. Abing <nimrod.abing@gmail.com>	kowey_private	2008-06-06
+Pekka Pessi <pekka.pessi@nokia.com>	kowey_private	2008-07-21	cannot_assign_copyright_red_tape	significant
+Peter Hercek <peter@syncad.com>	kowey_private	2008-06-05
+Peter Rockai <me@mornfall.net>	kowey_private	2008-06-06
+Peter Simons <simons@cryp.to>	kowey_private	2008-06-10	makefile-configure-cosmetic
+Peter Strand <peter@zarquon.se>	kowey_private	2008-06-05
+Ralph Corderoy <ralph@inputplus.co.uk>	kowey_private	2008-06-05
+Randy Roesler <xhl178@shaw.ca>	kowey_private	2008-06-05
+Reinier Lamers <tux_rocker@reinier.de>	kowey_private	2008-06-05
+Samuel Tardieu <sam@rfc1149.net>	kowey_private	2008-06-05
+Shae Erisson <shae@ScannedInAvian.com>	kowey_private	2008-06-05
+Simon Marlow <simonmar@microsoft.com>	kowey_private	2008-06-05
+Simon McVittie <http://www.pseudorandom.co.uk/>	kowey_private	2008-06-05
+Taral <taral@taral.net>	kowey_private	2008-06-05	ok_if_droundy_ok
+Thomas Schwinge <schwinge@nic-nac-project.de>	kowey_private	2008-06-10
+Tobias Gruetzmacher <darcs@portfolio16.de>	kowey_private	2008-07-30	libcurl_any_http_auth
+Tommy Pettersson <ptp@lysator.liu.se>	zooko_please	2006-06-16
+Trent W. Buck <twb@cyber.com.au>	kowey_private	2008-06-05
+Tristan Seligmann <mithrandi@mithrandi.za.net>	kowey_private	2008-06-05
+Tuukka Hastrup <Tuukka.Hastrup@iki.fi>	kowey_private	2008-06-05
+Vaclav Haisman <v.haisman@sh.cvut.cz>	kowey_private	2008-06-05
+Will <will@glozer.net>	kowey_private	2008-06-05
+Zachary P. Landau <kapheine@divineinvasion.net>	kowey_private	2008-06-05
+
+LGPL or stricter
+----------------
+The following people are willing to relax the terms down to LGPL level but no further.
+
+Andrew J. Kroll <forge@dr.ea.ms>	kowey_private	2008-06-30	lgpl-at-least	boring_regex
+Dave Love <fx@gnu.org>	kowey_private	2008-07-25	changes_must_remain_free	tests-configure-makefile-doc
+
+BSD
+-----------------------------------------------
+The following people are effectively willing to let use a BSD-style license,
+either by saying this explicitly, assigning copyright, using a public domain
+contribution or otherwise authorising us to do as we see fit.
+
+Andrea Rossato <andrea.rossato@unibz.it>	kowey_private	2008-06-26	willing_to_assign_copyright	trivial-imports
+Benedikt Schmidt <bbeschmi@gmail.com>	kowey_private   2008-08-14	willing_to_assign_copyright	signficant
+Benjamin Franksen <benjamin.franksen@bessy.de>	kowey_private	2008-06-14	willing_to_assign_copyright
+Bill Trost <trost@cloud.rain.com>	kowey_private	2008-06-28	willing_to_assign_copyright	ui_messages-tests
+Christopher Lane Hinson <lane@downstairspeople.org>	kowey_private	2008-06-07 relicense-as-you-like-forever
+Conrad Parker <conrad@metadecks.org>	kowey_private	2008-06-28	willing_to_assign_copyright	comments
+Daniel Bünzli <daniel.buenzli@erratique.ch>	kowey_private	2008-06-06	assigns_copyright
+Era Eriksson <era+darcs@iki.fi>	kowey_private	2008-07-14	willing_to_assign_copyright	doc
+Eric Kow <kowey@darcs.net>	darcs_users	2009-09-17
+Esa Ilari Vuokko <ei@vuokko.info>	kowey_private	2008-06-28	willing_to_assign_copyright	significant
+Ganesh Sittampalam <ganesh@earth.li>	darcs_users	2009-09-15
+Guillaume Outters <guillaume.outters@free.fr>	kowey_private	2008-06-06	public-domain
+Gwern Branwen <gwern0@gmail.com>	kowey_private	2008-06-05	public-domain
+Isaac Jones <ijones@debian.org>	kowey_private	2008-06-05	eric-and-david-do-what-see-fit
+Jani Monoses <jani@iv.ro> [via <jani@ubuntu.com>]	kowey_private	2008-06-11	fine-with_whatever_darcs_project_leaders_pick
+Jeremy Fincher <jemfinch@supybot.com>	kowey_private	2008-07-01	assigns_copyright	ui_messages
+Jim Radford <radford@blackbean.org>    kowey_private	2008-07-01	willing_to_assign_copyright	minor-ui
+Joe Edmonds <joe@elem.com>	kowey_private	2008-06-05
+Jonathon Mah <me@JonathonMah.com>	kowey_private	2008-07-02	willing_to_assign_copyright	ui_messages
+Joshua J. Berry <condor-dev@condordes.net>	kowey_private	2008-06-05
+Lele Gaifax <lele@nautilus.homeip.net>	kowey_private	2008-07-01	willing_to_assign_copyright	worth_asking
+Lode Leroy <lode_leroy@hotmail.com>	kowey_private	2008-07-02	willing_to_assign_copyright	doc-typo
+Martin Bays <mbays@freeshell.org>	kowey_private	2008-06-05
+Mirian Crzig [Craig] Lennox <mirian@cosmic.com>	kowey_private	2008-06-10	willing_to_assign_copyright	 refactor-minor
+Peter Maxwell <peter.maxwell@anu.edu.au>	kowey_private	2008-06-18	willing_to_assign_copyright	minor
+Richard Smith <smithbone@gmail.com>	kowey_private	2008-07-01	willing_to_assign_copyright	configure
+Sean Robinson <sean.robinson@sccmail.maricopa.edu>	kowey_private	2008-07-07	assigns_copyright	makefile
+Sean Russell <ser@germane-software.com>	kowey_private	2009-10-04	willing_to_assign_copyright	changes-xml
+Spencer Janssen <sjanssen@cse.unl.edu>	kowey_private	2008-07-14	willing_to_assign_copyright	minor-cleanup
+Tomasz Zielonka <tomasz.zielonka@gmail.com>	kowey_private	2008-07-02	willing_to_assign_copyright	lots
+Vadim Zaliva <lord@crocodile.org>	kowey_private	2008-07-01	willing_to_assign_copyright	curses, flags
+Victor Hugo Borja Rodriguez <vborja@thehatcher.com> [via <vic@rubyforge.org>]	kowey_private	2008-06-13	willing_to_assign_copyright	minor-remote_apply
+Vladimir Vysotsky <trivee@noir.crocodile.org>	kowey_private	2008-08-05	willing_to_assign_copyright	minor-win32
+Wim Lewis <wiml@hhhh.org>	kowey_private	2008-06-05
+Yuval Kogman <nothingmuch@woobling.org>	kowey_private	2008-07-20	willing_to_assign_copyright	doc-suite
+Zack Brown <zbrown@tumblerings.org>	kowey_private	2008-07-02	willing_to_assign_copyright	doc
+
+Moot: changes only to contrib and Makefile
+----------------------------------------------------------------------
+Eric Kow considers Makefile and configure changes moot because we've switched
+to Cabal.  Note that if these authors should submit other patches after
+2008-05-22 we should contact them again.
+
+Carlos Phillips <carlos@cim.mcgill.ca>	zsh_completion
+Don Stewart <dons@cse.unsw.edu.au>	fps_under_bsd
+Eric Gaudet <eric@rti-zone.org>	rts-buried
+Frank Ruell <stoerte@dreamwarrior.net>	configure
+Jens Petersson <petersen@haskell.org>	tests
+Kim Hansen <kim.hansen@hp.com>	cgi
+Lennart Kolmodin <kolmodin@gentoo.org>	configure
+Magnus Jonsson <magnus@smartelectronix.com>	buried
+Manuel M T Chakravarty <chak@cse.unsw.edu.au>	cgi
+Peter Stuifzand <peter@stuifzand.com>	cgi_xslt
+Samuel Bronson <naesten@myrealbox.com>	makefile
+Stephen Reindl <sreindl@triobit.de>	configure

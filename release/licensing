@@ -1,0 +1,69 @@
+No lawyers were involved in creating this document.  It is intended as
+an informal summary to quickly get hackers up to speed on legal issues
+relating to their work on this codebase.
+
+Abstract:
+
+    Individuals retain copyright to their work on the darcs codebase.
+    Copyright assignment is not done because it requires tedious
+    bookkeeping and raises the entry barrier for hackers.  Files DO
+    NOT get copyright declarations because they are only advisory and
+    keeping them up-to-date is tedious.
+
+    License declarations MUST be added to all files, because otherwise
+    they aren't licensed.  Most files should be declared GPL2+ (with
+    some exceptions), but this still needs to be confirmed with some
+    copyright holders of files already in darcs.
+
+
+Copyright
+=========
+
+Copyright law applies to a "work".  Each file in the codebase is a
+"work", and the entire codebase is an "aggregate work".
+
+A work's author AUTOMATICALLY holds copyright over the work in the
+year it was published.  Being in a publicly accessible repository such
+as http://darcs.net/ counts as publication.
+
+Copyright can be "assigned" to another legal entity; the GNU project
+routinely does this for reasons described at the URL below.  Copyright
+assignment is not performed for the Darcs codebase because requiring
+authors to fill in paperwork significantly raises the barrier of entry
+for new Darcs hackers.
+
+    http://www.gnu.org/licenses/why-assign.html
+
+Because copyright is automatic, copyright declarations are merely
+advisory; it saves people having to work out who owns copyright (which
+can sometimes be tricky).  Files in the Darcs codebase generally do
+not have copyright declarations because this avoids the burden of
+keeping them up to date.
+
+A reasonably good heuristic to determine the copyright holders of a
+file in the Darcs codebase is to aggregate the (author, year) tuples
+printed by "darcs changes <file>".
+
+
+Licensing
+=========
+
+Licensing of works is NOT AUTOMATIC.  Unless a work is explicitly and
+unambiguously licensed, it is NOT LICENSED at all!  It is NOT
+sufficient to have a copy of a license in ./COPYING.
+
+It WOULD be sufficient to have a single license declaration in
+./LICENSE, and list any exceptions at the bottom of that file.  Darcs
+DOES NOT do this, because it would be too easy for a hacker who wanted
+a different license to add a file and forget to add an exception in
+LICENSE.
+
+It's also sufficient for each file to include its own license
+declaration; this is the approach taken for the Darcs codebase.  Note
+that some files currently have no license declaration, and these are
+therefore NOT LICENSED.  A declaration cannot be added unless ALL
+copyright holders for that file agree to it.
+
+If a file already has a license declaration and a hacker adds a patch
+for it, the hacker's contibution is implicitly licensed under the same
+terms.

@@ -1,0 +1,25 @@
+1 patch for repository /home/ganesh/temp/empty:
+
+Mon Oct 18 18:27:21 BST 2010  Ganesh Sittampalam <ganesh@earth.li>
+  * foo
+
+New patches:
+
+[foo
+Ganesh Sittampalam <ganesh@earth.li>**20101018172721
+ Ignore-this: 5e9ee20eb359c030581f54a73186405c
+] {
+addfile ./wibble
+hunk ./wibble 1
++wibble
+{
+addfile ./wobble
+hunk ./wobble 1
++wobble
+}
+}
+
+Context:
+
+Patch bundle hash:
+f427e3af1c3f5486cf570a5c7bdb826a0a2eb3f8

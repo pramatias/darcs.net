@@ -1,0 +1,3 @@
+test runghc Setup configure --user -ftype-witnesses && runghc Setup build && runghc Setup test tests network
+boringfile .boring
+predist echo Darcs no longer uses \"darcs dist\" for packaging. Please use \"cabal sdist\" instead. && exit 1

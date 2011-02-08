@@ -1,0 +1,86 @@
+#!/bin/sh
+## Allow remote users to "darcs push" to your server via SSH, without
+## giving them full shell access, and without giving them access to
+## one-another's repositories.  See git-shell2 and rrsync for similar
+## examples for git(1) and rsync(1) respectively.
+##
+## Copyright (C) 2007  Miklós Vajna (git-shell2)
+## Copyright (C) 2009  CSÉCSY László
+##
+## This program is free software; you can redistribute it and/or modify
+## it under the terms of the GNU General Public License as published by
+## the Free Software Foundation; either version 2 of the License, or
+## (at your option) any later version.
+##
+## This program is distributed in the hope that it will be useful,
+## but WITHOUT ANY WARRANTY; without even the implied warranty of
+## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+## GNU General Public License for more details.
+
+## Ensure there is an account "darcs", for which key-based SSH logins
+## are allowed.  In ~darcs/.ssh/authorized_keys, add lines of the form
+##
+##   command="/usr/local/bin/darcs-shell <user name>" <public key>
+##
+## Create and populate the access control list /usr/local/darcs/access
+## with lines of the form
+##
+##   fred:/home/darcs/repos/foo/:r
+##   fred:/home/darcs/repos/foo+john/:r
+##   fred:/home/darcs/repos/foo+fred/:rw
+##   john:/home/darcs/repos/foo/:r
+##   john:/home/darcs/repos/foo+john/:rw
+##   john:/home/darcs/repos/foo+fred/:r
+##
+## This gives two users "fred" and "john" access to three repos,
+## "foo", "foo+fred" and "foo+john".  They both have read access to
+## "foo" and each other's "foo+<name>", and write access to their own
+## "foo+<name>".
+
+access='/usr/local/darcs/access'
+user=$1
+
+if [ "x" = "x${user}" ]; then
+    echo "No user supplied in authorized_keys" | logger -t darcs-shell
+    exit 1
+fi
+
+if [ "x${SSH_ORIGINAL_COMMAND}" = "x" ]; then
+    echo "SSH_ORIGINAL_COMMAND must be given" | logger -t darcs-shell
+    exit 1
+fi
+
+if [ ! -f ${access} ]; then
+    echo "Access control file ${access} does not exist!" | logger -t darcs-shell
+    exit 1
+fi
+
+command=$(echo ${SSH_ORIGINAL_COMMAND} | cut -d' ' -f2)
+
+acctype=''
+if [ "x${command}" = "xtransfer-mode" ]; then
+    acctype='r[^w]*'
+    repo=$(echo ${SSH_ORIGINAL_COMMAND} | cut -d' ' -f4)
+elif [ "x${command}" = "xapply" ]; then
+    acctype='rw'
+    repo=$(echo ${SSH_ORIGINAL_COMMAND} | cut -d' ' -f5 | cut -d\' -f2)/
+    command="${command} --all"
+else
+    echo "Unknown command" | logger -t darcs-shell
+    exit 1
+fi
+
+# Uncomment this to have extra debug info.
+#echo "user: ${user} command: ${command} repo: ${repo} access: ${acctype}" | logger -t darcs-shell
+
+if ! grep "${user}:${repo}:${acctype}" ${access} > /dev/null; then
+    echo "No access granted for user ${user} to repository ${repo}" | logger -t darcs-shell
+    exit 1
+fi
+
+if [ ! -d ${repo} ]; then
+    echo "No such repository hosted" | logger -t darcs-shell
+    exit 1
+fi
+
+darcs ${command} --repodir ${repo}

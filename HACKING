@@ -1,0 +1,5 @@
+Please consult http://wiki.darcs.net/Development/GettingStarted for
+up-to-date information about contributing to Darcs.
+
+The wiki can be downloaded with the command:
+    darcs get --lazy http://wiki.darcs.net

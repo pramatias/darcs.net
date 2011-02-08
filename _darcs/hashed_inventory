@@ -1,0 +1,506 @@
+pristine:e7ce48d15fdf2c945eb0f2ed49a2704b201995a913c2abb48a9f31796eb5a56e
+Starting with inventory:
+0000125078-c520bb75d17428771f1d5c2943c6a8db3346a91d355f347679b34aff4de990ab
+[TAG 2.7.1
+Ganesh Sittampalam <ganesh@earth.li>**20110125223233
+ Ignore-this: 6c57678d2d270e3a1772f6e48404b02c
+] 
+hash: 0000083734-1eeb40624d983b1138abb7b6e85ccc8bf646ba47b0c7e9f55c7981817330a7b6
+[resolve issue1350: reliable patch transport
+Gabriel Kerneis <kerneis@pps.jussieu.fr>**20101219214219
+ Ignore-this: 5cf8cbafdcebe16124c629edb465f739
+ 
+ Note that this patch does not compress attached patches, for the sake
+ of backward-compatibility.  But it does resolve the points of issue1350:
+ hide context when reviewing a patch and ensure a reliable transport with
+ application/x-darcs-patch instead of text/x-darcs-patch.
+] 
+hash: 0000001622-f487b84cee373055e633c64769fcc34164a35ec9bd0b609cf8d816b8d0dc4ff7
+[Remove dummy .gz suffix in patch name
+Gabriel Kerneis <kerneis@pps.jussieu.fr>**20101219221440
+ Ignore-this: fafe21b11bbeffd8131f488a9d3ae95
+] 
+hash: 0000000324-d9f9122757aa2163b11cc94c86908f9d4b374a5cba04c0848a3bd9fea4647b41
+[Remove redundant Packs and NoPacks
+Gabriel Kerneis <kerneis@pps.jussieu.fr>**20110118100241
+ Ignore-this: c891728e9a5f19e63c6e60acd440e63e
+] 
+hash: 0000001246-fb596afac10bff24928b7f8ae9ea191a5a03f8116eae4d0f382655061069f4b7
+[switch test to use a URL we can make sure will fail
+Ganesh Sittampalam <ganesh@earth.li>**20110129151853
+ Ignore-this: b0fdd6e0afbd4d06c8c19af9b34ac975
+ Seems like the behaviour of http://example.com changed to start serving
+ pages at all URLs...
+] 
+hash: 0000000367-b44fcf689d6de56a3874ec4d0428112228c45cfefb1488a5a3967bff7e60f9c2
+[disentangle Darcs.Patch.Named from Darcs.Patch.Viewing
+Ganesh Sittampalam <ganesh@earth.li>**20101122064253
+ Ignore-this: 2406a3b4e7aed4093359a49d3058663f
+] 
+hash: 0000004264-920d999d0aafdf2d649d9e0a1dbf668d0e504b2e78c0a450ce1c1c7150ecdb33
+[break out Summary code into separate module
+Ganesh Sittampalam <ganesh@earth.li>**20101122064255
+ Ignore-this: 2ae3db693c769895a9d5659d53af23d8
+] 
+hash: 0000013983-307e1f42b3314dad8f856847e958f273c42408a3a8cf8e111ecbfd48a70a3922
+[get rid of a few more unnecessary superclasses
+Ganesh Sittampalam <ganesh@earth.li>**20101122064258
+ Ignore-this: fd8480168c63a436c4062a09b8ad374a
+] 
+hash: 0000000753-f3d73acf45241ee8ea09f21c7351a7db2823d542a72bb9ebfc83712e268a73b1
+[move guts of Darcs.Patch.Prim into new Core module
+Ganesh Sittampalam <ganesh@earth.li>**20101123072318
+ Ignore-this: 1df78c83a16a2882c8f6387ee6d7be2d
+] 
+hash: 0000001924-0e03cf1345cdd355581dc6ace4fc858d231ad355ab85a5548fe7cd8bed1b113e
+[make Show instance for V2 patches mirror that for V1 patches
+Ganesh Sittampalam <ganesh@earth.li>**20101123074231
+ Ignore-this: 153d97cd72ada5dd78aba225385708fc
+] 
+hash: 0000000395-1ec67bbc7288ba64c364c8bb881621dbf8fa9faf7b220d467bd516acf9873834
+[add tests for reading of split patches
+Ganesh Sittampalam <ganesh@earth.li>**20101122073043
+ Ignore-this: bc2cebc9257f2982d15e590351f2d97f
+] 
+hash: 0000022216-7313d8c89fcd6e012ff89e3c26aec40461cedf8ebb02b8010341042165dd9087
+[get rid of Split
+Ganesh Sittampalam <ganesh@earth.li>**20101122064304
+ Ignore-this: 5473000393dab8828eb56f182af20ab5
+] 
+hash: 0000005668-af29132fa6756b2cb6646e864c9a3223672a1f4d28ef441523300457fdc85e35
+[read legacy Split patch format
+Ganesh Sittampalam <ganesh@earth.li>**20101123070142
+ Ignore-this: 3fd0ccf9e668d133bbea222364823b35
+ This now gets flattened out at the FL Patch/FL RealPatch level.
+] 
+hash: 0000005527-771c4e4f8eefc04ff369dd41997d6c0d65215ddbf7e9465ca1d6b3717462319f
+[drop identity member of Invert
+Ganesh Sittampalam <ganesh@earth.li>**20101122064308
+ Ignore-this: ad8007c6d4e63fcf9cd3870892cab247
+] 
+hash: 0000010795-039d01504de936f9a804fa31a14342e40f5d3d56d85c63b80e7e6f566633e8cb
+[move MyEq superclass from Invert to Patchy
+Ganesh Sittampalam <ganesh@earth.li>**20101122064312
+ Ignore-this: 52677b5cd1fa8160596af02e70d3880c
+] 
+hash: 0000000983-38659bd870d4717e13128fab8f2f940ad516e908a75c2a7529bab59ea794a97c
+[get rid of Identity constructor from Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101122064315
+ Ignore-this: 1067a1ef4b957303b9449774fbaef9ee
+] 
+hash: 0000008531-84d4b80378e734bcd53551d133f2700180c8dfc0c7c013bf6399ed612a0fb2b0
+[split out IsHunk from Effect
+Ganesh Sittampalam <ganesh@earth.li>**20101122064320
+ Ignore-this: e824b3a7a0c47442e5fb653bd777b633
+] 
+hash: 0000005641-70cd4c2f7a007b7812c8ebdc187e19ceffbef2fee18517d70edb47e690460628
+[split out Darcs.Patch.{Effect,Conflict}
+Ganesh Sittampalam <ganesh@earth.li>**20101123072303
+ Ignore-this: 17fb8d3d32bc0b76e1acd47f67a7ba56
+] 
+hash: 0000018790-f95cf8ca63eb8314ae66d21ef9de264d0be38757bb61c6ef2ea90bac008c64a3
+[remove dead code
+Ganesh Sittampalam <ganesh@earth.li>**20101123072306
+ Ignore-this: 1ed64d161324b01c3bea241ae814cf09
+] 
+hash: 0000001779-02d74e701aafb4904cb30d2e3bf7ee2eb8f3188e88379067313f98ac3b0af555
+[abstract MarkedUpFile etc over PatchInfo
+Ganesh Sittampalam <ganesh@earth.li>**20101123072316
+ Ignore-this: 48cc4ff4d7c2a0b1cdc7b5bea90db100
+] 
+hash: 0000002935-e4fd92401ab5281e6a0239402216491577e6595ee884e168386c91d29197c672
+[break up Summary so Prim is handled internally
+Ganesh Sittampalam <ganesh@earth.li>**20101123072322
+ Ignore-this: bd36707c7e733d522237ec7b14c2da95
+] 
+hash: 0000003200-628db652dc9bb5ee4fd781eddd462a95d68547787f62a34d205c26910bf40da4
+[move markupFile etc out of Darcs.Patch.Apply
+Ganesh Sittampalam <ganesh@earth.li>**20101123072324
+ Ignore-this: e90687f3a39f06fa2b68da5e1b43b727
+] 
+hash: 0000010931-07e24d0d892215117602bff09cc32c088ec40ace17548ed4d10532e1aa51b69d
+[move Darcs.Population[Data] into Darcs.Patch namespace
+Ganesh Sittampalam <ganesh@earth.li>**20101123072325
+ Ignore-this: 2993f6690963daf1113b2663cff394d
+] 
+hash: 0000002360-3218a6358f0d7d17f48b11bd49963c958cacee82ca89e821ac9d763b9855f42e
+[give applyFL a better name
+Ganesh Sittampalam <ganesh@earth.li>**20101123072327
+ Ignore-this: 7fd692a48aed26cb752e097cbc4fb576
+] 
+hash: 0000000378-50f67c2a9493cbcab0e0837d1409d7d2ba28dea4a05e5c541198928dadb32a13
+[abstract Population over PatchInfo
+Ganesh Sittampalam <ganesh@earth.li>**20101123072328
+ Ignore-this: 375298b05ae167c026c88ed4fa4ee6cd
+] 
+hash: 0000006613-b0fc2438c33766ad7a2dc2fe804d208488c8cf465032ce31d96c3068b7984c4a
+[move Population handling out of Darcs.Patch.Apply
+Ganesh Sittampalam <ganesh@earth.li>**20101123072329
+ Ignore-this: 7ada64cad1204e32a266f2aaf54af224
+] 
+hash: 0000013918-9429d348aabe667624e6e07c926ca2871ae7243ec451d046701e033f271aaabb
+[move Apply Prim code into separate module
+Ganesh Sittampalam <ganesh@earth.li>**20101123072331
+ Ignore-this: cc5370951c265338f51f83704fd9e79c
+] 
+hash: 0000017946-2f4eb0867e077347495360b4e07b51ac97d9cffd7c352110167c733ed8fcc57e
+[move read of Prim into its own module
+Ganesh Sittampalam <ganesh@earth.li>**20101123072543
+ Ignore-this: 7a1559d95c20d0fdae0f14828413400d
+] 
+hash: 0000012346-f0c9ce7bbb910afa6a49a9ba39be5a2274b5cf624837591eabfcb13968f4137c
+[move coalescing code out of Darcs.Patch.Prim.Core
+Ganesh Sittampalam <ganesh@earth.li>**20101123072547
+ Ignore-this: 67077bfc067a10d58337d9c81357831c
+] 
+hash: 0000027813-762efc3aae2b5a669cc49f9ac6bb4ffc596013c0cacfeef3d4e824e9a398fc69
+[move showPrim etc out of Darcs.Patch.Prim.Core
+Ganesh Sittampalam <ganesh@earth.li>**20101123072549
+ Ignore-this: df8a6621d14a293e165ec89fc7c252bc
+] 
+hash: 0000018527-62ca3f6bc6d1c35b88987091ffb5cf15959d11e424a7c4dc6189613322c631ba
+[extract Darcs.Patch.Prim.Commute
+Ganesh Sittampalam <ganesh@earth.li>**20101123072550
+ Ignore-this: 9ab7d0bb8fb07003e80a001ba8d45c6a
+] 
+hash: 0000019982-a0c5c3aca3c4b11b8ed29e83f3a04c164902f90e9881688ef72f29a8bbe3e0ad
+[move IsHunk into its own module
+Ganesh Sittampalam <ganesh@earth.li>**20101123072723
+ Ignore-this: ebd3a12d7e2fabfc1d409e6e46e3a643
+] 
+hash: 0000002502-7b8ef5681fc1f9dcebdde542054af1d25d25989e9b87fef161f41f56b2c2cc7d
+[hide the internals of Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101123072741
+ Ignore-this: b61471142ab8c2844c512c532e366fa6
+] 
+hash: 0000006868-a77805ebaa4b22449d81430a8823c1566c35f411044dabf12743318c44fbebb1
+[move FileNameFormat out of Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101123074202
+ Ignore-this: fdd4d868236866af09e910efe9c53504
+ Although this is essentially a legacy concept, both Prim and patch types
+ that build on Prim need to know about it, so it's cleanest to have it
+ somewhere central.
+] 
+hash: 0000005506-e66f44ddf1ac427df2b229f870852435a3eaa08dc9beddc8f1879b6b1c5ac2b7
+[move Prim instances for Show into Prim.Show
+Ganesh Sittampalam <ganesh@earth.li>**20101123074227
+ Ignore-this: f55b3e37f27521311dfe9a0912d77d26
+] 
+hash: 0000003719-6ebf965626d9e530f6164b3b075bb9f8c097f1be585d8ddff765c3297613dfe7
+[simplify ShowPatch constraints
+Ganesh Sittampalam <ganesh@earth.li>**20101123074237
+ Ignore-this: 4a581d574760b90e9a69eeda8898392f
+] 
+hash: 0000000964-229010166988ccc7d29e0fb9771a8a6d43a95a04a75558775daab2a4d3566c62
+[clean up some unused exports
+Ganesh Sittampalam <ganesh@earth.li>**20101123074238
+ Ignore-this: 6395127883c8e6f9c04f10e59a940f9c
+] 
+hash: 0000000532-46aee95d1478817609da0a8ce26a40062e777cb8c1ed3240c3055a854270b3d2
+[given token replacement its own module
+Ganesh Sittampalam <ganesh@earth.li>**20101123074239
+ Ignore-this: ae43c2e291b25ee807ef578fd5298006
+] 
+hash: 0000005744-69fef13c14deb2f630fa3b4d959babe112bd5bef124e96965135f31113a7daca
+[simplify Effect instances
+Ganesh Sittampalam <ganesh@earth.li>**20101123074242
+ Ignore-this: 82d766c2858b91b047934092e1fa75ec
+] 
+hash: 0000000457-fbc8685422643fc8d67280643ba1304775a079c92ee124072183bb28d2001f56
+[test that summaries are merged properly in record
+Ganesh Sittampalam <ganesh@earth.li>**20101123074233
+ Ignore-this: e44955c9a3b12ab7fc1bc41b4e95b0f3
+] 
+hash: 0000000482-62f169ffab6d6af2266232b0be2364c2d5a61bdc6212fd4a33ba53bc92dd8796
+[get rid of Conflict instance for Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101123074229
+ Ignore-this: 68aa1b393d45f802efaadd3ed275b736
+] 
+hash: 0000001585-baa636d16a054fe3a1698f428d082f0f0fc8e815bc309308e188d8eef3a575cb
+[make summaries of lists work properly
+Ganesh Sittampalam <ganesh@earth.li>**20101123074234
+ Ignore-this: 9c82069fea8022bd61b3240b480c14a5
+] 
+hash: 0000002260-a5351d8597855213ad1a7c652cd33b4f11924d017e7c11b617cb2dc4b6d3fbfb
+[stop going via V2 patches in WhatsNew
+Ganesh Sittampalam <ganesh@earth.li>**20101123074230
+ Ignore-this: 32a615f1aa8e266ab5585d8244ff0ec
+] 
+hash: 0000001216-2cd83bc2186f7daf21fc6f25a73f3e723960ec37cf82f4ef2c99944926f6c78a
+[don't go via Patch to summarise changes in record
+Ganesh Sittampalam <ganesh@earth.li>**20101123074235
+ Ignore-this: 9293d70c0bf818e1d52680bbc975efda
+] 
+hash: 0000000612-1fb58a77021ae5312bb6eb0e8d71e1e1b9bc76597510449bf17ee11452819404
+[abstract Prim behind a class
+Ganesh Sittampalam <ganesh@earth.li>**20101123074243
+ Ignore-this: 57b59798ed3e459640f9d7477f9e5953
+] 
+hash: 0000080877-f3d4abe4b5fda86864fa4eee962325c84d726e076d5a915f950c129e1d6a587e
+[get rid of Effect instance for Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101123074246
+ Ignore-this: 61a73d34463be4deafb47d083b51f976
+] 
+hash: 0000002205-058400c6d0e2f6010474fbece27f2f2d16ccb6bfbb48faa4ff3c088d2e8e5334
+[get rid of unnecessary instances for Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101123074247
+ Ignore-this: d677b560ab9e9bc74750eabb3e188958
+] 
+hash: 0000000592-3bfd0c16d58dcac303dcd0d659b27573dce1f6916f76f1a467a3c9966d7c4771
+[introduce Dummy patch type
+Ganesh Sittampalam <ganesh@earth.li>**20101123074249
+ Ignore-this: 20b07c45971f395c42cc8801d39aa0e2
+] 
+hash: 0000003011-d30071a216aa78ea064c2fe4139bedc216c01c9cb884e86743efb692b3323dbd
+[abstract Patch over prim type
+Ganesh Sittampalam <ganesh@earth.li>**20101123074250
+ Ignore-this: a745d18c3a97568a7144407a004f1c44
+] 
+hash: 0000015542-426082c4106da791db7759b1e219226fb4265fc5c5c69e2da742663dcf6e75de
+[abstract RealPatch over Prim
+Ganesh Sittampalam <ganesh@earth.li>**20101123075027
+ Ignore-this: c72b1bf5964d70f08b097723bba9fb58
+] 
+hash: 0000022982-b6b5230defb5fd9d428094619d7faf7f39c533dbac03bc66c58be9e16dd6436b
+[use API function for identity patch
+Ganesh Sittampalam <ganesh@earth.li>**20101123074241
+ Ignore-this: 8036166db00023e7d52ea734b15c175e
+] 
+hash: 0000000368-92573da9044882791b943a345cc91145a007843add902b5f3c7acab233b0d63c
+[get rid of the ($-) operator
+Ganesh Sittampalam <ganesh@earth.li>**20101213185111
+ Ignore-this: 70bc6e646356c7bb48ec4894634cd0dc
+ 
+ Wrap up the Rank2 types of the repository handling operations in a
+ datatype rather than requiring the specialised ($-). This helps with a
+ planned change to add more functionality to these operations.
+ 
+] 
+hash: 0000020096-bc0668422237a8422c1d44fb6d994e85a5f4201b23b8eb4d90558dd598eb935e
+[generic job transformation function
+Ganesh Sittampalam <ganesh@earth.li>**20101213190259
+ Ignore-this: 17dec7fe72fa29422b3998d73cf09e8e
+] 
+hash: 0000000905-f8d675eb12364c06bd4500aa8d07d11a769a454b78f25f6a018a81505263708f
+[issue1988 cleanup: accept warning
+Ganesh Sittampalam <ganesh@earth.li>**20101213191354
+ Ignore-this: 56e525fd1fb0c7ae85ddc339afce061d
+] 
+hash: 0000000278-d0a686dc8c9ca8bd6d9cd99266cf832bc8580f6edcaf10e823bcf36fc907e643
+[add new types of repository job to clean up Convert a bit
+Ganesh Sittampalam <ganesh@earth.li>**20110110070017
+ Ignore-this: 217cecf2daeba6edd0e8b1fdbc88f061
+ Still not pretty, but at least the unsafeCoerce# is further down!
+] 
+hash: 0000004896-64223d0dd5ab4ece9709313fbf39131583f9df8f23754816c62e88b839a092ac
+[Maybefy arguments to rollback
+Alexey Levan <exlevan@gmail.com>**20110126165229
+ Ignore-this: e28e71fb52a392d6cc05154c24f5bffc
+] 
+hash: 0000000930-92db44f43f3e5edc907d6d7941abee6e9d289e4451553b01ffcc06d0664d52c2
+[Maybefy arguments to record
+Alexey Levan <exlevan@gmail.com>**20110126192759
+ Ignore-this: 7ab23d5efa492ba9c348a69aed09416f
+] 
+hash: 0000001067-e6f7433c0519f094d6e315c39b669731d2509b6a9c45e2a4b760ede09ccf7d3d
+[Maybefy arguments to whatsnew
+Alexey Levan <exlevan@gmail.com>**20110126205624
+ Ignore-this: faa3a1c7b3075243387753d531e415f
+] 
+hash: 0000000947-06be460a54a1271529afff3ae249c8aca130d81c0cc228bea21103e7b1e8a217
+[Split Darcs.Commands.WhatsNew.announceFiles
+Alexey Levan <exlevan@gmail.com>**20110126212227
+ Ignore-this: 2acac14c57a270d1acd8002a96395522
+] 
+hash: 0000003661-57d99d0d207c4526d50063824f99ce7ea015396297babed09ab502107e5d9417
+[Don't treat empty lists as special; use Maybe instead
+Alexey Levan <exlevan@gmail.com>**20110126232225
+ Ignore-this: 50ff847196787c687cd757e57f5085c0
+] 
+hash: 0000008385-1098e113f7303dbd31f16f94fc08e272722c761d3be46751524677006fa7f267
+[Remove unused areFileArgs
+Alexey Levan <exlevan@gmail.com>**20110126232654
+ Ignore-this: 4acb4760f01223a41f61562edffc19ee
+] 
+hash: 0000000433-c85f1561c4ef86ea02e8054963c6515d47ff33b84f1776eb6eac99cb2ad3d991
+[remove all tests related to checkpoints and --partial
+Guillaume Hoffmann <guillaumh@gmail.com>**20101101100324
+ Ignore-this: 22862a1eabcd2e2c2659973af21405a0
+] 
+hash: 0000006587-05d42a1c7f2f7c6f48f014ded0527cfcb060393c011ca08db6fecaf8a68b9a00
+[remove get --ephemeral support
+Guillaume Hoffmann <guillaumh@gmail.com>**20101101101602
+ Ignore-this: ba845ea91098dfc9f1afdc53d90c6614
+] 
+hash: 0000002062-5bca732eb3f4118e901678898d426195c432a5d9800d652b481c57e72eb05b55
+[remove support for get --partial and check --partial
+Guillaume Hoffmann <guillaumh@gmail.com>**20101208183813
+ Ignore-this: 2ec94a6fe97474ae2247e6ae92e9d8ac
+] 
+hash: 0000009836-d2f66fd14e83e61dd322129db2692c047adfe74978c761f2bfa23ccd1c9268a9
+[resolve more conflicts with issue332 patch
+Ganesh Sittampalam <ganesh@earth.li>**20101121170127
+ Ignore-this: 1f22350f8af6b0b20f5c6bb70abc8065
+] 
+hash: 0000000573-5b0686f0083ae9b0fb0206862bad7ddee8c9fca4dfe28c233aa27727b80144cd
+[remove Darcs.Repository.Checkpoint
+Guillaume Hoffmann <guillaumh@gmail.com>**20101208183913
+ Ignore-this: b5a1677fac5727da627dadfedbacb5cb
+] 
+hash: 0000021229-3fc3d48e365dad5398c8b2dafd7302addaf38e3094cf372d0a14cbc473dae366
+[remove unused parameter
+Ganesh Sittampalam <ganesh@earth.li>**20101123075037
+ Ignore-this: b5386a56711d2379fa0ed55bd8b5cf92
+] 
+hash: 0000000891-6d89a978d033cfb7494c50937594736040e917d9e9dd3e140a6f29559a1be868
+[get rid of unused default implementation for apply
+Ganesh Sittampalam <ganesh@earth.li>**20101123075039
+ Ignore-this: f1e92c2f2f0bfa4b094eee1c4c78fbda
+] 
+hash: 0000000381-5617666398b6c283f82d7ceb0a1a51e6bcefbd56bc94d11c0db73c99d0aba6e4
+[break patch repair out into its own class
+Ganesh Sittampalam <ganesh@earth.li>**20101123075040
+ Ignore-this: c60930c90c0740fb88cd29cd99223434
+] 
+hash: 0000005847-d068fc0e8ceaf0bd4b81f632549c36aa2a209a28519c8cad5e593a6c8be2cb99
+[remove default for resolveConflicts
+Ganesh Sittampalam <ganesh@earth.li>**20101123075041
+ Ignore-this: 9004f3ce10fc0bf1680ac45b2918c288
+] 
+hash: 0000000207-bc25f0fac3ec7f9d15686cb988c45646758dd54da4a125ff14a6e0c058966a89
+[drop an unused instance of Conflict
+Ganesh Sittampalam <ganesh@earth.li>**20101123075043
+ Ignore-this: da69a17c121332c3ad6b07446910ca76
+] 
+hash: 0000000763-e65816b04d40c13883b738a553a11e2cbec93b37d47244663c47ae3ef4f04893
+[move consistency checking into Darcs.Patch.Repair
+Ganesh Sittampalam <ganesh@earth.li>**20101123075044
+ Ignore-this: 9d1291af3afc445c1ba00145f918e6b2
+] 
+hash: 0000002750-5c6b17972a1835577ccce066beb80453448d4083ca6b58793d13ec5881430b4d
+[put commuteNoConflicts into its own class and remove default impl
+Ganesh Sittampalam <ganesh@earth.li>**20101123075045
+ Ignore-this: 95a95ae81747766f492cfafafeb6604e
+] 
+hash: 0000006849-8a481c166f10227a0110fb98e9c3b86911a83c1eca83dce363b4154a17ccff27
+[add a --no-record option to rollback
+Florent Becker <florent.becker@ens-lyon.org>**20110114154449
+ Ignore-this: 8267a2ea62af26f820f2ecdf038d8397
+] 
+hash: 0000003951-5cbc61ecfbd380994c6fb3722fa3f1363998bf92ea3aaa19324fc55bad9f8314
+[test for rollback --no-record
+Florent Becker <florent.becker@ens-lyon.org>**20110114154805
+ Ignore-this: 54237cf36600001ca9b9177ba4cecf0f
+] 
+hash: 0000039682-831f85ab450c6f2e64ec69c6839ef490017a120fa91e0123270a80e0b24942d3
+[Ignoring applyToWorking return value is safe
+Gabriel Kerneis <kerneis@pps.jussieu.fr>**20110118093654
+ Ignore-this: 584370e0a8db3af6e4d7a26f666e2de6
+ 
+ See issue1988.
+] 
+hash: 0000001552-913687e38e6391e202b6d5911eeeb452be934a5a1d5c6f942a3aaa2b6262c6fd
+[issue1988 cleanups: accept throwing away parse results
+Ganesh Sittampalam <ganesh@earth.li>**20101124075515
+ Ignore-this: 2fd4df8a7172a881e5db351e4a052d87
+] 
+hash: 0000007427-56486b04abe5530206c4d3251ce2e98bc832a8797093dd8a844b74aa4337fc33
+[issue1988 cleanups: accept throwing away PatchCheck results
+Ganesh Sittampalam <ganesh@earth.li>**20101124180512
+ Ignore-this: f5b4253f581404f69e88114d5f608176
+ Also added a comment about improving PatchCheck so this isn't needed.
+] 
+hash: 0000004245-5f001291f3d46fe90f573f27c3851df98a3a1bcb8a8227a1e257ae7f3bdf867d
+[issue1988 cleanups: accept a couple of commutes that just check success
+Ganesh Sittampalam <ganesh@earth.li>**20101124180630
+ Ignore-this: 2816e3130eea91a8cfa24aa98794c41b
+] 
+hash: 0000000392-8e745e2686449de2b7f3812baa0a94be5f82cc2ffe81655afaf6b623e26184dd
+[re-enable witnesses for the test harness which got lost somehow
+Ganesh Sittampalam <ganesh@earth.li>**20101215220059
+ Ignore-this: b2da8ffb68383ebbf556024e3a0a435d
+] 
+hash: 0000000233-12505d797c913a192099541f07d3819e1adff54b418001e8d64d0ebe926b6fa5
+[Simplification of speedyCommute.
+Iago Abal <iago.abal@gmail.com>**20101207174520
+ Ignore-this: 1ea6d33794b7ea3af5120d930d3eb872
+ is_filepatch is not needed since speedyCommute only works with Prim patches.
+] 
+hash: 0000000883-670d901c618ddbf22e6a4a1bebf24a7728dbca3282771642b33d0913e8006f84
+[Simplification of commuteFiledir Move:<DP case.
+Iago Abal <iago.abal@gmail.com>**20101207184117
+ Ignore-this: b25d04d67d5bb09b798e9b1651e215e3
+ Note (p2 == AddDir || p2 == RmDir) is trivially True.
+] 
+hash: 0000000475-ec726eb26ea6eacfc2d94fa1d2519c662ded11bf716ef2e3e6caa15724c7a9f2
+[Remove the .gz suffix in Darcs.Patch.patchname
+Gabriel Kerneis <kerneis@pps.jussieu.fr>**20101216155423
+ Ignore-this: eb35ff719fc89d00cb8ae22d36e2d010
+ 
+ This changes the behaviour of patchname in an **incompatible** way.
+ However, I believe this is the right thing to do because:
+ - although patchname is exported in Darcs.patch, it's behaviour is not
+   documented,
+ - patchname is not used anywhere in Darcs code,
+ - removing ".gz" is consistent with darcs changes --xml (see issue1558).
+ 
+ Note that it might be better to remove patchname completely if it turns
+ out not to be useful anymore.
+ 
+] 
+hash: 0000001062-3407e28bf03663008c697b6c481aa7fa27557e3ab96b67368ddb00af91b476d8
+[patch test harness: break out some utility code
+Ganesh Sittampalam <ganesh@earth.li>**20101124184750
+ Ignore-this: 766e863f6874ebac9c8ff9224410d9d5
+] 
+hash: 0000003236-05f0228b869ed577d992ce6c5f4d974932ba2023da03e1acfa55114c0f896302
+[delete some commented out stuff
+Ganesh Sittampalam <ganesh@earth.li>**20101125065158
+ Ignore-this: fd358e149831675daf9283ea6948fdc8
+] 
+hash: 0000001544-841d53c7bdea5b167720b81d0f8193c2d112274b58824ba03d6d57dc90e11eb4
+[remove unneeded warning flag
+Ganesh Sittampalam <ganesh@earth.li>**20101125070902
+ Ignore-this: 119530d8a4b19162c15e8a9a74d12da5
+] 
+hash: 0000000271-dfe1c5ef2a5ffa1616a4a0631dc826e4aff44fe699b81425859777b64c65045c
+[delete unused utility function
+Ganesh Sittampalam <ganesh@earth.li>**20101125071356
+ Ignore-this: e0cab51985cdf262e13fc599cf0b77a
+] 
+hash: 0000000511-b0e15442192110d9862a1acabd8569aabeaa533b0d7cd96879a1643be199cc12
+[delete unused and not very useful looking testcase
+Ganesh Sittampalam <ganesh@earth.li>**20101125071608
+ Ignore-this: ef1fb71f84ddaa93764f6fdca2c24248
+] 
+hash: 0000003234-e5202d8362bcd31d4a57b72089c33c2fef48a44aaa5b9deb36152abc7ed97f87
+[move properties out of Darcs.Test.Patch.Test
+Ganesh Sittampalam <ganesh@earth.li>**20101125073109
+ Ignore-this: 5288340fccc0d8ed8e17b7cedf395ea
+] 
+hash: 0000028627-834e69e2a4dd1bdf0fb40b8db748551023a3566ef9999db992e3db73fd3471ae
+[reorganise top-level test list
+Ganesh Sittampalam <ganesh@earth.li>**20101125075442
+ Ignore-this: be3cc209b3a0733ec08607a14acb47d1
+] 
+hash: 0000001580-816ac2a60890c2c0d4af1f99ef9edf9835d837b9f5954ccffbb1e1b19fe9ac40
+[put property test list along with tests
+Ganesh Sittampalam <ganesh@earth.li>**20101125180842
+ Ignore-this: a3343b193234f7d9f7ae532071733e0a
+] 
+hash: 0000008075-09c43447308e86cd72ad99e8146f65be6ba3a8ec25a02ca9a8f1433c7f2a0773
+[break test cases out of Darcs.Test.Patch
+Ganesh Sittampalam <ganesh@earth.li>**20101125181516
+ Ignore-this: 145d9ede53c5977da59ce88cc5fe5ec2
+] 
+hash: 0000002472-3abf9063aaacbfee246a2eda591f016029d210d94dfe858cc607b6e59f91b427
+[decouple Unit and Unit2
+Ganesh Sittampalam <ganesh@earth.li>**20101125182301
+ Ignore-this: 1bc138c7de49a247bf3400044b46f0f0
+] 
+hash: 0000000686-03e2bdf2294f38f5f4af5a085eea8c747e991e861d81a21451b80af9dc3c7ada
+[break examples out of Darcs.Test.Patch.QuickCheck
+Ganesh Sittampalam <ganesh@earth.li>**20101125192333
+ Ignore-this: 9611716dcb5bb862f5d97ecbb95c74e9
+] 
+hash: 0000033432-fdc491bfd711b3844a76376071c800d550b457fd43a1e81c8df164e552969123
